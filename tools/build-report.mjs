@@ -241,6 +241,8 @@ function html() {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${TITLE} · ${TODAY}</title>
+<link rel="alternate" type="application/rss+xml" title="${TITLE} (RSS)" href="feed.xml">
+<link rel="alternate" type="application/atom+xml" title="${TITLE} (Atom)" href="atom.xml">
 <meta name="description" content="${TITLE}：DSH 生态插件排行（中文说明+实时星数）与免费模型可用性周报。">
 <style>
   :root{--bg:#0b0f17;--bg2:#141a26;--card:#182031;--line:#243044;--fg:#e8eefc;--dim:#93a1bd;--acc:#5eead4;--acc2:#8b9dff;--up:#42d392;--down:#ff7a7a}
@@ -451,5 +453,10 @@ if (existsSync(siteDir)) {
 
 console.log(`[ok] report/index.md + report/index.html（插件 ${P.length} 项，免费模型 ${M.length} 项，星数实时 ${P.filter((r) => r.starsSource === 'live').length} 项）`
   + (pages ? `，附带独立页 ${pages} 个` : ''))
+
+// 订阅源：拿存档当内容源，让"每周更新"可以被订阅
+try {
+  spawnSync(process.execPath, [resolve(HERE, 'build-feed.mjs')], { cwd: ROOT, stdio: 'inherit' })
+} catch (e) { console.error('[warn] 生成 feed 失败：' + e.message) }
 for (const n of notes.filter(Boolean)) console.error('[note] ' + n)
 process.exit(P.length ? 0 : 2)

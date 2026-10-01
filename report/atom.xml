@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
+  <title>DSH 插件周榜</title>
+  <subtitle>每周自动更新的中文 DSH 插件榜：实时星数 + 本周涨星 + 免费模型真实调用可用性 + 星数陷阱提示。</subtitle>
+  <link href="https://514006234.github.io/dsh-weekly-check/"/>
+  <link href="https://514006234.github.io/dsh-weekly-check/atom.xml" rel="self" type="application/atom+xml"/>
+  <id>https://514006234.github.io/dsh-weekly-check/</id>
+  <updated>2026-10-02T01:00:00.000Z</updated>
+  <entry>
+    <title>DSH 插件周榜 · 2026-10-02（31 个插件）</title>
+    <link href="https://514006234.github.io/dsh-weekly-check/archive/2026-10-02.html"/>
+    <id>https://514006234.github.io/dsh-weekly-check/archive/2026-10-02.html</id>
+    <updated>2026-10-02T01:00:00.000Z</updated>
+    <summary>收录插件 31 个，合计 419,205 ★；前三名：OpenDesign 设计工作台（99.0k★）、Archify 架构图（75.7k★）、OpenViking 上下文库（39.1k★）。；本期涨星：Archify 架构图 +32★、DSH Desktop（社区桌面端） +6★、DSHDesktop +5★。；免费模型可用性：6/11 可用，已下线 2 个，上游波动 3 个；可用模型首字延迟中位 1.03s。</summary>
+  </entry>
+</feed>
