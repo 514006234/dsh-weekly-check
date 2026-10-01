@@ -55,6 +55,14 @@ jobs:
           node tools/build-report.mjs
           echo "date=$(date -u -d '+8 hours' +%F)" >> "$GITHUB_OUTPUT"
 
+      # 分享卡片里写着当期数据（日期/星数/模型数），要跟着周报一起更新。
+      # 失败不致命：旧卡片已在仓库里，降级为继续用旧图。
+      - name: 重新生成分享卡片
+        continue-on-error: true
+        run: |
+          python3 -m pip install --quiet pillow
+          python3 tools/make-og.py report/og.png
+
       # 归档是"尽力而为"：并发或冲突时不许把整期发布拖挂
       - name: 归档本期数据
         continue-on-error: true

@@ -36,7 +36,10 @@ report/archive/<日期>.md|html  历史留档
 site/sponsor.html              商务合作页（模板；收款链接/联系方式在 site/config.json 里配）
 site/config.json               收款链接与联系方式（留空则页面自动降级为占位说明）
 site/report-preview.html       付费报告《DSH 插件选型与风险报告》的公开预览页（结论公开，数字由构建时注入）
+site/robots.txt                搜索引擎抓取规则（指向 sitemap）
 data/tiers.json                A/C 档结论（从付费报告抽出，供预览页渲染）
+report/og.png                  分享卡片（1200×630）：链接被发到微信/推特时的预览图，CI 每期用最新数据重画
+report/sitemap.xml             站点地图（首页 + 独立页 + 全部存档）
 packages/dsh-weekly-panel/     DSH 插件：把周榜搬进侧边栏（可 dsh plugin add；界面改动需重启 DSH）
 ```
 
