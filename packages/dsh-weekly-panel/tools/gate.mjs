@@ -388,6 +388,40 @@ try {
     assert.equal(calls, 0, '被拦掉的请求不得触达上游，实际触达 ' + calls + ' 次')
     ok('防护矩阵：非 loopback / 跨站 / 错误 Host / 错误 Origin → 403；POST → 405；且都不触达上游')
   }
+
+  // (f) apply：服务在位走 ctx.effect 注册；不在位走 ctx.inject 兜底；无服务也不抛
+  {
+    const routes1 = []
+    const effectLabels = []
+    const server = { register(route) { routes1.push(route); return () => {} } }
+    host.apply({
+      webServer: server,
+      effect(fn, label) { effectLabels.push(label); return fn() },
+      inject() { effectLabels.push('不该走 inject 分支') },
+    })
+    assert.equal(routes1.length, 1, '服务在位时必须注册 1 条路由，实际 ' + routes1.length)
+    assert.equal(routes1[0].path, host.ROUTE_DATA, '注册路径必须是 ' + host.ROUTE_DATA)
+    assert.equal(routes1[0].kind, 'exact', '必须是 exact 路由')
+    assert.equal(typeof routes1[0].handler, 'function', '路由必须带 handler')
+    assert.ok(effectLabels.some((l) => String(l).includes('dsh-weekly-panel')), '必须用 ctx.effect 包住注册（可回收）')
+
+    const routes2 = []
+    let injectedDeps = null
+    host.apply({
+      inject(deps, cb) {
+        injectedDeps = deps
+        const dispose = cb({ webServer: { register(r) { routes2.push(r); return () => {} } } })
+        return typeof dispose === 'function' ? dispose : () => {}
+      },
+    })
+    assert.deepEqual(injectedDeps, ['webServer'], '服务不在位时必须用 ctx.inject([webServer]) 兜底')
+    assert.equal(routes2.length, 1, '兜底路径也必须注册 1 条路由，实际 ' + routes2.length)
+
+    let escaped = null
+    try { host.apply({}) } catch (err) { escaped = err }
+    assert.equal(escaped, null, '完全没有服务时 apply 也不得抛异常：' + (escaped && escaped.message))
+    ok('apply：服务在位走 ctx.effect；不在位走 ctx.inject([webServer]) 兜底；无服务也不抛')
+  }
 } catch (err) { fail('宿主半运行时契约', err.message) }
 
 console.log('')
