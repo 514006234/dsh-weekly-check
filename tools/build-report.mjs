@@ -16,7 +16,7 @@
 //   GITHUB_TOKEN=xxx node tools/build-report.mjs
 
 import { spawnSync } from 'node:child_process'
-import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'node:fs'
+import { writeFileSync, readFileSync, existsSync, mkdirSync, readdirSync } from 'node:fs'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -160,6 +160,10 @@ function md() {
   L.push('- 免费模型为**真实调用**（一条极短补全），走的就是免费模型插件自己的传输与指纹；地区墙受出口 IP 影响，换地区结论会变。')
   L.push('- 周报立场：只推荐本机实测过、且读过源码确认没有外网/密钥/定时器风险的项目；其余只列不荐。')
   L.push('')
+  L.push('## 七、商务合作', '')
+  L.push('榜单赞助位（插件作者）/ 插件定制开发 / 企业私有部署与可信插件白名单，明码标价见 [COMMERCIAL.md](../COMMERCIAL.md) 或在线页 <https://514006234.github.io/dsh-weekly-check/sponsor/>。')
+  L.push('榜单排序永远按真实星数，赞助位会明确标注「赞助」，不卖榜一。')
+  L.push('')
   L.push(`<sub>生成时间 ${new Date().toISOString()}｜数据源 tools/rank-plugins.mjs + tools/survey-free-models.mjs</sub>`)
   return L.join('\n') + '\n'
 }
@@ -299,6 +303,7 @@ ${trapRows ? `<h2>五、星数陷阱（贴了标签但不是插件）</h2>
 </ul>
 
 <footer>
+  <p><strong>商务合作</strong>：<a href="sponsor/">榜单赞助位 / 插件定制开发 / 企业私有部署与可信白名单</a>（明码标价，榜单排序不因赞助改动）</p>
   生成时间 ${new Date().toISOString()}｜数据源 tools/rank-plugins.mjs + tools/survey-free-models.mjs
   ${notes.filter(Boolean).length ? '<br>采集备注：' + notes.filter(Boolean).map(esc).join('；') : ''}
 </footer>
@@ -335,6 +340,27 @@ write(resolve(OUT, 'latest.json'), JSON.stringify({
   newcomers: plugins?.fresh || [], notPlugins: plugins?.notPlugins || [], notes: notes.filter(Boolean),
 }, null, 2))
 
-console.log(`[ok] report/index.md + report/index.html（插件 ${P.length} 项，免费模型 ${M.length} 项，星数实时 ${P.filter((r) => r.starsSource === 'live').length} 项）`)
+// 独立页面：site/sponsor.html → report/sponsor/index.html
+// 这样「商务合作」页和周报同域发布，不依赖额外托管；site/assets/ 一并搬过去（收款码等）
+let pages = 0
+const siteDir = resolve(ROOT, 'site')
+if (existsSync(siteDir)) {
+  for (const f of readdirSync(siteDir)) {
+    if (!f.endsWith('.html')) continue
+    write(resolve(OUT, f.replace(/\.html$/, ''), 'index.html'), readFileSync(resolve(siteDir, f), 'utf8'))
+    pages++
+  }
+  const assetsDir = resolve(siteDir, 'assets')
+  if (existsSync(assetsDir)) {
+    // 逐文件复制（Node 在 Windows 上对目录做 cpSync 会崩；本项目的项目经验）
+    for (const f of readdirSync(assetsDir)) {
+      const full = resolve(assetsDir, f)
+      try { write(resolve(OUT, 'sponsor', 'assets', f), readFileSync(full)) } catch { /* 跳过子目录 */ }
+    }
+  }
+}
+
+console.log(`[ok] report/index.md + report/index.html（插件 ${P.length} 项，免费模型 ${M.length} 项，星数实时 ${P.filter((r) => r.starsSource === 'live').length} 项）`
+  + (pages ? `，附带独立页 ${pages} 个` : ''))
 for (const n of notes.filter(Boolean)) console.error('[note] ' + n)
 process.exit(P.length ? 0 : 2)

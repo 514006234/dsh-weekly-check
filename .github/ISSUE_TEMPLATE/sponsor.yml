@@ -1,0 +1,64 @@
+name: 我要赞助榜单位
+description: 申请《DSH 插件周榜》的赞助推荐位（¥299/期 起）
+title: "[赞助] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢支持。填完下面几项就行，**不要填任何密钥、账号、隐私信息**。
+        我们会在一个工作日内回复，先确认位置与档位，确认后再付款。
+
+  - type: input
+    id: repo
+    attributes:
+      label: 插件仓库地址
+      description: 例如 https://github.com/owner/repo
+      placeholder: https://github.com/owner/repo
+    validations:
+      required: true
+
+  - type: input
+    id: plugin
+    attributes:
+      label: 插件中文名
+      description: 榜单上要显示的名字（没有的话我们帮你起一个）
+      placeholder: 例如：侧边栏文件树
+    validations:
+      required: true
+
+  - type: dropdown
+    id: tier
+    attributes:
+      label: 想要的档位
+      options:
+        - 单期推荐（¥299 / 期）
+        - 包月（¥999 / 月，4 期）
+        - 长期伙伴（¥2,499 / 季）
+        - 还不确定，先聊聊
+    validations:
+      required: true
+
+  - type: textarea
+    id: oneline
+    attributes:
+      label: 一句话说明这个插件解决什么问题
+      description: 中文，尽量具体；我们会核实后改写，不接受夸张或无法验证的描述
+      placeholder: 例如：在侧边栏直接看文件树并打开文件，不用切到编辑器
+    validations:
+      required: true
+
+  - type: input
+    id: contact
+    attributes:
+      label: 联系方式
+      description: 邮箱或微信号，用于确认档位和交付时间
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: agree
+    attributes:
+      label: 确认
+      options:
+        - label: 我理解赞助是「额外标注的推荐位」，榜单排序仍按真实星数，不会因为赞助改排名
+          required: true

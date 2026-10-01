@@ -27,11 +27,24 @@ jobs:
         with:
           node-version: '20'
 
+      # 星数历史是「较上期涨星」的唯一依据：就算归档提交失败，也不能丢上一期的快照
+      - name: 恢复历史数据
+        uses: actions/cache@v4
+        with:
+          path: data
+          key: dsh-weekly-data-${{ github.run_id }}
+          restore-keys: dsh-weekly-data-
+
       # 免费模型可用性要复用插件自己的传输实现，所以拉一份上游源码。
       # 拉不到也不让整期失败：该章节会自动降级为"未采集"。
       - name: 拉取免费模型插件源码
         continue-on-error: true
         run: git clone --depth 1 https://github.com/zouyuxuan122/dsh-our-free-model.git dsh-our-free-model
+
+      - name: 自测（离线，不碰真实数据）
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node tools/selftest.mjs
 
       - name: 采集并生成周报
         id: run
@@ -40,19 +53,22 @@ jobs:
         run: |
           set -o pipefail
           node tools/build-report.mjs
-          echo "date=$(date -u +%F)" >> "$GITHUB_OUTPUT"
+          echo "date=$(date -u -d '+8 hours' +%F)" >> "$GITHUB_OUTPUT"
 
+      # 归档是"尽力而为"：并发或冲突时不许把整期发布拖挂
       - name: 归档本期数据
+        continue-on-error: true
         run: |
           git config user.name  "dsh-weekly-bot"
           git config user.email "dsh-weekly-bot@users.noreply.github.com"
           git add data report
           if git diff --cached --quiet; then
             echo "本期无变化，跳过提交"
-          else
-            git commit -m "chore(周报): ${{ steps.run.outputs.date }}"
-            git push
+            exit 0
           fi
+          git commit -m "chore(周报): ${{ steps.run.outputs.date }}"
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || echo "rebase 冲突，跳过本次归档"
+          git push || echo "push 失败，跳过本次归档（数据已进缓存）"
 
       - uses: actions/configure-pages@v5
 

@@ -1,6 +1,6 @@
 {
   "date": "2026-10-02",
-  "generatedAt": "2026-10-01T16:46:16.960Z",
+  "generatedAt": "2026-10-01T16:49:12.491Z",
   "plugins": [
     {
       "repo": "nexu-io/open-design",
@@ -655,5 +655,7 @@
       "why": "提示词案例库，不是插件"
     }
   ],
-  "notes": []
+  "notes": [
+    "本期为离线重渲染（--offline），数据取自上次采集。"
+  ]
 }

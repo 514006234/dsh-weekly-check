@@ -1,0 +1,62 @@
+name: 插件定制需求
+description: 提交 DSH 插件定制开发或企业私有部署需求（¥3,000 起）
+title: "[定制] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        填完下面几项即可，**不要填任何密钥、账号、隐私信息**。
+        我们会在一个工作日内回复，先确认范围与验收标准，确认后再付款；不预收。
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: 需求类型
+      options:
+        - 轻量插件（¥3,000 起）
+        - 完整插件（¥8,000 起）
+        - 定制工作流（¥15,000 起）
+        - 企业私有部署（¥4,999 起）
+        - 插件源码体检 / 可信白名单（¥6,999 / 份）
+        - 还不确定，先聊聊
+    validations:
+      required: true
+
+  - type: textarea
+    id: goal
+    attributes:
+      label: 你想让它做什么
+      description: 描述使用场景和最终效果，越具体越好（可以写"我现在要手动做 XXX，希望一键完成"）
+    validations:
+      required: true
+
+  - type: textarea
+    id: accept
+    attributes:
+      label: 怎样算做完（验收标准）
+      description: 例如"在侧边栏点一下，能列出 XXX 并打开选中项，就算通过"
+    validations:
+      required: true
+
+  - type: input
+    id: env
+    attributes:
+      label: 运行环境
+      description: 操作系统、DSH 版本、是否内网/是否需要离线
+      placeholder: Windows 11 / DSH 最新版 / 内网无外网
+
+  - type: input
+    id: deadline
+    attributes:
+      label: 期望完成时间
+      placeholder: 例如：两周内
+    validations:
+      required: false
+
+  - type: input
+    id: contact
+    attributes:
+      label: 联系方式
+      description: 邮箱或微信号
+    validations:
+      required: true
