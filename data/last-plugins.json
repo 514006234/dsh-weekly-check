@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-01T17:05:18.349Z",
+  "generatedAt": "2026-10-01T17:08:05.472Z",
   "liveCount": 31,
   "priorAsOf": "2026-10-01",
   "rows": [
@@ -23,10 +23,10 @@
       "cn": "从代码库生成可验证的架构/流程/时序图，自带 HTML 导出",
       "cat": "文档图",
       "kind": "Skill",
-      "stars": 75677,
+      "stars": 75678,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 15,
+      "delta": 16,
       "pushed": "2026-09-30",
       "license": "MIT",
       "archived": false
@@ -177,10 +177,10 @@
       "cn": "按任务把请求路由到不同模型/提供商",
       "cat": "模型路由",
       "kind": "原生bundle",
-      "stars": 6993,
+      "stars": 6994,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 0,
+      "delta": 1,
       "pushed": "2026-09-18",
       "license": "MIT",
       "archived": false
@@ -483,7 +483,7 @@
   "fresh": [
     {
       "repo": "walkinglabs/learn-harness-engineering",
-      "stars": 17471,
+      "stars": 17475,
       "pushed": "2026-10-01",
       "desc": "Harness engineering beginner tutorial, from 0 to 1"
     }

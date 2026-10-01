@@ -4,9 +4,9 @@
 
 ## 一、本期要点
 
-- 收录插件 31 个，合计 419,178 ★；前三名：OpenDesign 设计工作台（99.0k★）、Archify 架构图（75.7k★）、OpenViking 上下文库（39.1k★）。
-- 本期涨星：Archify 架构图 +15★、DSHDesktop +5★、DSH Desktop（社区桌面端） +4★。
-- 免费模型可用性：**5/11 可用**，地区墙 2 个，已下线 2 个，上游波动 2 个；可用模型首字延迟中位 1.71s。
+- 收录插件 31 个，合计 419,180 ★；前三名：OpenDesign 设计工作台（99.0k★）、Archify 架构图（75.7k★）、OpenViking 上下文库（39.1k★）。
+- 本期涨星：Archify 架构图 +16★、DSHDesktop +5★、DSH Desktop（社区桌面端） +4★。
+- 免费模型可用性：**6/11 可用**，已下线 2 个，上游波动 3 个；可用模型首字延迟中位 1.35s。
 - 待审新面孔：walkinglabs/learn-harness-engineering（17.5k★，2026-10-01）。
 
 ## 二、插件榜
@@ -16,7 +16,7 @@
 | ⭐ | 插件 | 中文说明 | 分类 | 形态 | 较上期 | 最近更新 | 许可 |
 |---:|---|---|---|---|---:|---|---|
 | 99.0k | **OpenDesign 设计工作台**<br>`nexu-io/open-design` | 生成网页/PPT/图片/视频并导出，**不是 DSH 插件**，是它反过来管理 DSH 运行时 | 设计交付 | 外部 | +2 | 2026-10-01 | Apache-2.0 |
-| 75.7k | **Archify 架构图**<br>`tt-a1i/archify` | 从代码库生成可验证的架构/流程/时序图，自带 HTML 导出 | 文档图 | Skill | +15 | 2026-09-30 | MIT |
+| 75.7k | **Archify 架构图**<br>`tt-a1i/archify` | 从代码库生成可验证的架构/流程/时序图，自带 HTML 导出 | 文档图 | Skill | +16 | 2026-09-30 | MIT |
 | 39.1k | **OpenViking 上下文库**<br>`volcengine/OpenViking` | 把记忆/知识/RAG/Skill 统一进 `viking://` 虚拟文件系统；**AGPL 且是独立部署**，不适合只想加记忆的人 | 记忆 | 外部 | +3 | 2026-10-01 | AGPL-3.0 |
 | 29.7k | **DSH Desktop（社区桌面端）**<br>`anywhere-labs/dsh-desktop` | 把整个 Harness 打进安装包，**无需 Node 环境**；个人项目非官方 | 桌面端 | 外部 | +4 | 2026-10-01 | MIT |
 | 25.2k | **Distilly 技能提炼**<br>`titanwings/distilly` | 把「别人怎么想」蒸馏成可复用 Skills（原 colleague-skill） | 技能 | 外部 | +1 | 2026-09-22 | MIT |
@@ -27,7 +27,7 @@
 | 11.4k | **DSHDesktop**<br>`dataelement/dsh-desktop` | 又一个社区桌面版 | 桌面端 | 外部 | +5 | 2026-10-01 | MIT |
 | 8.3k | **dsh-web 全家桶**<br>`zhu1090093659/dsh-web` | 任务看板/Git图谱/右侧面板/移动端/皮肤等聚合分发 | 工作台 | 原生bundle | +2 | 2026-10-01 | Apache-2.0 |
 | 8.0k | **BrowserSkill 浏览器技能**<br>`Tencent/BrowserSkill` | 让 Agent 用你**已登录的真实浏览器**干活，CLI+扩展 | 浏览器 | Skill | +1 | 2026-09-30 | MIT |
-| 7.0k | **dsh-routing-suite 智能路由**<br>`yjh051108/dsh-routing-suite` | 按任务把请求路由到不同模型/提供商 | 模型路由 | 原生bundle | 0 | 2026-09-18 | MIT |
+| 7.0k | **dsh-routing-suite 智能路由**<br>`yjh051108/dsh-routing-suite` | 按任务把请求路由到不同模型/提供商 | 模型路由 | 原生bundle | +1 | 2026-09-18 | MIT |
 | 6.5k | **iPolloWork 企业工作台**<br>`Devin-AXIS/iPolloWork` | 本地优先的多引擎 Agent 工作台 | 工作台 | 外部 | 0 | 2026-10-01 | NOASSERTION |
 | 6.2k | **Ouroboros 自进化 Agent OS**<br>`Q00/ouroboros` | 访谈门控 + 分阶段评测 + 预算约束的长任务闭环 | 多Agent | 原生bundle | 0 | 2026-10-01 | MIT |
 | 6.1k | **loopx 长任务控制面**<br>`loopx-project/loopx` | 带持久状态内核，维持长任务与团队持续推进 | 多Agent | 外部 | 0 | 2026-10-01 | Apache-2.0 |
@@ -51,21 +51,21 @@
 
 ## 三、免费模型可用性（真跑一次补全）
 
-共 11 个免费模型：**可用 5**，限流 0，地区墙 2，已下线 2，上游波动 2。
+共 11 个免费模型：**可用 6**，限流 0，地区墙 0，已下线 2，上游波动 3。
 
 | 状态 | 模型 | 线路 | 首字延迟 | 总耗时 | 结果 |
 |---|---|---|---|---|---|
-| 🔁 上游波动 | `jev-1.13-free` | chat | — | 0.3s | Internal server error |
-| ❌ 已下线 | `deepseek-v4-flash-free` | chat | — | 0.8s | Error from provider (Console): Upstream request failed: Model is unavailable. |
-| 🚫 地区墙 | `muse-spark-1.3-contributor-free` | responses | — | 0.2s | This model is not available in your country. |
-| 🚫 地区墙 | `muse-spark-1.2-contributor-free` | responses | — | 0.2s | This model is not available in your country. |
-| ✅ 可用 | `mimo-v2.6-flash-free` | chat | 6.08s | 6.4s | "通了" |
-| ✅ 可用 | `space-bunny-free` | chat | 1.44s | 1.9s | "[仅思考 258 字]" |
-| ✅ 可用 | `longcat-2.5-preview-free` | chat | 1.71s | 2.6s | "通了" |
-| ✅ 可用 | `mimo-v2.5-free` | chat | 2.42s | 3.2s | "通了" |
-| ❌ 已下线 | `ling-3.0-flash-fin-free` | chat | — | 0.9s | Error from provider (Console): Upstream request failed: Endpoint is unavailable. |
-| ✅ 可用 | `nemotron-3-ultra-free` | chat | 1.30s | 1.7s | "通了" |
-| 🔁 上游波动 | `nemotron-3.5-lightning-free` | chat | 11.68s | 40.0s | 超时 40s |
+| 🔁 上游波动 | `jev-1.13-free` | chat | — | 0.0s | Internal server error |
+| ❌ 已下线 | `deepseek-v4-flash-free` | chat | — | 0.1s | Error from provider (Console): Upstream request failed: Model is unavailable. |
+| 🔁 上游波动 | `muse-spark-1.3-contributor-free` | responses | 2.70s | 3.5s | HTTP 200 但无正文 |
+| 🔁 上游波动 | `muse-spark-1.2-contributor-free` | responses | 0.40s | 1.0s | HTTP 200 但无正文 |
+| ✅ 可用 | `mimo-v2.6-flash-free` | chat | 1.35s | 1.7s | "通了" |
+| ✅ 可用 | `space-bunny-free` | chat | 0.80s | 0.8s | "通了" |
+| ✅ 可用 | `longcat-2.5-preview-free` | chat | 2.39s | 3.3s | "通了" |
+| ✅ 可用 | `mimo-v2.5-free` | chat | 2.42s | 2.8s | "通了" |
+| ❌ 已下线 | `ling-3.0-flash-fin-free` | chat | — | 0.2s | Error from provider (Console): Upstream request failed: Endpoint is unavailable. |
+| ✅ 可用 | `nemotron-3-ultra-free` | chat | 0.76s | 1.1s | "通了" |
+| ✅ 可用 | `nemotron-3.5-lightning-free` | chat | 0.34s | 1.7s | "The user says: \"只回复两个字：通了\". |
 
 > 「上游波动」= 供应商临时过载/超时（已自动重试）；「已下线」= 接口明确返回模型或端点不可用。二者对使用者的含义不同，故分开列。
 
@@ -102,4 +102,4 @@
 榜单赞助位（插件作者）/ 插件定制开发 / 企业私有部署与可信插件白名单，明码标价见 [COMMERCIAL.md](../COMMERCIAL.md) 或在线页 <https://514006234.github.io/dsh-weekly-check/sponsor/>。
 榜单排序永远按真实星数，赞助位会明确标注「赞助」，不卖榜一。
 
-<sub>生成时间 2026-10-01T17:07:00.646Z｜数据源 tools/rank-plugins.mjs + tools/survey-free-models.mjs</sub>
+<sub>生成时间 2026-10-01T17:08:28.344Z｜数据源 tools/rank-plugins.mjs + tools/survey-free-models.mjs</sub>
