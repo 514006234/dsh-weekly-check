@@ -46,8 +46,16 @@ packages/dsh-weekly-panel/     DSH 插件：把周榜搬进侧边栏（可 dsh p
 它只读：仅从本站读取 `latest.json`（服务端 fetch + 30 分钟缓存 + loopback 同源护栏），不写文件、不读本地文件、不转发任何请求头。
 
 ```bash
-node packages/dsh-weekly-panel/tools/gate.mjs          # 23 项静态门禁（契约/边界/槽位/沙箱）
+node packages/dsh-weekly-panel/tools/gate.mjs          # 24 项静态门禁（契约/边界/槽位/沙箱）
 node packages/dsh-weekly-panel/tools/render-test.mjs   # 91 项渲染断言（假 ctx 模拟点击/失败/畸形数据）
+```
+
+装进本机 profile（会自动备份 + 校验 JSON 是否带 BOM，出错自动回滚）：
+
+```bash
+node tools/deploy-panel.mjs              # 安装
+node tools/deploy-panel.mjs --check      # 看当前状态
+node tools/deploy-panel.mjs --uninstall  # 一键撤销
 ```
 
 > 桌面端插件的界面改动**必须完全重启 DSH 才会生效**（客户端 bundle 在启动时快照）——这不是 bug，是载体行为。
