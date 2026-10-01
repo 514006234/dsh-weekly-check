@@ -100,6 +100,7 @@
 ## 七、商务合作
 
 榜单赞助位（插件作者）/ 插件定制开发 / 企业私有部署与可信插件白名单，明码标价见 [COMMERCIAL.md](../COMMERCIAL.md) 或在线页 <https://514006234.github.io/dsh-weekly-check/sponsor/>。
+另有一份付费报告《DSH 插件选型与风险报告》的**公开预览**（分档结论 + 公开数据全在）：<https://514006234.github.io/dsh-weekly-check/report-preview/>
 榜单排序永远按真实星数，赞助位会明确标注「赞助」，不卖榜一。
 
-<sub>生成时间 2026-10-01T17:08:28.344Z｜数据源 tools/rank-plugins.mjs + tools/survey-free-models.mjs</sub>
+<sub>生成时间 2026-10-01T17:16:16.830Z｜数据源 tools/rank-plugins.mjs + tools/survey-free-models.mjs</sub>

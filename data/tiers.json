@@ -1,0 +1,118 @@
+{
+  "_说明": "A/C 档结论从付费报告抽出，用于公开预览页；完整版含逐条依据与 R1–R11 风险清单",
+  "asOf": "2026-10-02",
+  "source": "DSH插件选型与风险报告-2026-10",
+  "counts": {
+    "A": 9,
+    "B": 18,
+    "C": 4
+  },
+  "a": [
+    {
+      "name": "dsh-memory 双层记忆",
+      "repo": "jipika/dsh-memory",
+      "stars": "1",
+      "license": "MIT",
+      "kind": "原生bundle",
+      "reason": "**本报告唯一源码级核验通过的记忆插件**：只注入 `systemPrompt`，零外网请求、零密钥、零定时器；写入前做根目录包含性校验；写接口要求自定义头 `x-dsh-memory: 1`。本机已装"
+    },
+    {
+      "name": "Our Free Model 免费模型",
+      "repo": "zouyuxuan122/dsh-our-free-model",
+      "stars": "584",
+      "license": "MIT",
+      "kind": "原生bundle",
+      "reason": "免登录免 Key 使用免费模型车道；**本机已装并调优**，持续运行中"
+    },
+    {
+      "name": "dsh-web 全家桶",
+      "repo": "zhu1090093659/dsh-web",
+      "stars": "8.3k",
+      "license": "Apache-2.0",
+      "kind": "原生bundle",
+      "reason": "任务看板/Git 图谱/右侧面板等聚合分发，纯界面能力，不接管运行时；近期活跃"
+    },
+    {
+      "name": "dsh-market 插件市场",
+      "repo": "dsh-market/dsh-market",
+      "stars": "5.2k",
+      "license": "MIT",
+      "kind": "原生bundle",
+      "reason": "界面内浏览/搜索/一键安装；风险提示见 R10（它把\"安装插件\"的权限放到界面里）"
+    },
+    {
+      "name": "Web 界面插件市场",
+      "repo": "Sanqi-normal/dsh-webui-market-plugin",
+      "stars": "105",
+      "license": "MIT",
+      "kind": "原生bundle",
+      "reason": "同上，安装入口型插件；风险提示同 R10"
+    },
+    {
+      "name": "petdex 宠物画廊",
+      "repo": "crafter-station/petdex",
+      "stars": "4.2k",
+      "license": "MIT",
+      "kind": "原生bundle",
+      "reason": "纯娱乐，界面动画，无数据面；本机未实测"
+    },
+    {
+      "name": "dsh-TUI 终端版",
+      "repo": "ccch1mneyyy/dsh-TUI",
+      "stars": "3.9k",
+      "license": "MIT",
+      "kind": "原生bundle",
+      "reason": "纯终端界面呈现（顶栏/流式思考/进度），不新增数据面"
+    },
+    {
+      "name": "插件升级 Skill",
+      "repo": "oh-my-dsh/dsh-plugin-upgrade-skill",
+      "stars": "148",
+      "license": "MIT",
+      "kind": "Skill",
+      "reason": "技能包形态，权限面小于 bundle；只做\"升级顾问\""
+    },
+    {
+      "name": "DSH 插件精选列表",
+      "repo": "awesome-dsh-plugin/awesome-dsh-plugin",
+      "stars": "17.5k",
+      "license": "CC0-1.0",
+      "kind": "外部（资料）",
+      "reason": "目录型资料，无代码执行面，可放心引用"
+    }
+  ],
+  "c": [
+    {
+      "name": "dsh-plugin-memory（记忆）",
+      "repo": "LittleBlackTong/dsh-plugin-memory",
+      "stars": "4",
+      "license": "MIT",
+      "kind": "**源码级核验发现明确副作用**：记忆库默认落在 `~/.memory`（不在 `.dsh` 目录体系内），且自带自动提交器默认 `intervalSeconds=60` / `quietSeconds=60`，会周期性对你的记忆库做 `git add -A` + commit。若记忆库恰好是某个既有仓库，会污染其提交历史（R3/R4）",
+      "reason": "**源码级核验发现明确副作用**：记忆库默认落在 `~/.memory`（不在 `.dsh` 目录体系内），且自带自动提交器默认 `intervalSeconds=60` / `quietSeconds=60`，会周期性对你的记忆库做 `git add -A` + commit。若记忆库恰好是某个既有仓库，会污染其提交历史（R3/R4）"
+    },
+    {
+      "name": "OpenDesign 设计工作台",
+      "repo": "nexu-io/open-design",
+      "stars": "99.0k",
+      "license": "Apache-2.0",
+      "kind": "**不是 DSH 插件，而是反过来管理 DSH 运行时**——口径最高的一类权限，且与\"装插件\"不是同一件事（R9）",
+      "reason": "**不是 DSH 插件，而是反过来管理 DSH 运行时**——口径最高的一类权限，且与\"装插件\"不是同一件事（R9）"
+    },
+    {
+      "name": "DSH Desktop（社区桌面端）",
+      "repo": "anywhere-labs/dsh-desktop",
+      "stars": "29.7k",
+      "license": "MIT",
+      "kind": "**第三方重新打包整个运行时**：把 Harness 打进安装包，个人项目非官方；企业分发的应是官方载体（R10）",
+      "reason": "**第三方重新打包整个运行时**：把 Harness 打进安装包，个人项目非官方；企业分发的应是官方载体（R10）"
+    },
+    {
+      "name": "DSHDesktop",
+      "repo": "dataelement/dsh-desktop",
+      "stars": "11.4k",
+      "license": "MIT",
+      "kind": "同上，又是一个社区桌面版（R10）",
+      "reason": "同上，又是一个社区桌面版（R10）"
+    }
+  ]
+}

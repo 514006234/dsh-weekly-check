@@ -185,6 +185,7 @@ function md() {
   L.push('')
   L.push(H('商务合作'), '')
   L.push('榜单赞助位（插件作者）/ 插件定制开发 / 企业私有部署与可信插件白名单，明码标价见 [COMMERCIAL.md](../COMMERCIAL.md) 或在线页 <https://514006234.github.io/dsh-weekly-check/sponsor/>。')
+  L.push('另有一份付费报告《DSH 插件选型与风险报告》的**公开预览**（分档结论 + 公开数据全在）：<https://514006234.github.io/dsh-weekly-check/report-preview/>')
   L.push('榜单排序永远按真实星数，赞助位会明确标注「赞助」，不卖榜一。')
   L.push('')
   L.push(`<sub>生成时间 ${new Date().toISOString()}｜数据源 tools/rank-plugins.mjs + tools/survey-free-models.mjs</sub>`)
@@ -342,7 +343,7 @@ ${trapRows ? `<h2>${sponsors.length ? '六' : '五'}、星数陷阱（贴了标�
 </ul>
 
 <footer>
-  <p><strong>商务合作</strong>：<a href="sponsor/">榜单赞助位 / 插件定制开发 / 企业私有部署与可信白名单</a>（明码标价，榜单排序不因赞助改动）</p>
+  <p><strong>商务合作</strong>：<a href="sponsor/">榜单赞助位 / 插件定制开发 / 企业私有部署与可信白名单</a>（明码标价，榜单排序不因赞助改动）　·　<a href="report-preview/">付费报告的公开预览</a></p>
   生成时间 ${new Date().toISOString()}｜数据源 tools/rank-plugins.mjs + tools/survey-free-models.mjs
   ${notes.filter(Boolean).length ? '<br>采集备注：' + notes.filter(Boolean).map(esc).join('；') : ''}
 </footer>
@@ -383,6 +384,10 @@ write(resolve(OUT, 'latest.json'), JSON.stringify({
 // 这样「商务合作」页和周报同域发布，不依赖额外托管；site/assets/ 一并搬过去（收款码等）
 // site/config.json 里的收款链接/联系方式在这里做占位符替换（改配置就行，不用改 HTML）
 const siteConfig = readJson(resolve(ROOT, 'site', 'config.json'), {}) || {}
+// 分档结论（A/C 档名单从付费报告抽出，放在 data/tiers.json，随代码一起版本化）
+const tiers = readJson(resolve(DATA, 'tiers.json'), { counts: {}, a: [], c: [] }) || { counts: {}, a: [], c: [] }
+const LBL_PILL = { ok: ['✅ 可用', 'ok'], limited: ['⚠️ 限流', 'warn'], region: ['🚫 地区墙', 'warn'], gone: ['❌ 已下线', 'bad'], flaky: ['🔁 上游波动', 'warn'] }
+
 function renderSite(html) {
   const payUrl = String(siteConfig.payUrl || '').trim()
   const payLabel = String(siteConfig.payLabel || '立即支持（微信 / 支付宝）')
@@ -391,7 +396,39 @@ function renderSite(html) {
     ? `<a class="btn p" href="${esc(payUrl)}" target="_blank" rel="noopener">${esc(payLabel)}</a>`
     : ''
   const contactLine = contact ? `<p class="note">直接联系：${esc(contact)}</p>` : ''
-  return html.replace(/\{\{PAY_BUTTON\}\}/g, payBtn).replace(/\{\{CONTACT_LINE\}\}/g, contactLine)
+
+  // ── 公开预览页用的实时数据（数字全部现算，不会与周报漂移）──
+  const trapList = (plugins?.notPlugins || []).slice().sort((a, b) => b.stars - a.stars)
+  const trapRows = trapList.map((r) => `<tr><td>${star(r.stars)}</td><td><code>${esc(r.repo)}</code></td><td>${inline(r.why)}</td></tr>`).join('')
+  const aRows = (tiers.a || []).map((r) => `<tr><td>${inline(r.name)}</td><td><code>${esc(r.repo)}</code></td><td>${esc(r.stars)}</td><td>${esc(r.license)}</td></tr>`).join('')
+  const cRows = (tiers.c || []).map((r) => `<tr><td>${inline(r.name)}</td><td><code>${esc(r.repo)}</code></td><td>${esc(r.stars)}</td><td>${inline(r.reason)}</td></tr>`).join('')
+  const modelRowsPub = M.map((r) => {
+    const [label, cls] = LBL_PILL[r.verdict] || ['❔', 'warn']
+    const body = r.text || (r.reasoning ? `[仅思考 ${r.reasoning} 字]` : '')
+    const detail = r.ok ? JSON.stringify(body).slice(0, 20) : String(r.err || 'HTTP ' + r.status).slice(0, 60)
+    return `<tr><td><span class="pill ${cls}">${label}</span></td><td><code>${esc(r.model)}</code></td><td>${esc(r.wire)}</td><td>${r.ttfb === null || r.ttfb === undefined ? '—' : Number(r.ttfb).toFixed(2) + 's'}</td><td>${inline(detail)}</td></tr>`
+  }).join('')
+
+  const tokens = {
+    PAY_BUTTON: payBtn,
+    CONTACT_LINE: contactLine,
+    PREVIEW_DATE: TODAY,
+    PLUGIN_TOTAL: String(P.length),
+    STAR_TOTAL: totalStars.toLocaleString('en-US'),
+    MODEL_OK: S ? String(S.ok) : '—',
+    MODEL_TOTAL: S ? String(S.total) : '—',
+    A_COUNT: String((tiers.counts && tiers.counts.A) ?? (tiers.a || []).length),
+    B_COUNT: String((tiers.counts && tiers.counts.B) ?? '—'),
+    C_COUNT: String((tiers.counts && tiers.counts.C) ?? (tiers.c || []).length),
+    TRAP_TOP_STARS: trapList.length ? star(trapList[0].stars) : '—',
+    A_ROWS: aRows,
+    C_ROWS: cRows,
+    TRAP_ROWS: trapRows,
+    MODEL_ROWS: modelRowsPub,
+  }
+  let out = html
+  for (const [k, v] of Object.entries(tokens)) out = out.split('{{' + k + '}}').join(v)
+  return out
 }
 
 let pages = 0
