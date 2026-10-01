@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://514006234.github.io/dsh-weekly-check/sitemap.xml

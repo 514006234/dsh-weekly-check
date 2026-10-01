@@ -28,6 +28,8 @@ const ARCHIVE = resolve(OUT, 'archive')
 const offline = process.argv.includes('--offline')
 
 const TITLE = 'DSH 插件周榜'
+// 站点绝对地址：og:image / og:url 必须是绝对 URL，社交平台才认
+const SITE_URL = 'https://514006234.github.io/dsh-weekly-check/'
 // 周报按**北京时间**切期：UTC 日期会让晚上生成的周报落到前一天
 const BJT = (d = new Date()) => new Date(d.getTime() + 8 * 3600 * 1000).toISOString().slice(0, 10)
 const TODAY = BJT()
@@ -244,6 +246,13 @@ function html() {
 <link rel="alternate" type="application/rss+xml" title="${TITLE} (RSS)" href="feed.xml">
 <link rel="alternate" type="application/atom+xml" title="${TITLE} (Atom)" href="atom.xml">
 <meta name="description" content="${TITLE}：DSH 生态插件排行（中文说明+实时星数）与免费模型可用性周报。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="${TITLE} · ${TODAY}">
+<meta property="og:description" content="${P.length} 个插件的中文说明 + GitHub 实时星数 + 免费模型真实调用实测。每周一自动更新。">
+<meta property="og:url" content="${SITE_URL}">
+<meta property="og:image" content="${SITE_URL}og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${SITE_URL}og.png">
 <style>
   :root{--bg:#0b0f17;--bg2:#141a26;--card:#182031;--line:#243044;--fg:#e8eefc;--dim:#93a1bd;--acc:#5eead4;--acc2:#8b9dff;--up:#42d392;--down:#ff7a7a}
   @media (prefers-color-scheme:light){:root{--bg:#f6f8fc;--bg2:#fff;--card:#fff;--line:#e3e9f4;--fg:#12192a;--dim:#5a6a86;--acc:#0d9488;--acc2:#4f46e5}}
@@ -437,9 +446,13 @@ let pages = 0
 const siteDir = resolve(ROOT, 'site')
 if (existsSync(siteDir)) {
   for (const f of readdirSync(siteDir)) {
-    if (!f.endsWith('.html')) continue
-    write(resolve(OUT, f.replace(/\.html$/, ''), 'index.html'), renderSite(readFileSync(resolve(siteDir, f), 'utf8')))
-    pages++
+    if (f.endsWith('.html')) {
+      write(resolve(OUT, f.replace(/\.html$/, ''), 'index.html'), renderSite(readFileSync(resolve(siteDir, f), 'utf8')))
+      pages++
+    } else if (f.endsWith('.txt')) {
+      // robots.txt 等纯文本原样搬运
+      write(resolve(OUT, f), readFileSync(resolve(siteDir, f)))
+    }
   }
   const assetsDir = resolve(siteDir, 'assets')
   if (existsSync(assetsDir)) {
@@ -449,6 +462,28 @@ if (existsSync(siteDir)) {
       try { write(resolve(OUT, 'sponsor', 'assets', f), readFileSync(full)) } catch { /* 跳过子目录 */ }
     }
   }
+}
+
+// sitemap.xml：首页 + 独立页 + 全部存档（让搜索引擎知道每周有一期新内容）
+{
+  const urls = [
+    { loc: SITE_URL, priority: '1.0' },
+    { loc: SITE_URL + 'sponsor/', priority: '0.8' },
+    { loc: SITE_URL + 'report-preview/', priority: '0.8' },
+  ]
+  const archDir = resolve(OUT, 'archive')
+  if (existsSync(archDir)) {
+    for (const f of readdirSync(archDir)) {
+      if (!f.endsWith('.html')) continue
+      const date = f.replace(/\.html$/, '')
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) continue
+      urls.push({ loc: SITE_URL + 'archive/' + date + '.html', priority: '0.6', lastmod: date })
+    }
+  }
+  const xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    + urls.map((u) => `  <url>\n    <loc>${u.loc}</loc>\n${u.lastmod ? `    <lastmod>${u.lastmod}</lastmod>\n` : ''}    <priority>${u.priority}</priority>\n  </url>`).join('\n')
+    + '\n</urlset>\n'
+  write(resolve(OUT, 'sitemap.xml'), xml)
 }
 
 console.log(`[ok] report/index.md + report/index.html（插件 ${P.length} 项，免费模型 ${M.length} 项，星数实时 ${P.filter((r) => r.starsSource === 'live').length} 项）`
