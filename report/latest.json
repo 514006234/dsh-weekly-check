@@ -1,6 +1,6 @@
 {
   "date": "2026-10-02",
-  "generatedAt": "2026-10-01T16:51:07.318Z",
+  "generatedAt": "2026-10-01T16:53:14.363Z",
   "plugins": [
     {
       "repo": "nexu-io/open-design",
@@ -605,6 +605,7 @@
       "verdict": "ok"
     }
   ],
+  "sponsors": [],
   "newcomers": [
     {
       "repo": "walkinglabs/learn-harness-engineering",

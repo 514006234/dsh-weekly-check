@@ -25,6 +25,8 @@
   .card{display:grid;grid-template-columns:40px 1fr auto;gap:14px;align-items:start;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;transition:.18s;box-shadow:0 1px 2px rgba(0,0,0,.12)}
   .card:hover{transform:translateY(-2px);border-color:var(--acc2);box-shadow:0 10px 28px rgba(0,0,0,.22)}
   .card.hide{display:none}
+  .card.sponsor{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc) inset,0 10px 28px rgba(0,0,0,.18)}
+  .sponsor-badge{color:var(--acc);border-color:var(--acc)}
   .rank{font:600 13px/1 ui-monospace,monospace;color:var(--dim);padding-top:6px}
   .card h3{margin:0 0 2px;font-size:16.5px}
   .card h3 .kind{font-size:11.5px;font-weight:500;color:var(--acc);border:1px solid var(--line);border-radius:6px;padding:1px 7px;margin-left:8px;vertical-align:1px}
@@ -64,6 +66,8 @@
 
 <h2>一、本期要点</h2>
 <ul class="points"><li>收录插件 31 个，合计 419,166 ★；前三名：OpenDesign 设计工作台（99.0k★）、Archify 架构图（75.7k★）、OpenViking 上下文库（39.1k★）。</li><li>本期涨星：Archify 架构图 +10★、DSHDesktop +4★、余额小鲸鱼 +4★。</li><li>免费模型可用性：<strong>6/11 可用</strong>，已下线 2 个，上游波动 3 个；可用模型首字延迟中位 1.29s。</li><li>待审新面孔：walkinglabs/learn-harness-engineering（17.4k★，2026-10-01）。</li></ul>
+
+
 
 <h2>二、插件榜（31）</h2>
 <div class="chips"><button class="chip on" data-cat="全部">全部</button><button class="chip" data-cat="设计交付">设计交付</button><button class="chip" data-cat="文档图">文档图</button><button class="chip" data-cat="记忆">记忆</button><button class="chip" data-cat="桌面端">桌面端</button><button class="chip" data-cat="技能">技能</button><button class="chip" data-cat="提示词">提示词</button><button class="chip" data-cat="榜单">榜单</button><button class="chip" data-cat="工作台">工作台</button><button class="chip" data-cat="浏览器">浏览器</button><button class="chip" data-cat="模型路由">模型路由</button><button class="chip" data-cat="多Agent">多Agent</button><button class="chip" data-cat="插件市场">插件市场</button><button class="chip" data-cat="娱乐">娱乐</button><button class="chip" data-cat="视觉识图">视觉识图</button><button class="chip" data-cat="终端">终端</button><button class="chip" data-cat="预设">预设</button><button class="chip" data-cat="免费模型">免费模型</button><button class="chip" data-cat="主题皮肤">主题皮肤</button><button class="chip" data-cat="维护">维护</button><button class="chip" data-cat="用量">用量</button></div>
@@ -618,8 +622,8 @@
 
 <footer>
   <p><strong>商务合作</strong>：<a href="sponsor/">榜单赞助位 / 插件定制开发 / 企业私有部署与可信白名单</a>（明码标价，榜单排序不因赞助改动）</p>
-  生成时间 2026-10-01T16:51:07.317Z｜数据源 tools/rank-plugins.mjs + tools/survey-free-models.mjs
-  
+  生成时间 2026-10-01T16:53:14.358Z｜数据源 tools/rank-plugins.mjs + tools/survey-free-models.mjs
+  <br>采集备注：本期为离线重渲染（--offline），数据取自上次采集。
 </footer>
 </div>
 <script>

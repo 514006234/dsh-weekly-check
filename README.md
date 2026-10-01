@@ -26,6 +26,7 @@
 tools/rank-plugins.mjs         插件榜数据源：策展白名单 + GitHub 实时星数 + 涨星对比 + 新星扫描
 tools/survey-free-models.mjs   免费模型数据源：真实调用一遍，区分"真下线"和"上游抽风"
 tools/build-report.mjs         合成周报：report/index.md + report/index.html + 归档
+tools/sponsor.mjs              赞助推荐位：登记 / 下架（只在真实到账后登记；周报里独立成栏并标注「赞助」）
 tools/selftest.mjs             离线回归自测：隔离在临时目录里跑，不碰真实数据、不联网
 data/stars.json                星数缓存（实时刷新失败时的兜底）
 data/history.json              每次运行的星数快照，用来算"较上期"
@@ -43,6 +44,7 @@ node tools/rank-plugins.mjs            # 插件榜（Markdown 表格）
 node tools/survey-free-models.mjs      # 免费模型体检（约 2–5 分钟）
 node tools/build-report.mjs            # 采集并生成 report/
 node tools/build-report.mjs --offline  # 不联网，用上次采集的数据重渲染
+node tools/sponsor.mjs list            # 看当前赞助位（add / remove 见 COMMERCIAL.md）
 npm test                               # 离线回归自测（不碰真实数据、不联网）
 ```
 

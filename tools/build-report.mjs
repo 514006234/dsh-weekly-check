@@ -108,15 +108,38 @@ if (newcomersTop.length) {
   bullets.push('待审新面孔：' + newcomersTop.map((f) => `${f.repo}（${star(f.stars)}★，${f.pushed}）`).join('、') + '。')
 }
 
+// ── 赞助推荐位：卖出去了就必须真的显示出来 ──────────────────────────────
+// data/sponsors.json 由 tools/sponsor.mjs 维护（只在收到钱之后才登记）。
+// 赞助位**独立成栏并标注「赞助」**，不混进榜单、不改排序；到期按日期自动失效。
+const sponsorFile = resolve(DATA, 'sponsors.json')
+const sponsorStore = readJson(sponsorFile, { sponsors: [] })
+const sponsors = (sponsorStore.sponsors || []).filter((s) => !s.until || s.until >= TODAY)
+const expiredSponsors = (sponsorStore.sponsors || []).length - sponsors.length
+
 // ── Markdown ───────────────────────────────────────────────────────────
 function md() {
   const L = []
+  const CN = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十']
+  let sec = 0
+  const H = (title) => `## ${CN[sec++] || sec}、${title}`
   L.push(`# ${TITLE} · ${TODAY}`, '')
   L.push(`> 只做一件事：把"这周 DSH 生态里什么值得装、免费模型还能不能用"讲成人话。**所有星数来自 GitHub 实时接口**，中文说明为人工核实后的策展，不做机翻。`, '')
-  L.push('## 一、本期要点', '')
+  L.push(H('本期要点'), '')
   for (const b of bullets) L.push('- ' + b)
   L.push('')
-  L.push('## 二、插件榜', '')
+  if (sponsors.length) {
+    L.push(H('本期推荐（赞助）'), '')
+    L.push('> 以下为赞助推荐位，**明确标注「赞助」**；榜单排序仍按真实星数，不因赞助改动。', '')
+    for (const s of sponsors) {
+      L.push(`### 🅢 赞助 · ${s.name}`)
+      L.push('')
+      L.push(`- 仓库：\`${s.repo}\``)
+      L.push(`- 推荐语：${s.cn}`)
+      L.push(`- 档位：${s.tier}（展示至 ${s.until || '另行通知'}）`)
+      L.push('')
+    }
+  }
+  L.push(H('插件榜'), '')
   L.push(`分类分布：${catLine}`, '')
   L.push('| ⭐ | 插件 | 中文说明 | 分类 | 形态 | 较上期 | 最近更新 | 许可 |', '|---:|---|---|---|---|---:|---|---|')
   for (const r of P) {
@@ -126,7 +149,7 @@ function md() {
   L.push('', '> ≈ 表示该行星数取自上期快照（本次实时接口未取到）。', '')
 
   if (M.length) {
-    L.push('## 三、免费模型可用性（真跑一次补全）', '')
+    L.push(H('免费模型可用性（真跑一次补全）'), '')
     L.push(`共 ${S.total} 个免费模型：**可用 ${S.ok}**，限流 ${S.limited}，地区墙 ${S.region}，已下线 ${S.gone}，上游波动 ${S.flaky}。`, '')
     L.push('| 状态 | 模型 | 线路 | 首字延迟 | 总耗时 | 结果 |', '|---|---|---|---|---|---|')
     const LBL = { ok: '✅ 可用', limited: '⚠️ 限流', region: '🚫 地区墙', gone: '❌ 已下线', flaky: '🔁 上游波动' }
@@ -140,7 +163,7 @@ function md() {
 
   const fresh = plugins?.fresh || []
   if (fresh.length) {
-    L.push('## 四、待审新面孔（已自动过滤蹭标签项目）', '')
+    L.push(H('待审新面孔（已自动过滤蹭标签项目）'), '')
     L.push('| ⭐ | 仓库 | 最近更新 | 英文简介（原样） |', '|---:|---|---|---|')
     for (const f of fresh) L.push(`| ${star(f.stars)} | \`${f.repo}\` | ${f.pushed} | ${String(f.desc || '').replace(/\|/g, '/')} |`)
     L.push('', '> 这些是 `topic:dsh-plugin` 里星数较高但尚未人工核实的新项目，核实后会进入正式榜。', '')
@@ -148,19 +171,19 @@ function md() {
 
   const np = plugins?.notPlugins || []
   if (np.length) {
-    L.push('## 五、星数陷阱（贴了标签但不是插件）', '')
+    L.push(H('星数陷阱（贴了标签但不是插件）'), '')
     L.push('| ⭐ | 仓库 | 为什么不算', '|---:|---|---|')
     for (const r of [...np].sort((a, b) => b.stars - a.stars)) L.push(`| ${star(r.stars)} | \`${r.repo}\` | ${r.why} |`)
     L.push('')
   }
 
-  L.push('## 六、方法与免责', '')
+  L.push(H('方法与免责'), '')
   L.push('- 插件星数为 GitHub 实时数据（GraphQL 批量取，失败时退化为逐个 REST，仍失败则用上期快照并标 ≈）。')
   L.push('- 中文名/中文说明/形态判断为人工策展；"形态"里的**原生bundle**指可以直接装进 DSH profile，"外部/Skill"指独立应用或技能包。')
   L.push('- 免费模型为**真实调用**（一条极短补全），走的就是免费模型插件自己的传输与指纹；地区墙受出口 IP 影响，换地区结论会变。')
   L.push('- 周报立场：只推荐本机实测过、且读过源码确认没有外网/密钥/定时器风险的项目；其余只列不荐。')
   L.push('')
-  L.push('## 七、商务合作', '')
+  L.push(H('商务合作'), '')
   L.push('榜单赞助位（插件作者）/ 插件定制开发 / 企业私有部署与可信插件白名单，明码标价见 [COMMERCIAL.md](../COMMERCIAL.md) 或在线页 <https://514006234.github.io/dsh-weekly-check/sponsor/>。')
   L.push('榜单排序永远按真实星数，赞助位会明确标注「赞助」，不卖榜一。')
   L.push('')
@@ -238,6 +261,8 @@ function html() {
   .card{display:grid;grid-template-columns:40px 1fr auto;gap:14px;align-items:start;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;transition:.18s;box-shadow:0 1px 2px rgba(0,0,0,.12)}
   .card:hover{transform:translateY(-2px);border-color:var(--acc2);box-shadow:0 10px 28px rgba(0,0,0,.22)}
   .card.hide{display:none}
+  .card.sponsor{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc) inset,0 10px 28px rgba(0,0,0,.18)}
+  .sponsor-badge{color:var(--acc);border-color:var(--acc)}
   .rank{font:600 13px/1 ui-monospace,monospace;color:var(--dim);padding-top:6px}
   .card h3{margin:0 0 2px;font-size:16.5px}
   .card h3 .kind{font-size:11.5px;font-weight:500;color:var(--acc);border:1px solid var(--line);border-radius:6px;padding:1px 7px;margin-left:8px;vertical-align:1px}
@@ -278,23 +303,37 @@ function html() {
 <h2>一、本期要点</h2>
 <ul class="points">${bullets.map((b) => `<li>${inline(b)}</li>`).join('')}</ul>
 
-<h2>二、插件榜（${P.length}）</h2>
+${sponsors.length ? `<h2>二、本期推荐（赞助）</h2>
+<p class="lede">以下为赞助推荐位，<strong>明确标注「赞助」</strong>；榜单排序仍按真实星数，不因赞助改动。</p>
+<div class="grid">${sponsors.map((s) => `
+      <article class="card sponsor">
+        <div class="rank">🅢</div>
+        <div class="body">
+          <h3>${inline(s.name)}<span class="kind sponsor-badge">赞助</span></h3>
+          <a class="repo" href="https://github.com/${esc(s.repo)}" target="_blank" rel="noopener">${esc(s.repo)}</a>
+          <p>${inline(s.cn)}</p>
+          <div class="meta"><span class="cat">${esc(s.tier)}</span><span class="pushed">展示至 ${esc(s.until || '另行通知')}</span></div>
+        </div>
+        <div class="stars"><b>推荐</b><span></span></div>
+      </article>`).join('')}</div>` : ''}
+
+<h2>${sponsors.length ? '三' : '二'}、插件榜（${P.length}）</h2>
 <div class="chips">${catChips}</div>
 <div class="grid">${P.map(card).join('')}</div>
 <p class="lede" style="margin-top:12px">≈ 表示星数取自上期快照（本次实时接口未取到）。</p>
 
-${M.length ? `<h2>三、免费模型可用性（真跑一次补全）</h2>
+${M.length ? `<h2>${sponsors.length ? '四' : '三'}、免费模型可用性（真跑一次补全）</h2>
 <p class="lede">可用 <strong>${S.ok}</strong>/${S.total}｜限流 ${S.limited}｜地区墙 ${S.region}｜已下线 ${S.gone}｜上游波动 ${S.flaky}${S.ttfbMid !== null ? `｜首字延迟中位 ${Number(S.ttfbMid).toFixed(2)}s` : ''}</p>
 <div class="scroll"><table><thead><tr><th>状态</th><th>模型</th><th>线路</th><th>首字</th><th>总耗时</th><th>结果</th></tr></thead><tbody>${modelRows}</tbody></table></div>
 <p class="lede" style="margin-top:12px">「上游波动」= 供应商临时过载/超时（已自动重试）；「已下线」= 接口明确返回模型或端点不可用。二者对使用者的含义不同，故分开列。</p>` : ''}
 
-${freshRows ? `<h2>四、待审新面孔（已自动过滤蹭标签项目）</h2>
+${freshRows ? `<h2>${sponsors.length ? '五' : '四'}、待审新面孔（已自动过滤蹭标签项目）</h2>
 <div class="scroll"><table><thead><tr><th>⭐</th><th>仓库</th><th>更新</th><th>英文简介（原样）</th></tr></thead><tbody>${freshRows}</tbody></table></div>` : ''}
 
-${trapRows ? `<h2>五、星数陷阱（贴了标签但不是插件）</h2>
+${trapRows ? `<h2>${sponsors.length ? '六' : '五'}、星数陷阱（贴了标签但不是插件）</h2>
 <div class="scroll"><table><thead><tr><th>⭐</th><th>仓库</th><th>为什么不算</th></tr></thead><tbody>${trapRows}</tbody></table></div>` : ''}
 
-<h2>六、方法与免责</h2>
+<h2>${sponsors.length ? '七' : '六'}、方法与免责</h2>
 <ul class="points">
   <li>插件星数为 GitHub 实时数据（GraphQL 批量取，失败退化逐个 REST，再失败用上期快照并标 ≈）。</li>
   <li><strong>原生bundle</strong> 指可直接装进 DSH profile；<strong>外部 / Skill</strong> 指独立应用或技能包。</li>
@@ -336,7 +375,7 @@ write(resolve(ARCHIVE, TODAY + '.md'), mdText)
 write(resolve(ARCHIVE, TODAY + '.html'), htmlText)
 write(resolve(OUT, 'latest.json'), JSON.stringify({
   date: TODAY, generatedAt: new Date().toISOString(),
-  plugins: P, stat: S, models: M,
+  plugins: P, stat: S, models: M, sponsors,
   newcomers: plugins?.fresh || [], notPlugins: plugins?.notPlugins || [], notes: notes.filter(Boolean),
 }, null, 2))
 
