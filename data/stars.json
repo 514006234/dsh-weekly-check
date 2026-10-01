@@ -1,18 +1,18 @@
 {
   "nexu-io/open-design": {
-    "stars": 99049,
+    "stars": 99052,
     "pushed": "2026-10-01",
     "license": "Apache-2.0",
     "asOf": "2026-10-02"
   },
   "tt-a1i/archify": {
-    "stars": 75703,
+    "stars": 75722,
     "pushed": "2026-09-30",
     "license": "MIT",
     "asOf": "2026-10-02"
   },
   "volcengine/openviking": {
-    "stars": 39088,
+    "stars": 39091,
     "pushed": "2026-10-01",
     "license": "AGPL-3.0",
     "asOf": "2026-10-02"
@@ -24,7 +24,7 @@
     "asOf": "2026-10-02"
   },
   "titanwings/distilly": {
-    "stars": 25208,
+    "stars": 25210,
     "pushed": "2026-09-22",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -36,7 +36,7 @@
     "asOf": "2026-10-02"
   },
   "awesome-dsh-plugin/awesome-dsh-plugin": {
-    "stars": 17542,
+    "stars": 17543,
     "pushed": "2026-10-01",
     "license": "CC0-1.0",
     "asOf": "2026-10-02"
@@ -54,19 +54,19 @@
     "asOf": "2026-10-02"
   },
   "dataelement/dsh-desktop": {
-    "stars": 11391,
+    "stars": 11392,
     "pushed": "2026-10-01",
     "license": "MIT",
     "asOf": "2026-10-02"
   },
   "zhu1090093659/dsh-web": {
-    "stars": 8253,
+    "stars": 8255,
     "pushed": "2026-10-01",
     "license": "Apache-2.0",
     "asOf": "2026-10-02"
   },
   "tencent/browserskill": {
-    "stars": 8019,
+    "stars": 8022,
     "pushed": "2026-09-30",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -78,13 +78,13 @@
     "asOf": "2026-10-02"
   },
   "devin-axis/ipollowork": {
-    "stars": 6522,
+    "stars": 6521,
     "pushed": "2026-10-01",
     "license": "NOASSERTION",
     "asOf": "2026-10-02"
   },
   "q00/ouroboros": {
-    "stars": 6165,
+    "stars": 6164,
     "pushed": "2026-10-01",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -96,7 +96,7 @@
     "asOf": "2026-10-02"
   },
   "dsh-market/dsh-market": {
-    "stars": 5231,
+    "stars": 5233,
     "pushed": "2026-10-01",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -114,7 +114,7 @@
     "asOf": "2026-10-02"
   },
   "superdesigndev/treg": {
-    "stars": 3979,
+    "stars": 3983,
     "pushed": "2026-10-01",
     "license": "NOASSERTION",
     "asOf": "2026-10-02"
@@ -131,20 +131,20 @@
     "license": "MIT",
     "asOf": "2026-10-02"
   },
+  "meteornox/deepseek-balance-whale-widget": {
+    "stars": 3783,
+    "pushed": "2026-09-29",
+    "license": "MIT",
+    "asOf": "2026-10-02"
+  },
   "xiaobright/dsh-anchored-standard": {
     "stars": 3782,
     "pushed": "2026-09-10",
     "license": "NOASSERTION",
     "asOf": "2026-10-02"
   },
-  "meteornox/deepseek-balance-whale-widget": {
-    "stars": 3782,
-    "pushed": "2026-09-29",
-    "license": "MIT",
-    "asOf": "2026-10-02"
-  },
   "zouyuxuan122/dsh-our-free-model": {
-    "stars": 585,
+    "stars": 588,
     "pushed": "2026-10-01",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -186,7 +186,7 @@
     "asOf": "2026-10-02"
   },
   "_meta": {
-    "updatedAt": "2026-10-01T18:05:49.807Z",
+    "updatedAt": "2026-10-01T18:56:55.421Z",
     "liveCount": 31,
     "token": "yes"
   }
