@@ -6,7 +6,7 @@
     "asOf": "2026-10-02"
   },
   "tt-a1i/archify": {
-    "stars": 75672,
+    "stars": 75677,
     "pushed": "2026-09-30",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -18,7 +18,7 @@
     "asOf": "2026-10-02"
   },
   "anywhere-labs/dsh-desktop": {
-    "stars": 29739,
+    "stars": 29741,
     "pushed": "2026-10-01",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -54,7 +54,7 @@
     "asOf": "2026-10-02"
   },
   "dataelement/dsh-desktop": {
-    "stars": 11389,
+    "stars": 11390,
     "pushed": "2026-10-01",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -66,7 +66,7 @@
     "asOf": "2026-10-02"
   },
   "tencent/browserskill": {
-    "stars": 8016,
+    "stars": 8017,
     "pushed": "2026-09-30",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -96,7 +96,7 @@
     "asOf": "2026-10-02"
   },
   "dsh-market/dsh-market": {
-    "stars": 5227,
+    "stars": 5228,
     "pushed": "2026-10-01",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -144,7 +144,7 @@
     "asOf": "2026-10-02"
   },
   "zouyuxuan122/dsh-our-free-model": {
-    "stars": 583,
+    "stars": 584,
     "pushed": "2026-10-01",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -173,20 +173,20 @@
     "license": "MIT",
     "asOf": "2026-10-02"
   },
+  "jipika/dsh-memory": {
+    "stars": 1,
+    "pushed": "2026-10-01",
+    "license": "MIT",
+    "asOf": "2026-10-02"
+  },
   "azurehalcyon/dsh-deepseek-usage": {
     "stars": 1,
     "pushed": "2026-08-22",
     "license": "GPL-2.0",
     "asOf": "2026-10-02"
   },
-  "jipika/dsh-memory": {
-    "stars": 0,
-    "pushed": "2026-10-01",
-    "license": "MIT",
-    "asOf": "2026-10-02"
-  },
   "_meta": {
-    "updatedAt": "2026-10-01T16:50:06.063Z",
+    "updatedAt": "2026-10-01T17:05:18.347Z",
     "liveCount": 31,
     "token": "yes"
   }

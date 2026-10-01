@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-01T16:50:06.064Z",
+  "generatedAt": "2026-10-01T17:05:18.349Z",
   "liveCount": 31,
   "priorAsOf": "2026-10-01",
   "rows": [
@@ -23,10 +23,10 @@
       "cn": "从代码库生成可验证的架构/流程/时序图，自带 HTML 导出",
       "cat": "文档图",
       "kind": "Skill",
-      "stars": 75672,
+      "stars": 75677,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 10,
+      "delta": 15,
       "pushed": "2026-09-30",
       "license": "MIT",
       "archived": false
@@ -51,10 +51,10 @@
       "cn": "把整个 Harness 打进安装包，**无需 Node 环境**；个人项目非官方",
       "cat": "桌面端",
       "kind": "外部",
-      "stars": 29739,
+      "stars": 29741,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 2,
+      "delta": 4,
       "pushed": "2026-10-01",
       "license": "MIT",
       "archived": false
@@ -135,10 +135,10 @@
       "cn": "又一个社区桌面版",
       "cat": "桌面端",
       "kind": "外部",
-      "stars": 11389,
+      "stars": 11390,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 4,
+      "delta": 5,
       "pushed": "2026-10-01",
       "license": "MIT",
       "archived": false
@@ -163,10 +163,10 @@
       "cn": "让 Agent 用你**已登录的真实浏览器**干活，CLI+扩展",
       "cat": "浏览器",
       "kind": "Skill",
-      "stars": 8016,
+      "stars": 8017,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 0,
+      "delta": 1,
       "pushed": "2026-09-30",
       "license": "MIT",
       "archived": false
@@ -233,10 +233,10 @@
       "cn": "DSH 界面内的插件市场：浏览/搜索/一键安装",
       "cat": "插件市场",
       "kind": "原生bundle",
-      "stars": 5227,
+      "stars": 5228,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 2,
+      "delta": 3,
       "pushed": "2026-10-01",
       "license": "MIT",
       "archived": false
@@ -345,10 +345,10 @@
       "cn": "免登录免 Key 用 11 个免费模型（MiMo/Nemotron/Space Bunny 等）；**本机已装并调优**",
       "cat": "免费模型",
       "kind": "原生bundle",
-      "stars": 583,
+      "stars": 584,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 1,
+      "delta": 2,
       "pushed": "2026-10-01",
       "license": "MIT",
       "archived": false
@@ -410,6 +410,20 @@
       "archived": false
     },
     {
+      "repo": "jipika/dsh-memory",
+      "name": "dsh-memory 双层记忆",
+      "cn": "**本机已装的首选记忆**：全局+项目层 markdown、零外网零 Key 零定时器、审计日志、CSRF 护栏",
+      "cat": "记忆",
+      "kind": "原生bundle",
+      "stars": 1,
+      "starsSource": "live",
+      "asOf": "2026-10-02",
+      "delta": 1,
+      "pushed": "2026-10-01",
+      "license": "MIT",
+      "archived": false
+    },
+    {
       "repo": "AzureHalcyon/dsh-deepseek-usage",
       "name": "DeepSeek 用量看板",
       "cn": "余额/今日用量/缓存命中/热力图，三个只读接口；**本机已装**",
@@ -421,20 +435,6 @@
       "delta": 0,
       "pushed": "2026-08-22",
       "license": "GPL-2.0",
-      "archived": false
-    },
-    {
-      "repo": "jipika/dsh-memory",
-      "name": "dsh-memory 双层记忆",
-      "cn": "**本机已装的首选记忆**：全局+项目层 markdown、零外网零 Key 零定时器、审计日志、CSRF 护栏",
-      "cat": "记忆",
-      "kind": "原生bundle",
-      "stars": 0,
-      "starsSource": "live",
-      "asOf": "2026-10-02",
-      "delta": 0,
-      "pushed": "2026-10-01",
-      "license": "MIT",
       "archived": false
     }
   ],
@@ -483,7 +483,7 @@
   "fresh": [
     {
       "repo": "walkinglabs/learn-harness-engineering",
-      "stars": 17444,
+      "stars": 17471,
       "pushed": "2026-10-01",
       "desc": "Harness engineering beginner tutorial, from 0 to 1"
     }

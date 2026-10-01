@@ -1,0 +1,5 @@
+# dsh-weekly-panel 的组合层（bundle 形态）：把自身挂载为一行 insert。
+# 宿主半只提供一个只读路由（/weekly-panel/data），界面全部在客户端半 lib/client.js。
+- insert:
+    - id: dsh-weekly-panel
+      name: dsh-weekly-panel

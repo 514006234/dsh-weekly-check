@@ -1,0 +1,30 @@
+{
+  "name": "dsh-weekly-panel",
+  "version": "0.1.0",
+  "private": true,
+  "description": "把《DSH 插件周榜》搬进侧边栏：只读的周报抽屉（TOP10 / 免费模型可用性 / 赞助位）",
+  "license": "MIT",
+  "type": "module",
+  "main": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": ["slots"]
+    }
+  },
+  "scripts": {
+    "gate": "node tools/gate.mjs",
+    "render-test": "node tools/render-test.mjs",
+    "test": "node tools/gate.mjs && node tools/render-test.mjs",
+    "check": "node --check lib/index.js && node --check lib/client.js"
+  }
+}

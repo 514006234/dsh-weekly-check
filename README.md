@@ -33,7 +33,24 @@ data/history.json              每次运行的星数快照，用来算"较上期
 report/index.html              当期周报（发布这个文件）
 report/archive/<日期>.md|html  历史留档
 .github/workflows/weekly.yml   每周一 09:00（北京时间）自动跑 + 发布 Pages + 归档回仓库
+site/sponsor.html              商务合作页（模板；收款链接/联系方式在 site/config.json 里配）
+site/config.json               收款链接与联系方式（留空则页面自动降级为占位说明）
+packages/dsh-weekly-panel/     DSH 插件：把周榜搬进侧边栏（可 dsh plugin add；界面改动需重启 DSH）
 ```
+
+## 在 DSH 界面里直接看榜（插件）
+
+`packages/dsh-weekly-panel` 是一个**真实可安装**的 DSH 插件：侧边栏底部的「📊 周榜」入口，点开是不遮挡对话的内联抽屉——
+插件榜 TOP 10（中文名 + 实时星数 + 较上期涨星）、免费模型可用性、以及一块**明确标注「赞助」**的推荐位。
+
+它只读：仅从本站读取 `latest.json`（服务端 fetch + 30 分钟缓存 + loopback 同源护栏），不写文件、不读本地文件、不转发任何请求头。
+
+```bash
+node packages/dsh-weekly-panel/tools/gate.mjs          # 23 项静态门禁（契约/边界/槽位/沙箱）
+node packages/dsh-weekly-panel/tools/render-test.mjs   # 91 项渲染断言（假 ctx 模拟点击/失败/畸形数据）
+```
+
+> 桌面端插件的界面改动**必须完全重启 DSH 才会生效**（客户端 bundle 在启动时快照）——这不是 bug，是载体行为。
 
 ## 本地运行
 
