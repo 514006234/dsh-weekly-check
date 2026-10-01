@@ -1,0 +1,10 @@
+{
+  "_说明": "把收款链接和联系方式填在这里，跑一次 npm run report:offline 就会出现在商务合作页上（不用改 HTML）。留空则页面显示占位提示。",
+  "payUrl": "",
+  "payLabel": "立即支持（微信 / 支付宝）",
+  "contact": "",
+  "_示例": {
+    "payUrl": "https://afdian.com/a/yourname",
+    "contact": "微信：your-wechat-id　邮箱：you@example.com"
+  }
+}

@@ -381,12 +381,25 @@ write(resolve(OUT, 'latest.json'), JSON.stringify({
 
 // 独立页面：site/sponsor.html → report/sponsor/index.html
 // 这样「商务合作」页和周报同域发布，不依赖额外托管；site/assets/ 一并搬过去（收款码等）
+// site/config.json 里的收款链接/联系方式在这里做占位符替换（改配置就行，不用改 HTML）
+const siteConfig = readJson(resolve(ROOT, 'site', 'config.json'), {}) || {}
+function renderSite(html) {
+  const payUrl = String(siteConfig.payUrl || '').trim()
+  const payLabel = String(siteConfig.payLabel || '立即支持（微信 / 支付宝）')
+  const contact = String(siteConfig.contact || '').trim()
+  const payBtn = /^https?:\/\//i.test(payUrl)
+    ? `<a class="btn p" href="${esc(payUrl)}" target="_blank" rel="noopener">${esc(payLabel)}</a>`
+    : ''
+  const contactLine = contact ? `<p class="note">直接联系：${esc(contact)}</p>` : ''
+  return html.replace(/\{\{PAY_BUTTON\}\}/g, payBtn).replace(/\{\{CONTACT_LINE\}\}/g, contactLine)
+}
+
 let pages = 0
 const siteDir = resolve(ROOT, 'site')
 if (existsSync(siteDir)) {
   for (const f of readdirSync(siteDir)) {
     if (!f.endsWith('.html')) continue
-    write(resolve(OUT, f.replace(/\.html$/, ''), 'index.html'), readFileSync(resolve(siteDir, f), 'utf8'))
+    write(resolve(OUT, f.replace(/\.html$/, ''), 'index.html'), renderSite(readFileSync(resolve(siteDir, f), 'utf8')))
     pages++
   }
   const assetsDir = resolve(siteDir, 'assets')
