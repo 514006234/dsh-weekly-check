@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-01T17:08:05.472Z",
+  "generatedAt": "2026-10-01T17:31:07.620Z",
   "liveCount": 31,
   "priorAsOf": "2026-10-01",
   "rows": [
@@ -23,10 +23,10 @@
       "cn": "从代码库生成可验证的架构/流程/时序图，自带 HTML 导出",
       "cat": "文档图",
       "kind": "Skill",
-      "stars": 75678,
+      "stars": 75694,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 16,
+      "delta": 32,
       "pushed": "2026-09-30",
       "license": "MIT",
       "archived": false
@@ -51,10 +51,10 @@
       "cn": "把整个 Harness 打进安装包，**无需 Node 环境**；个人项目非官方",
       "cat": "桌面端",
       "kind": "外部",
-      "stars": 29741,
+      "stars": 29743,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 4,
+      "delta": 6,
       "pushed": "2026-10-01",
       "license": "MIT",
       "archived": false
@@ -149,10 +149,10 @@
       "cn": "任务看板/Git图谱/右侧面板/移动端/皮肤等聚合分发",
       "cat": "工作台",
       "kind": "原生bundle",
-      "stars": 8251,
+      "stars": 8253,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 2,
+      "delta": 4,
       "pushed": "2026-10-01",
       "license": "Apache-2.0",
       "archived": false
@@ -163,10 +163,10 @@
       "cn": "让 Agent 用你**已登录的真实浏览器**干活，CLI+扩展",
       "cat": "浏览器",
       "kind": "Skill",
-      "stars": 8017,
+      "stars": 8018,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 1,
+      "delta": 2,
       "pushed": "2026-09-30",
       "license": "MIT",
       "archived": false
@@ -233,10 +233,10 @@
       "cn": "DSH 界面内的插件市场：浏览/搜索/一键安装",
       "cat": "插件市场",
       "kind": "原生bundle",
-      "stars": 5228,
+      "stars": 5229,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 3,
+      "delta": 4,
       "pushed": "2026-10-01",
       "license": "MIT",
       "archived": false
@@ -261,10 +261,10 @@
       "cn": "纯文本模型**直接看图**：粘贴图片返回 OCR/布局/语义证据",
       "cat": "视觉识图",
       "kind": "原生bundle",
-      "stars": 4099,
+      "stars": 4100,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 0,
+      "delta": 1,
       "pushed": "2026-09-27",
       "license": "MIT",
       "archived": false
@@ -275,10 +275,10 @@
       "cn": "「Agent 工具界的 OpenRouter」，统一调度工具调用",
       "cat": "多Agent",
       "kind": "原生bundle",
-      "stars": 3976,
+      "stars": 3977,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 1,
+      "delta": 2,
       "pushed": "2026-10-01",
       "license": "NOASSERTION",
       "archived": false
@@ -331,10 +331,10 @@
       "cn": "右下角动画小鲸鱼盯余额，可拖拽吸附",
       "cat": "娱乐",
       "kind": "原生bundle",
-      "stars": 3778,
+      "stars": 3779,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 4,
+      "delta": 5,
       "pushed": "2026-09-29",
       "license": "MIT",
       "archived": false
@@ -483,7 +483,7 @@
   "fresh": [
     {
       "repo": "walkinglabs/learn-harness-engineering",
-      "stars": 17475,
+      "stars": 17503,
       "pushed": "2026-10-01",
       "desc": "Harness engineering beginner tutorial, from 0 to 1"
     }

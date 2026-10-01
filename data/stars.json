@@ -6,7 +6,7 @@
     "asOf": "2026-10-02"
   },
   "tt-a1i/archify": {
-    "stars": 75678,
+    "stars": 75694,
     "pushed": "2026-09-30",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -18,7 +18,7 @@
     "asOf": "2026-10-02"
   },
   "anywhere-labs/dsh-desktop": {
-    "stars": 29741,
+    "stars": 29743,
     "pushed": "2026-10-01",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -60,13 +60,13 @@
     "asOf": "2026-10-02"
   },
   "zhu1090093659/dsh-web": {
-    "stars": 8251,
+    "stars": 8253,
     "pushed": "2026-10-01",
     "license": "Apache-2.0",
     "asOf": "2026-10-02"
   },
   "tencent/browserskill": {
-    "stars": 8017,
+    "stars": 8018,
     "pushed": "2026-09-30",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -96,7 +96,7 @@
     "asOf": "2026-10-02"
   },
   "dsh-market/dsh-market": {
-    "stars": 5228,
+    "stars": 5229,
     "pushed": "2026-10-01",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -108,13 +108,13 @@
     "asOf": "2026-10-02"
   },
   "liustack/modlens": {
-    "stars": 4099,
+    "stars": 4100,
     "pushed": "2026-09-27",
     "license": "MIT",
     "asOf": "2026-10-02"
   },
   "superdesigndev/treg": {
-    "stars": 3976,
+    "stars": 3977,
     "pushed": "2026-10-01",
     "license": "NOASSERTION",
     "asOf": "2026-10-02"
@@ -138,7 +138,7 @@
     "asOf": "2026-10-02"
   },
   "meteornox/deepseek-balance-whale-widget": {
-    "stars": 3778,
+    "stars": 3779,
     "pushed": "2026-09-29",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -186,7 +186,7 @@
     "asOf": "2026-10-02"
   },
   "_meta": {
-    "updatedAt": "2026-10-01T17:08:05.472Z",
+    "updatedAt": "2026-10-01T17:31:07.620Z",
     "liveCount": 31,
     "token": "yes"
   }
