@@ -1,36 +1,36 @@
 {
   "nexu-io/open-design": {
-    "stars": 99045,
+    "stars": 99046,
     "pushed": "2026-10-01",
     "license": "Apache-2.0",
     "asOf": "2026-10-02"
   },
   "tt-a1i/archify": {
-    "stars": 75664,
+    "stars": 75670,
     "pushed": "2026-09-30",
     "license": "MIT",
     "asOf": "2026-10-02"
   },
   "volcengine/openviking": {
-    "stars": 39086,
+    "stars": 39088,
     "pushed": "2026-10-01",
     "license": "AGPL-3.0",
     "asOf": "2026-10-02"
   },
   "anywhere-labs/dsh-desktop": {
-    "stars": 29738,
+    "stars": 29739,
     "pushed": "2026-10-01",
     "license": "MIT",
     "asOf": "2026-10-02"
   },
   "titanwings/distilly": {
-    "stars": 25207,
+    "stars": 25208,
     "pushed": "2026-09-22",
     "license": "MIT",
     "asOf": "2026-10-02"
   },
   "voyager-crew/voyager": {
-    "stars": 20278,
+    "stars": 20279,
     "pushed": "2026-09-29",
     "license": "GPL-3.0",
     "asOf": "2026-10-02"
@@ -42,7 +42,7 @@
     "asOf": "2026-10-02"
   },
   "evermind-ai/everos": {
-    "stars": 13321,
+    "stars": 13322,
     "pushed": "2026-10-01",
     "license": "Apache-2.0",
     "asOf": "2026-10-02"
@@ -54,13 +54,13 @@
     "asOf": "2026-10-02"
   },
   "dataelement/dsh-desktop": {
-    "stars": 11385,
+    "stars": 11388,
     "pushed": "2026-10-01",
     "license": "MIT",
     "asOf": "2026-10-02"
   },
   "zhu1090093659/dsh-web": {
-    "stars": 8249,
+    "stars": 8251,
     "pushed": "2026-10-01",
     "license": "Apache-2.0",
     "asOf": "2026-10-02"
@@ -96,7 +96,7 @@
     "asOf": "2026-10-02"
   },
   "dsh-market/dsh-market": {
-    "stars": 5226,
+    "stars": 5227,
     "pushed": "2026-10-01",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -114,7 +114,7 @@
     "asOf": "2026-10-02"
   },
   "superdesigndev/treg": {
-    "stars": 3975,
+    "stars": 3976,
     "pushed": "2026-10-01",
     "license": "NOASSERTION",
     "asOf": "2026-10-02"
@@ -126,7 +126,7 @@
     "asOf": "2026-10-02"
   },
   "ccch1mneyyy/dsh-tui": {
-    "stars": 3904,
+    "stars": 3905,
     "pushed": "2026-10-01",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -138,7 +138,7 @@
     "asOf": "2026-10-02"
   },
   "meteornox/deepseek-balance-whale-widget": {
-    "stars": 3775,
+    "stars": 3778,
     "pushed": "2026-09-29",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -186,7 +186,7 @@
     "asOf": "2026-10-02"
   },
   "_meta": {
-    "updatedAt": "2026-10-01T16:19:37.932Z",
+    "updatedAt": "2026-10-01T16:44:28.277Z",
     "liveCount": 31,
     "token": "yes"
   }
