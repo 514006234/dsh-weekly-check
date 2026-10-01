@@ -1,0 +1,12 @@
+# 临时产物
+data/_*.json
+data/_*.log
+*.tmp
+
+# 每次由 CI 重新 clone 的上游源码
+dsh-our-free-model/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+node_modules/

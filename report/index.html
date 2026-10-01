@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DSH 插件周榜 · 2026-10-02</title>
+<meta name="description" content="DSH 插件周榜：DSH 生态插件排行（中文说明+实时星数）与免费模型可用性周报。">
+<style>
+  :root{--bg:#0b0f17;--bg2:#141a26;--card:#182031;--line:#243044;--fg:#e8eefc;--dim:#93a1bd;--acc:#5eead4;--acc2:#8b9dff;--up:#42d392;--down:#ff7a7a}
+  @media (prefers-color-scheme:light){:root{--bg:#f6f8fc;--bg2:#fff;--card:#fff;--line:#e3e9f4;--fg:#12192a;--dim:#5a6a86;--acc:#0d9488;--acc2:#4f46e5}}
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(180deg,var(--bg2),var(--bg) 320px);color:var(--fg);font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
+  .wrap{max-width:1000px;margin:0 auto;padding:40px 20px 80px}
+  header{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:28px}
+  h1{margin:0 0 6px;font-size:30px;letter-spacing:-.5px}
+  h1 small{font-size:15px;color:var(--dim);font-weight:400;margin-left:10px}
+  h2{font-size:20px;margin:44px 0 14px;padding-left:12px;border-left:3px solid var(--acc)}
+  .lede{color:var(--dim);font-size:14.5px}
+  ul.points{list-style:none;padding:0;margin:0}
+  ul.points li{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin-bottom:10px;box-shadow:0 1px 2px rgba(0,0,0,.12)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 18px}
+  .chip{cursor:pointer;background:var(--card);color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:13px}
+  .chip.on{color:#04121a;background:var(--acc);border-color:var(--acc);font-weight:600}
+  .grid{display:grid;gap:14px}
+  .card{display:grid;grid-template-columns:40px 1fr auto;gap:14px;align-items:start;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;transition:.18s;box-shadow:0 1px 2px rgba(0,0,0,.12)}
+  .card:hover{transform:translateY(-2px);border-color:var(--acc2);box-shadow:0 10px 28px rgba(0,0,0,.22)}
+  .card.hide{display:none}
+  .rank{font:600 13px/1 ui-monospace,monospace;color:var(--dim);padding-top:6px}
+  .card h3{margin:0 0 2px;font-size:16.5px}
+  .card h3 .kind{font-size:11.5px;font-weight:500;color:var(--acc);border:1px solid var(--line);border-radius:6px;padding:1px 7px;margin-left:8px;vertical-align:1px}
+  .repo{color:var(--dim);font:12.5px/1.5 ui-monospace,monospace;text-decoration:none;word-break:break-all}
+  .repo:hover{color:var(--acc2)}
+  .card p{margin:7px 0 0;font-size:14.5px;color:var(--fg)}
+  .card p code{background:rgba(127,127,127,.16);padding:1px 5px;border-radius:5px;font-size:13px}
+  .meta{margin-top:9px;display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--dim)}
+  .meta .cat{color:var(--acc)}
+  .stars{text-align:right;min-width:64px}
+  .stars b{font-size:17px}
+  .stars span{color:var(--dim);margin-left:2px}
+  .stars em{display:block;font-style:normal;font-size:12.5px;margin-top:3px}
+  .up{color:var(--up)}.down{color:var(--down)}
+  table{width:100%;border-collapse:collapse;font-size:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:rgba(127,127,127,.08);font-size:12.5px;color:var(--dim);font-weight:600;white-space:nowrap}
+  tr:last-child td{border-bottom:0}
+  td.dim{color:var(--dim);font-size:13px}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .pill{font-size:12px;padding:2px 9px;border-radius:999px;white-space:nowrap}
+  .pill.ok{background:rgba(66,211,146,.16);color:var(--up)}
+  .pill.bad{background:rgba(255,122,122,.16);color:var(--down)}
+  .pill.warn{background:rgba(255,196,0,.16);color:#eab308}
+  .scroll{overflow-x:auto}
+  footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);color:var(--dim);font-size:12.5px}
+  a{color:var(--acc2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>DSH 插件周榜<small>2026-10-02</small></h1>
+  <p class="lede">只做一件事：把"这周 DSH 生态里什么值得装、免费模型还能不能用"讲成人话。<br>
+  <strong>星数全部来自 GitHub 实时接口</strong>，中文说明为人工核实后的策展，不做机翻。</p>
+</header>
+
+<h2>一、本期要点</h2>
+<ul class="points"><li>收录插件 31 个，合计 419,137 ★；前三名：OpenDesign 设计工作台（99.0k★）、Archify 架构图（75.7k★）、OpenViking 上下文库（39.1k★）。</li><li>本期涨星：Archify 架构图 +2★、OpenViking 上下文库 +1★、DSH Desktop（社区桌面端） +1★。</li><li>免费模型可用性：<strong>6/11 可用</strong>，地区墙 2 个，已下线 2 个，上游波动 1 个；可用模型首字延迟中位 3.07s。</li><li>待审新面孔：walkinglabs/learn-harness-engineering（17.4k★，2026-10-01）。</li></ul>
+
+<h2>二、插件榜（31）</h2>
+<div class="chips"><button class="chip on" data-cat="全部">全部</button><button class="chip" data-cat="设计交付">设计交付</button><button class="chip" data-cat="文档图">文档图</button><button class="chip" data-cat="记忆">记忆</button><button class="chip" data-cat="桌面端">桌面端</button><button class="chip" data-cat="技能">技能</button><button class="chip" data-cat="提示词">提示词</button><button class="chip" data-cat="榜单">榜单</button><button class="chip" data-cat="工作台">工作台</button><button class="chip" data-cat="浏览器">浏览器</button><button class="chip" data-cat="模型路由">模型路由</button><button class="chip" data-cat="多Agent">多Agent</button><button class="chip" data-cat="插件市场">插件市场</button><button class="chip" data-cat="娱乐">娱乐</button><button class="chip" data-cat="视觉识图">视觉识图</button><button class="chip" data-cat="终端">终端</button><button class="chip" data-cat="预设">预设</button><button class="chip" data-cat="免费模型">免费模型</button><button class="chip" data-cat="主题皮肤">主题皮肤</button><button class="chip" data-cat="维护">维护</button><button class="chip" data-cat="用量">用量</button></div>
+<div class="grid">
+      <article class="card" data-cat="设计交付" data-kind="外部">
+        <div class="rank">1</div>
+        <div class="body">
+          <h3>OpenDesign 设计工作台<span class="kind">外部</span></h3>
+          <a class="repo" href="https://github.com/nexu-io/open-design" target="_blank" rel="noopener">nexu-io/open-design</a>
+          <p>生成网页/PPT/图片/视频并导出，<strong>不是 DSH 插件</strong>，是它反过来管理 DSH 运行时</p>
+          <div class="meta">
+            <span class="cat">设计交付</span>
+            <span class="pushed">更新 2026-10-01</span>
+            <span class="lic">Apache-2.0</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>99.0k</b><span>★</span>
+          
+        </div>
+      </article>
+      <article class="card" data-cat="文档图" data-kind="Skill">
+        <div class="rank">2</div>
+        <div class="body">
+          <h3>Archify 架构图<span class="kind">Skill</span></h3>
+          <a class="repo" href="https://github.com/tt-a1i/archify" target="_blank" rel="noopener">tt-a1i/archify</a>
+          <p>从代码库生成可验证的架构/流程/时序图，自带 HTML 导出</p>
+          <div class="meta">
+            <span class="cat">文档图</span>
+            <span class="pushed">更新 2026-09-30</span>
+            <span class="lic">MIT</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>75.7k</b><span>★</span>
+          <em class="up">+2</em>
+        </div>
+      </article>
+      <article class="card" data-cat="记忆" data-kind="外部">
+        <div class="rank">3</div>
+        <div class="body">
+          <h3>OpenViking 上下文库<span class="kind">外部</span></h3>
+          <a class="repo" href="https://github.com/volcengine/OpenViking" target="_blank" rel="noopener">volcengine/OpenViking</a>
+          <p>把记忆/知识/RAG/Skill 统一进 <code>viking://</code> 虚拟文件系统；<strong>AGPL 且是独立部署</strong>，不适合只想加记忆的人</p>
+          <div class="meta">
+            <span class="cat">记忆</span>
+            <span class="pushed">更新 2026-10-01</span>
+            <span class="lic">AGPL-3.0</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>39.1k</b><span>★</span>
+          <em class="up">+1</em>
+        </div>
+      </article>
+      <article class="card" data-cat="桌面端" data-kind="外部">
+        <div class="rank">4</div>
+        <div class="body">
+          <h3>DSH Desktop（社区桌面端）<span class="kind">外部</span></h3>
+          <a class="repo" href="https://github.com/anywhere-labs/dsh-desktop" target="_blank" rel="noopener">anywhere-labs/dsh-desktop</a>
+          <p>把整个 Harness 打进安装包，<strong>无需 Node 环境</strong>；个人项目非官方</p>
+          <div class="meta">
+            <span class="cat">桌面端</span>
+            <span class="pushed">更新 2026-10-01</span>
+            <span class="lic">MIT</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>29.7k</b><span>★</span>
+          <em class="up">+1</em>
+        </div>
+      </article>
+      <article class="card" data-cat="技能" data-kind="外部">
+        <div class="rank">5</div>
+        <div class="body">
+          <h3>Distilly 技能提炼<span class="kind">外部</span></h3>
+          <a class="repo" href="https://github.com/titanwings/distilly" target="_blank" rel="noopener">titanwings/distilly</a>
+          <p>把「别人怎么想」蒸馏成可复用 Skills（原 colleague-skill）</p>
+          <div class="meta">
+            <span class="cat">技能</span>
+            <span class="pushed">更新 2026-09-22</span>
+            <span class="lic">MIT</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>25.2k</b><span>★</span>
+          
+        </div>
+      </article>
+      <article class="card" data-cat="提示词" data-kind="外部">
+        <div class="rank">6</div>
+        <div class="body">
+          <h3>Voyager 提示词管理<span class="kind">外部</span></h3>
+          <a class="repo" href="https://github.com/voyager-crew/voyager" target="_blank" rel="noopener">voyager-crew/voyager</a>
+          <p>浏览器扩展，可在 DSH 网页里复用提示词；<strong>不是 DSH bundle</strong></p>
+          <div class="meta">
+            <span class="cat">提示词</span>
+            <span class="pushed">更新 2026-09-29</span>
+            <span class="lic">GPL-3.0</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>20.3k</b><span>★</span>
+          
+        </div>
+      </article>
+      <article class="card" data-cat="榜单" data-kind="外部">
+        <div class="rank">7</div>
+        <div class="body">
+          <h3>DSH 插件精选列表<span class="kind">外部</span></h3>
+          <a class="repo" href="https://github.com/awesome-dsh-plugin/awesome-dsh-plugin" target="_blank" rel="noopener">awesome-dsh-plugin/awesome-dsh-plugin</a>
+          <p>社区维护的插件清单，找插件的入口</p>
+          <div class="meta">
+            <span class="cat">榜单</span>
+            <span class="pushed">更新 2026-10-01</span>
+            <span class="lic">CC0-1.0</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>17.5k</b><span>★</span>
+          <em class="up">+1</em>
+        </div>
+      </article>
+      <article class="card" data-cat="记忆" data-kind="外部">
+        <div class="rank">8</div>
+        <div class="body">
+          <h3>EverOS 记忆层<span class="kind">外部</span></h3>
+          <a class="repo" href="https://github.com/EverMind-AI/EverOS" target="_blank" rel="noopener">EverMind-AI/EverOS</a>
+          <p>本地优先、Markdown 原生、用户自持的跨 Agent 记忆层</p>
+          <div class="meta">
+            <span class="cat">记忆</span>
+            <span class="pushed">更新 2026-10-01</span>
+            <span class="lic">Apache-2.0</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>13.3k</b><span>★</span>
+          
+        </div>
+      </article>
+      <article class="card" data-cat="记忆" data-kind="外部">
+        <div class="rank">9</div>
+        <div class="body">
+          <h3>MemOS 记忆操作系统<span class="kind">外部</span></h3>
+          <a class="repo" href="https://github.com/MemTensor/MemOS" target="_blank" rel="noopener">MemTensor/MemOS</a>
+          <p>面向 LLM/Agent 的自进化记忆系统，带混合检索</p>
+          <div class="meta">
+            <span class="cat">记忆</span>
+            <span class="pushed">更新 2026-09-29</span>
+            <span class="lic">Apache-2.0</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>11.7k</b><span>★</span>
+          
+        </div>
+      </article>
+      <article class="card" data-cat="桌面端" data-kind="外部">
+        <div class="rank">10</div>
+        <div class="body">
+          <h3>DSHDesktop<span class="kind">外部</span></h3>
+          <a class="repo" href="https://github.com/dataelement/dsh-desktop" target="_blank" rel="noopener">dataelement/dsh-desktop</a>
+          <p>又一个社区桌面版</p>
+          <div class="meta">
+            <span class="cat">桌面端</span>
+            <span class="pushed">更新 2026-10-01</span>
+            <span class="lic">MIT</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>11.4k</b><span>★</span>
+          
+        </div>
+      </article>
+      <article class="card" data-cat="工作台" data-kind="原生bundle">
+        <div class="rank">11</div>
+        <div class="body">
+          <h3>dsh-web 全家桶<span class="kind">原生bundle</span></h3>
+          <a class="repo" href="https://github.com/zhu1090093659/dsh-web" target="_blank" rel="noopener">zhu1090093659/dsh-web</a>
+          <p>任务看板/Git图谱/右侧面板/移动端/皮肤等聚合分发</p>
+          <div class="meta">
+            <span class="cat">工作台</span>
+            <span class="pushed">更新 2026-10-01</span>
+            <span class="lic">Apache-2.0</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>8.2k</b><span>★</span>
+          
+        </div>
+      </article>
+      <article class="card" data-cat="浏览器" data-kind="Skill">
+        <div class="rank">12</div>
+        <div class="body">
+          <h3>BrowserSkill 浏览器技能<span class="kind">Skill</span></h3>
+          <a class="repo" href="https://github.com/Tencent/BrowserSkill" target="_blank" rel="noopener">Tencent/BrowserSkill</a>
+          <p>让 Agent 用你<strong>已登录的真实浏览器</strong>干活，CLI+扩展</p>
+          <div class="meta">
+            <span class="cat">浏览器</span>
+            <span class="pushed">更新 2026-09-30</span>
+            <span class="lic">MIT</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>8.0k</b><span>★</span>
+          
+        </div>
+      </article>
+      <article class="card" data-cat="模型路由" data-kind="原生bundle">
+        <div class="rank">13</div>
+        <div class="body">
+          <h3>dsh-routing-suite 智能路由<span class="kind">原生bundle</span></h3>
+          <a class="repo" href="https://github.com/yjh051108/dsh-routing-suite" target="_blank" rel="noopener">yjh051108/dsh-routing-suite</a>
+          <p>按任务把请求路由到不同模型/提供商</p>
+          <div class="meta">
+            <span class="cat">模型路由</span>
+            <span class="pushed">更新 2026-09-18</span>
+            <span class="lic">MIT</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>7.0k</b><span>★</span>
+          
+        </div>
+      </article>
+      <article class="card" data-cat="工作台" data-kind="外部">
+        <div class="rank">14</div>
+        <div class="body">
+          <h3>iPolloWork 企业工作台<span class="kind">外部</span></h3>
+          <a class="repo" href="https://github.com/Devin-AXIS/iPolloWork" target="_blank" rel="noopener">Devin-AXIS/iPolloWork</a>
+          <p>本地优先的多引擎 Agent 工作台</p>
+          <div class="meta">
+            <span class="cat">工作台</span>
+            <span class="pushed">更新 2026-10-01</span>
+            <span class="lic">NOASSERTION</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>6.5k</b><span>★</span>
+          
+        </div>
+      </article>
+      <article class="card" data-cat="多Agent" data-kind="原生bundle">
+        <div class="rank">15</div>
+        <div class="body">
+          <h3>Ouroboros 自进化 Agent OS<span class="kind">原生bundle</span></h3>
+          <a class="repo" href="https://github.com/Q00/ouroboros" target="_blank" rel="noopener">Q00/ouroboros</a>
+          <p>访谈门控 + 分阶段评测 + 预算约束的长任务闭环</p>
+          <div class="meta">
+            <span class="cat">多Agent</span>
+            <span class="pushed">更新 2026-10-01</span>
+            <span class="lic">MIT</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>6.2k</b><span>★</span>
+          
+        </div>
+      </article>
+      <article class="card" data-cat="多Agent" data-kind="外部">
+        <div class="rank">16</div>
+        <div class="body">
+          <h3>loopx 长任务控制面<span class="kind">外部</span></h3>
+          <a class="repo" href="https://github.com/loopx-project/loopx" target="_blank" rel="noopener">loopx-project/loopx</a>
+          <p>带持久状态内核，维持长任务与团队持续推进</p>
+          <div class="meta">
+            <span class="cat">多Agent</span>
+            <span class="pushed">更新 2026-10-01</span>
+            <span class="lic">Apache-2.0</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>6.1k</b><span>★</span>
+          
+        </div>
+      </article>
+      <article class="card" data-cat="插件市场" data-kind="原生bundle">
+        <div class="rank">17</div>
+        <div class="body">
+          <h3>dsh-market 插件市场<span class="kind">原生bundle</span></h3>
+          <a class="repo" href="https://github.com/dsh-market/dsh-market" target="_blank" rel="noopener">dsh-market/dsh-market</a>
+          <p>DSH 界面内的插件市场：浏览/搜索/一键安装</p>
+          <div class="meta">
+            <span class="cat">插件市场</span>
+            <span class="pushed">更新 2026-10-01</span>
+            <span class="lic">MIT</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>5.2k</b><span>★</span>
+          <em class="up">+1</em>
+        </div>
+      </article>
+      <article class="card" data-cat="娱乐" data-kind="原生bundle">
+        <div class="rank">18</div>
+        <div class="body">
+          <h3>petdex 宠物画廊<span class="kind">原生bundle</span></h3>
+          <a class="repo" href="https://github.com/crafter-station/petdex" target="_blank" rel="noopener">crafter-station/petdex</a>
+          <p>界面里养动画宠物（Codex/Claude/DSH 通用）</p>
+          <div class="meta">
+            <span class="cat">娱乐</span>
+            <span class="pushed">更新 2026-09-28</span>
+            <span class="lic">MIT</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>4.2k</b><span>★</span>
+          
+        </div>
+      </article>
+      <article class="card" data-cat="视觉识图" data-kind="原生bundle">
+        <div class="rank">19</div>
+        <div class="body">
+          <h3>ModLens 视觉识图<span class="kind">原生bundle</span></h3>
+          <a class="repo" href="https://github.com/liustack/modlens" target="_blank" rel="noopener">liustack/modlens</a>
+          <p>纯文本模型<strong>直接看图</strong>：粘贴图片返回 OCR/布局/语义证据</p>
+          <div class="meta">
+            <span class="cat">视觉识图</span>
+            <span class="pushed">更新 2026-09-27</span>
+            <span class="lic">MIT</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>4.1k</b><span>★</span>
+          
+        </div>
+      </article>
+      <article class="card" data-cat="多Agent" data-kind="原生bundle">
+        <div class="rank">20</div>
+        <div class="body">
+          <h3>treg 工具路由器<span class="kind">原生bundle</span></h3>
+          <a class="repo" href="https://github.com/superdesigndev/treg" target="_blank" rel="noopener">superdesigndev/treg</a>
+          <p>「Agent 工具界的 OpenRouter」，统一调度工具调用</p>
+          <div class="meta">
+            <span class="cat">多Agent</span>
+            <span class="pushed">更新 2026-10-01</span>
+            <span class="lic">NOASSERTION</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>4.0k</b><span>★</span>
+          
+        </div>
+      </article>
+      <article class="card" data-cat="工作台" data-kind="原生bundle">
+        <div class="rank">21</div>
+        <div class="body">
+          <h3>better-sidebar 侧边栏底座<span class="kind">原生bundle</span></h3>
+          <a class="repo" href="https://github.com/omdsh-dev/DSH-better-sidebar" target="_blank" rel="noopener">omdsh-dev/DSH-better-sidebar</a>
+          <p>侧边栏变 IDE：文件树/终端/Git/子代理，且开放给三方扩展</p>
+          <div class="meta">
+            <span class="cat">工作台</span>
+            <span class="pushed">更新 2026-10-01</span>
+            <span class="lic">MIT</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>3.9k</b><span>★</span>
+          
+        </div>
+      </article>
+      <article class="card" data-cat="终端" data-kind="原生bundle">
+        <div class="rank">22</div>
+        <div class="body">
+          <h3>dsh-TUI 终端版<span class="kind">原生bundle</span></h3>
+          <a class="repo" href="https://github.com/ccch1mneyyy/dsh-TUI" target="_blank" rel="noopener">ccch1mneyyy/dsh-TUI</a>
+          <p>官方公众号收录的 TUI：鲸鱼顶栏/流式思考/上下文进度+TPS</p>
+          <div class="meta">
+            <span class="cat">终端</span>
+            <span class="pushed">更新 2026-10-01</span>
+            <span class="lic">MIT</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>3.9k</b><span>★</span>
+          
+        </div>
+      </article>
+      <article class="card" data-cat="预设" data-kind="原生bundle">
+        <div class="rank">23</div>
+        <div class="body">
+          <h3>anchored-standard 两阶段预设<span class="kind">原生bundle</span></h3>
+          <a class="repo" href="https://github.com/xiaobright/dsh-anchored-standard" target="_blank" rel="noopener">xiaobright/dsh-anchored-standard</a>
+          <p>先最小对齐启动、再放开全套标准工具的 preset</p>
+          <div class="meta">
+            <span class="cat">预设</span>
+            <span class="pushed">更新 2026-09-10</span>
+            <span class="lic">NOASSERTION</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>3.8k</b><span>★</span>
+          
+        </div>
+      </article>
+      <article class="card" data-cat="娱乐" data-kind="原生bundle">
+        <div class="rank">24</div>
+        <div class="body">
+          <h3>余额小鲸鱼<span class="kind">原生bundle</span></h3>
+          <a class="repo" href="https://github.com/MeteorNOX/DeepSeek-Balance-Whale-Widget" target="_blank" rel="noopener">MeteorNOX/DeepSeek-Balance-Whale-Widget</a>
+          <p>右下角动画小鲸鱼盯余额，可拖拽吸附</p>
+          <div class="meta">
+            <span class="cat">娱乐</span>
+            <span class="pushed">更新 2026-09-29</span>
+            <span class="lic">MIT</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>3.8k</b><span>★</span>
+          <em class="up">+1</em>
+        </div>
+      </article>
+      <article class="card" data-cat="免费模型" data-kind="原生bundle">
+        <div class="rank">25</div>
+        <div class="body">
+          <h3>Our Free Model 免费模型<span class="kind">原生bundle</span></h3>
+          <a class="repo" href="https://github.com/zouyuxuan122/dsh-our-free-model" target="_blank" rel="noopener">zouyuxuan122/dsh-our-free-model</a>
+          <p>免登录免 Key 用 11 个免费模型（MiMo/Nemotron/Space Bunny 等）；<strong>本机已装并调优</strong></p>
+          <div class="meta">
+            <span class="cat">免费模型</span>
+            <span class="pushed">更新 2026-10-01</span>
+            <span class="lic">MIT</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>582</b><span>★</span>
+          
+        </div>
+      </article>
+      <article class="card" data-cat="主题皮肤" data-kind="原生bundle">
+        <div class="rank">26</div>
+        <div class="body">
+          <h3>玻璃透明主题<span class="kind">原生bundle</span></h3>
+          <a class="repo" href="https://github.com/WYH66666666/DSH-Transparent-UI-Plugin" target="_blank" rel="noopener">WYH66666666/DSH-Transparent-UI-Plugin</a>
+          <p>全界面磨砂玻璃主题，模糊度/磨砂度可调</p>
+          <div class="meta">
+            <span class="cat">主题皮肤</span>
+            <span class="pushed">更新 2026-08-22</span>
+            <span class="lic">AGPL-3.0</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>409</b><span>★</span>
+          
+        </div>
+      </article>
+      <article class="card" data-cat="维护" data-kind="Skill">
+        <div class="rank">27</div>
+        <div class="body">
+          <h3>插件升级 Skill<span class="kind">Skill</span></h3>
+          <a class="repo" href="https://github.com/oh-my-dsh/dsh-plugin-upgrade-skill" target="_blank" rel="noopener">oh-my-dsh/dsh-plugin-upgrade-skill</a>
+          <p>让已装插件跟着 DSH 版本升级（升级顾问）</p>
+          <div class="meta">
+            <span class="cat">维护</span>
+            <span class="pushed">更新 2026-10-01</span>
+            <span class="lic">MIT</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>148</b><span>★</span>
+          
+        </div>
+      </article>
+      <article class="card" data-cat="插件市场" data-kind="原生bundle">
+        <div class="rank">28</div>
+        <div class="body">
+          <h3>Web 界面插件市场<span class="kind">原生bundle</span></h3>
+          <a class="repo" href="https://github.com/Sanqi-normal/dsh-webui-market-plugin" target="_blank" rel="noopener">Sanqi-normal/dsh-webui-market-plugin</a>
+          <p>在 Web GUI 里浏览目录、一键装卸到 profile</p>
+          <div class="meta">
+            <span class="cat">插件市场</span>
+            <span class="pushed">更新 2026-08-22</span>
+            <span class="lic">MIT</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>105</b><span>★</span>
+          
+        </div>
+      </article>
+      <article class="card" data-cat="记忆" data-kind="原生bundle">
+        <div class="rank">29</div>
+        <div class="body">
+          <h3>dsh-plugin-memory（记忆）<span class="kind">原生bundle</span></h3>
+          <a class="repo" href="https://github.com/LittleBlackTong/dsh-plugin-memory" target="_blank" rel="noopener">LittleBlackTong/dsh-plugin-memory</a>
+          <p>两层 markdown 记忆；<strong>本机实测不推荐</strong>：默认库在 <code>~/.memory</code> 且每 60 秒起一次 git 提交</p>
+          <div class="meta">
+            <span class="cat">记忆</span>
+            <span class="pushed">更新 2026-09-29</span>
+            <span class="lic">MIT</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>4</b><span>★</span>
+          
+        </div>
+      </article>
+      <article class="card" data-cat="用量" data-kind="原生bundle">
+        <div class="rank">30</div>
+        <div class="body">
+          <h3>DeepSeek 用量看板<span class="kind">原生bundle</span></h3>
+          <a class="repo" href="https://github.com/AzureHalcyon/dsh-deepseek-usage" target="_blank" rel="noopener">AzureHalcyon/dsh-deepseek-usage</a>
+          <p>余额/今日用量/缓存命中/热力图，三个只读接口；<strong>本机已装</strong></p>
+          <div class="meta">
+            <span class="cat">用量</span>
+            <span class="pushed">更新 2026-08-22</span>
+            <span class="lic">GPL-2.0</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>1</b><span>★</span>
+          
+        </div>
+      </article>
+      <article class="card" data-cat="记忆" data-kind="原生bundle">
+        <div class="rank">31</div>
+        <div class="body">
+          <h3>dsh-memory 双层记忆<span class="kind">原生bundle</span></h3>
+          <a class="repo" href="https://github.com/jipika/dsh-memory" target="_blank" rel="noopener">jipika/dsh-memory</a>
+          <p><strong>本机已装的首选记忆</strong>：全局+项目层 markdown、零外网零 Key 零定时器、审计日志、CSRF 护栏</p>
+          <div class="meta">
+            <span class="cat">记忆</span>
+            <span class="pushed">更新 2026-10-01</span>
+            <span class="lic">MIT</span>
+          </div>
+        </div>
+        <div class="stars">
+          <b>0</b><span>★</span>
+          
+        </div>
+      </article></div>
+<p class="lede" style="margin-top:12px">≈ 表示星数取自上期快照（本次实时接口未取到）。</p>
+
+<h2>三、免费模型可用性（真跑一次补全）</h2>
+<p class="lede">可用 <strong>6</strong>/11｜限流 0｜地区墙 2｜已下线 2｜上游波动 1｜首字延迟中位 3.07s</p>
+<div class="scroll"><table><thead><tr><th>状态</th><th>模型</th><th>线路</th><th>首字</th><th>总耗时</th><th>结果</th></tr></thead><tbody><tr><td><span class="pill warn">🔁 上游波动</span></td><td><code>jev-1.13-free</code></td><td>chat</td><td>—</td><td>0.3s</td><td class="dim">Internal server error</td></tr><tr><td><span class="pill bad">❌ 已下线</span></td><td><code>deepseek-v4-flash-free</code></td><td>chat</td><td>—</td><td>0.8s</td><td class="dim">Error from provider (Console): Upstream request failed: Model is unavailable.</td></tr><tr><td><span class="pill warn">🚫 地区墙</span></td><td><code>muse-spark-1.3-contributor-free</code></td><td>responses</td><td>—</td><td>0.3s</td><td class="dim">This model is not available in your country.</td></tr><tr><td><span class="pill warn">🚫 地区墙</span></td><td><code>muse-spark-1.2-contributor-free</code></td><td>responses</td><td>—</td><td>0.3s</td><td class="dim">This model is not available in your country.</td></tr><tr><td><span class="pill ok">✅ 可用</span></td><td><code>mimo-v2.6-flash-free</code></td><td>chat</td><td>3.71s</td><td>4.2s</td><td class="dim">&quot;通了&quot;</td></tr><tr><td><span class="pill ok">✅ 可用</span></td><td><code>space-bunny-free</code></td><td>chat</td><td>3.07s</td><td>3.3s</td><td class="dim">&quot;通了&quot;</td></tr><tr><td><span class="pill ok">✅ 可用</span></td><td><code>longcat-2.5-preview-free</code></td><td>chat</td><td>2.07s</td><td>4.9s</td><td class="dim">&quot;通了&quot;</td></tr><tr><td><span class="pill ok">✅ 可用</span></td><td><code>mimo-v2.5-free</code></td><td>chat</td><td>1.81s</td><td>2.1s</td><td class="dim">&quot;通了&quot;</td></tr><tr><td><span class="pill bad">❌ 已下线</span></td><td><code>ling-3.0-flash-fin-free</code></td><td>chat</td><td>—</td><td>0.7s</td><td class="dim">Error from provider (Console): Upstream request failed: Endpoint is unavailable.</td></tr><tr><td><span class="pill ok">✅ 可用</span></td><td><code>nemotron-3-ultra-free</code></td><td>chat</td><td>1.48s</td><td>6.0s</td><td class="dim">&quot;通了&quot;</td></tr><tr><td><span class="pill ok">✅ 可用</span></td><td><code>nemotron-3.5-lightning-free</code></td><td>chat</td><td>13.19s</td><td>32.3s</td><td class="dim">&quot;The user asks: \&quot;只回复两个字</td></tr></tbody></table></div>
+<p class="lede" style="margin-top:12px">「上游波动」= 供应商临时过载/超时（已自动重试）；「已下线」= 接口明确返回模型或端点不可用。二者对使用者的含义不同，故分开列。</p>
+
+<h2>四、待审新面孔（已自动过滤蹭标签项目）</h2>
+<div class="scroll"><table><thead><tr><th>⭐</th><th>仓库</th><th>更新</th><th>英文简介（原样）</th></tr></thead><tbody><tr><td>17.4k★</td><td><a href="https://github.com/walkinglabs/learn-harness-engineering" target="_blank" rel="noopener">walkinglabs/learn-harness-engineering</a></td><td>2026-10-01</td><td class="dim">Harness engineering beginner tutorial, from 0 to 1</td></tr></tbody></table></div>
+
+<h2>五、星数陷阱（贴了标签但不是插件）</h2>
+<div class="scroll"><table><thead><tr><th>⭐</th><th>仓库</th><th>为什么不算</th></tr></thead><tbody><tr><td>241.0k★</td><td><code>deepseek-ai/deepseek-harness</code></td><td>DeepSeek Harness 本体，不是插件</td></tr><tr><td>73.6k★</td><td><code>ruvnet/ruflo</code></td><td>另一个 agent harness 项目</td></tr><tr><td>43.6k★</td><td><code>reactive-resume/reactive-resume</code></td><td>简历生成器，蹭标签</td></tr><tr><td>35.7k★</td><td><code>esengine/DeepSeek-Reasonix</code></td><td>独立编码代理，不是插件</td></tr><tr><td>33.8k★</td><td><code>freestylefly/awesome-gpt-image-2</code></td><td>提示词案例库，不是插件</td></tr><tr><td>31.5k★</td><td><code>Tencent/WeKnora</code></td><td>LLM 知识平台，蹭标签</td></tr><tr><td>27.3k★</td><td><code>Molunerfinn/PicGo</code></td><td>图片上传工具，与 DSH 无关</td></tr><tr><td>24.4k★</td><td><code>nocobase/nocobase</code></td><td>无代码平台，蹭标签</td></tr></tbody></table></div>
+
+<h2>六、方法与免责</h2>
+<ul class="points">
+  <li>插件星数为 GitHub 实时数据（GraphQL 批量取，失败退化逐个 REST，再失败用上期快照并标 ≈）。</li>
+  <li><strong>原生bundle</strong> 指可直接装进 DSH profile；<strong>外部 / Skill</strong> 指独立应用或技能包。</li>
+  <li>免费模型为<strong>真实调用</strong>（一条极短补全），走的就是免费模型插件自己的传输与指纹；地区墙受出口 IP 影响。</li>
+  <li>周报立场：只推荐本机实测过、且读过源码确认没有外网 / 密钥 / 定时器风险的项目；其余只列不荐。</li>
+</ul>
+
+<footer>
+  生成时间 2026-10-01T16:21:17.894Z｜数据源 tools/rank-plugins.mjs + tools/survey-free-models.mjs
+  
+</footer>
+</div>
+<script>
+var chips = document.querySelectorAll('.chip');
+var cards = document.querySelectorAll('.card');
+for (var i = 0; i < chips.length; i++) {
+  chips[i].addEventListener('click', function () {
+    var cat = this.getAttribute('data-cat');
+    for (var j = 0; j < chips.length; j++) chips[j].classList.toggle('on', chips[j] === this);
+    for (var k = 0; k < cards.length; k++) {
+      cards[k].classList.toggle('hide', cat !== '全部' && cards[k].getAttribute('data-cat') !== cat);
+    }
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+{
+  "nexu-io/open-design": {
+    "stars": 99045,
+    "pushed": "2026-10-01",
+    "license": "Apache-2.0",
+    "asOf": "2026-10-02"
+  },
+  "tt-a1i/archify": {
+    "stars": 75664,
+    "pushed": "2026-09-30",
+    "license": "MIT",
+    "asOf": "2026-10-02"
+  },
+  "volcengine/openviking": {
+    "stars": 39086,
+    "pushed": "2026-10-01",
+    "license": "AGPL-3.0",
+    "asOf": "2026-10-02"
+  },
+  "anywhere-labs/dsh-desktop": {
+    "stars": 29738,
+    "pushed": "2026-10-01",
+    "license": "MIT",
+    "asOf": "2026-10-02"
+  },
+  "titanwings/distilly": {
+    "stars": 25207,
+    "pushed": "2026-09-22",
+    "license": "MIT",
+    "asOf": "2026-10-02"
+  },
+  "voyager-crew/voyager": {
+    "stars": 20278,
+    "pushed": "2026-09-29",
+    "license": "GPL-3.0",
+    "asOf": "2026-10-02"
+  },
+  "awesome-dsh-plugin/awesome-dsh-plugin": {
+    "stars": 17541,
+    "pushed": "2026-10-01",
+    "license": "CC0-1.0",
+    "asOf": "2026-10-02"
+  },
+  "evermind-ai/everos": {
+    "stars": 13321,
+    "pushed": "2026-10-01",
+    "license": "Apache-2.0",
+    "asOf": "2026-10-02"
+  },
+  "memtensor/memos": {
+    "stars": 11672,
+    "pushed": "2026-09-29",
+    "license": "Apache-2.0",
+    "asOf": "2026-10-02"
+  },
+  "dataelement/dsh-desktop": {
+    "stars": 11385,
+    "pushed": "2026-10-01",
+    "license": "MIT",
+    "asOf": "2026-10-02"
+  },
+  "zhu1090093659/dsh-web": {
+    "stars": 8249,
+    "pushed": "2026-10-01",
+    "license": "Apache-2.0",
+    "asOf": "2026-10-02"
+  },
+  "tencent/browserskill": {
+    "stars": 8016,
+    "pushed": "2026-09-30",
+    "license": "MIT",
+    "asOf": "2026-10-02"
+  },
+  "yjh051108/dsh-routing-suite": {
+    "stars": 6993,
+    "pushed": "2026-09-18",
+    "license": "MIT",
+    "asOf": "2026-10-02"
+  },
+  "devin-axis/ipollowork": {
+    "stars": 6522,
+    "pushed": "2026-10-01",
+    "license": "NOASSERTION",
+    "asOf": "2026-10-02"
+  },
+  "q00/ouroboros": {
+    "stars": 6165,
+    "pushed": "2026-10-01",
+    "license": "MIT",
+    "asOf": "2026-10-02"
+  },
+  "loopx-project/loopx": {
+    "stars": 6123,
+    "pushed": "2026-10-01",
+    "license": "Apache-2.0",
+    "asOf": "2026-10-02"
+  },
+  "dsh-market/dsh-market": {
+    "stars": 5226,
+    "pushed": "2026-10-01",
+    "license": "MIT",
+    "asOf": "2026-10-02"
+  },
+  "crafter-station/petdex": {
+    "stars": 4180,
+    "pushed": "2026-09-28",
+    "license": "MIT",
+    "asOf": "2026-10-02"
+  },
+  "liustack/modlens": {
+    "stars": 4099,
+    "pushed": "2026-09-27",
+    "license": "MIT",
+    "asOf": "2026-10-02"
+  },
+  "superdesigndev/treg": {
+    "stars": 3975,
+    "pushed": "2026-10-01",
+    "license": "NOASSERTION",
+    "asOf": "2026-10-02"
+  },
+  "omdsh-dev/dsh-better-sidebar": {
+    "stars": 3942,
+    "pushed": "2026-10-01",
+    "license": "MIT",
+    "asOf": "2026-10-02"
+  },
+  "ccch1mneyyy/dsh-tui": {
+    "stars": 3904,
+    "pushed": "2026-10-01",
+    "license": "MIT",
+    "asOf": "2026-10-02"
+  },
+  "xiaobright/dsh-anchored-standard": {
+    "stars": 3782,
+    "pushed": "2026-09-10",
+    "license": "NOASSERTION",
+    "asOf": "2026-10-02"
+  },
+  "meteornox/deepseek-balance-whale-widget": {
+    "stars": 3775,
+    "pushed": "2026-09-29",
+    "license": "MIT",
+    "asOf": "2026-10-02"
+  },
+  "zouyuxuan122/dsh-our-free-model": {
+    "stars": 582,
+    "pushed": "2026-10-01",
+    "license": "MIT",
+    "asOf": "2026-10-02"
+  },
+  "wyh66666666/dsh-transparent-ui-plugin": {
+    "stars": 409,
+    "pushed": "2026-08-22",
+    "license": "AGPL-3.0",
+    "asOf": "2026-10-02"
+  },
+  "oh-my-dsh/dsh-plugin-upgrade-skill": {
+    "stars": 148,
+    "pushed": "2026-10-01",
+    "license": "MIT",
+    "asOf": "2026-10-02"
+  },
+  "sanqi-normal/dsh-webui-market-plugin": {
+    "stars": 105,
+    "pushed": "2026-08-22",
+    "license": "MIT",
+    "asOf": "2026-10-02"
+  },
+  "littleblacktong/dsh-plugin-memory": {
+    "stars": 4,
+    "pushed": "2026-09-29",
+    "license": "MIT",
+    "asOf": "2026-10-02"
+  },
+  "azurehalcyon/dsh-deepseek-usage": {
+    "stars": 1,
+    "pushed": "2026-08-22",
+    "license": "GPL-2.0",
+    "asOf": "2026-10-02"
+  },
+  "jipika/dsh-memory": {
+    "stars": 0,
+    "pushed": "2026-10-01",
+    "license": "MIT",
+    "asOf": "2026-10-02"
+  },
+  "_meta": {
+    "updatedAt": "2026-10-01T16:19:37.932Z",
+    "liveCount": 31,
+    "token": "yes"
+  }
+}

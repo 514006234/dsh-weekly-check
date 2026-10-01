@@ -1,0 +1,71 @@
+name: 每周插件榜
+
+on:
+  schedule:
+    # 每周一 01:00 UTC = 北京时间 09:00
+    - cron: '0 1 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write      # 把 data/ 与 report/ 归档回仓库
+  pages: write
+  id-token: write
+
+concurrency:
+  group: weekly-report
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      date: ${{ steps.run.outputs.date }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # 免费模型可用性要复用插件自己的传输实现，所以拉一份上游源码。
+      # 拉不到也不让整期失败：该章节会自动降级为"未采集"。
+      - name: 拉取免费模型插件源码
+        continue-on-error: true
+        run: git clone --depth 1 https://github.com/zouyuxuan122/dsh-our-free-model.git dsh-our-free-model
+
+      - name: 采集并生成周报
+        id: run
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -o pipefail
+          node tools/build-report.mjs
+          echo "date=$(date -u +%F)" >> "$GITHUB_OUTPUT"
+
+      - name: 归档本期数据
+        run: |
+          git config user.name  "dsh-weekly-bot"
+          git config user.email "dsh-weekly-bot@users.noreply.github.com"
+          git add data report
+          if git diff --cached --quiet; then
+            echo "本期无变化，跳过提交"
+          else
+            git commit -m "chore(周报): ${{ steps.run.outputs.date }}"
+            git push
+          fi
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: report
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4

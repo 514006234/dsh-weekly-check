@@ -1,0 +1,15 @@
+{
+  "name": "dsh-weekly-check",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "DSH 插件周榜：中文策展的插件排行 + 免费模型可用性周报（自动发布到 GitHub Pages）",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "report": "node tools/build-report.mjs",
+    "report:offline": "node tools/build-report.mjs --offline",
+    "rank": "node tools/rank-plugins.mjs",
+    "survey": "node tools/survey-free-models.mjs",
+    "test": "node tools/selftest.mjs"
+  }
+}
