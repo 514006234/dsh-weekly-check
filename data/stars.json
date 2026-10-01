@@ -1,12 +1,12 @@
 {
   "nexu-io/open-design": {
-    "stars": 99046,
+    "stars": 99047,
     "pushed": "2026-10-01",
     "license": "Apache-2.0",
     "asOf": "2026-10-02"
   },
   "tt-a1i/archify": {
-    "stars": 75670,
+    "stars": 75672,
     "pushed": "2026-09-30",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -54,7 +54,7 @@
     "asOf": "2026-10-02"
   },
   "dataelement/dsh-desktop": {
-    "stars": 11388,
+    "stars": 11389,
     "pushed": "2026-10-01",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -144,7 +144,7 @@
     "asOf": "2026-10-02"
   },
   "zouyuxuan122/dsh-our-free-model": {
-    "stars": 582,
+    "stars": 583,
     "pushed": "2026-10-01",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -186,7 +186,7 @@
     "asOf": "2026-10-02"
   },
   "_meta": {
-    "updatedAt": "2026-10-01T16:44:28.277Z",
+    "updatedAt": "2026-10-01T16:50:06.063Z",
     "liveCount": 31,
     "token": "yes"
   }
