@@ -42,6 +42,13 @@
   .btn.p{background:var(--acc);color:#04121a}
   .btn.s{border:1px solid var(--line);color:var(--fg)}
   .note{font-size:13px;color:var(--dim);margin-top:12px}
+  /* 赞助位是自助购买（¥99 起），不能套用定制开发那套「先确认范围再付款」的流程——
+     那等于给一个冲动购买加一轮来回。这里单独给一个三步自购区块。 */
+  .selfserve{margin:16px 0 0;padding:14px 16px;border:1px solid var(--acc);border-radius:12px;background:rgba(127,127,127,.06)}
+  .selfserve h3{margin:0 0 8px;font-size:15px}
+  .selfserve ol{margin:0;padding-left:20px}
+  .selfserve ol li{margin:6px 0}
+  .selfserve .note{margin-top:8px}
   .pay{display:grid;grid-template-columns:minmax(0,360px) 1fr;gap:18px;align-items:center;margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
   @media (max-width:640px){.pay{grid-template-columns:1fr}}
   .paygrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -107,6 +114,17 @@
     <li><strong>联系与付款</strong>：见本页下方收款码区块与联系方式。</li>
   </ul>
 
+  <div class="selfserve">
+    <h3>赞助位怎么买：三步，不用谈</h3>
+    <ol>
+      <li><strong>扫码付</strong>——微信 / 支付宝收款码在本页下方。创始席 <strong>¥99/年</strong>、标准位 <strong>¥99/月</strong>（季度 ¥279、年度 ¥999、独家一期 ¥299）。</li>
+      <li><strong>开一个 <a href="https://github.com/514006234/dsh-weekly-check/issues/new?template=sponsor.yml" target="_blank" rel="noopener">赞助 Issue</a>，或发邮件到 <a href="mailto:514006234@qq.com">514006234@qq.com</a></strong>——写三件事：仓库地址、想放的那一句话（≤40 字）、你付的是哪一档。</li>
+      <li><strong>下一期周报就上线</strong>——顶部「本期推荐（赞助）」卡片 + 榜内置顶标记，全程标注「赞助」，该期页面永久收录。</li>
+    </ol>
+    <p class="note">赞助位<strong>不需要先谈、不需要签合同、不需要预审</strong>（需要先谈范围的是下面二、三里的定制开发与企业服务，那两档才走「先确认再付款」）。
+      付完 7 天内、且在下一期发布前，<strong>随时可全额退款，不需要理由</strong>。我们只保留一条底线：推荐语要能核实，不接受夸张或无法验证的描述。</p>
+  </div>
+
   <h2>二、插件定制开发</h2>
   <table>
     <thead><tr><th>类型</th><th>典型需求</th><th>价格</th><th>周期</th></tr></thead>
@@ -139,7 +157,8 @@
     <a class="btn s" href="https://github.com/514006234/dsh-weekly-check/issues/new?template=custom-plugin.yml">我有定制需求</a>
     <a class="btn s" href="../report-preview/">先看付费报告的公开预览</a>
   </div>
-  <p class="note">在 Issue 里说明需求即可（不用填任何敏感信息）。我们会在<strong>一个工作日内</strong>回复：先确认范围与验收标准，确认后再付款；<strong>不预收、不做无法验收的活</strong>。</p>
+  <p class="note"><strong>两条路，别搞混</strong>：<strong>赞助位（¥99 起）是自助的</strong>——扫码直接付，付完开个 Issue 留仓库地址就行，<strong>不需要先谈</strong>（见上面「赞助位怎么买」）；
+    需要先谈范围的是<strong>定制开发与企业服务（¥3,000 起）</strong>——那才走「在 Issue 里说明需求 → 我们一个工作日内回复、先确认范围与验收标准 → 确认后再付款」，<strong>不预收、不做无法验收的活</strong>。</p>
   <p class="note">直接联系：514006234@qq.com（邮箱，一个工作日内回复）</p>
   <p class="note"><strong>怎么联系</strong>：<a href="https://github.com/514006234/dsh-weekly-check/issues/new?template=sponsor.yml" target="_blank" rel="noopener">开一个赞助／合作 Issue</a>（不用填任何敏感信息，一个工作日内回复）｜买报告用 <a href="https://github.com/514006234/dsh-weekly-check/issues/new?template=buy-report.yml" target="_blank" rel="noopener">购买报告 Issue</a>。</p>
 
@@ -155,7 +174,8 @@
       </div>
     </div>
     <div class="paytxt">
-      <p><strong>付款方式</strong>：微信 / 支付宝扫码。顺序永远是「先确认范围与验收标准 → 再付款」。</p>
+      <p><strong>付款方式</strong>：微信 / 支付宝扫码，金额按上面表格（创始席 ¥99/年、标准位 ¥99/月、季度 ¥279、年度 ¥999、独家一期 ¥299）。
+        <strong>赞助位是扫码即付、不用先谈</strong>；只有<strong>定制开发与企业服务</strong>才是「先确认范围与验收标准 → 再付款」。</p>
       <p><strong>只是想支持一下也行</strong>：扫码后金额随便填（¥5、¥9.9 都可以），不需要理由——这种情况我们不会把你标成「赞助」，赞助位是留给要曝光的项目的。付完在 Issue 里说一声，我会在页面上谢你一句（你不想要就不写）。</p>
       <p>赞助位成单后立刻生效：<strong>下一期</strong>周报顶部就会出现你的推荐位，并标注「赞助」字样；该期页面会<strong>永久收录</strong>这条赞助位（页面不删除、不用续费也不会下架）。</p>
     </div>
