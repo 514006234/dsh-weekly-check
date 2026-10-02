@@ -1,30 +1,30 @@
 {
   "nexu-io/open-design": {
-    "stars": 99052,
-    "pushed": "2026-10-01",
+    "stars": 99098,
+    "pushed": "2026-10-02",
     "license": "Apache-2.0",
     "asOf": "2026-10-02"
   },
   "tt-a1i/archify": {
-    "stars": 75722,
+    "stars": 75901,
     "pushed": "2026-09-30",
     "license": "MIT",
     "asOf": "2026-10-02"
   },
   "volcengine/openviking": {
-    "stars": 39091,
-    "pushed": "2026-10-01",
+    "stars": 39105,
+    "pushed": "2026-10-02",
     "license": "AGPL-3.0",
     "asOf": "2026-10-02"
   },
   "anywhere-labs/dsh-desktop": {
-    "stars": 29746,
+    "stars": 29768,
     "pushed": "2026-10-01",
     "license": "MIT",
     "asOf": "2026-10-02"
   },
   "titanwings/distilly": {
-    "stars": 25210,
+    "stars": 25224,
     "pushed": "2026-09-22",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -36,13 +36,13 @@
     "asOf": "2026-10-02"
   },
   "awesome-dsh-plugin/awesome-dsh-plugin": {
-    "stars": 17543,
+    "stars": 17560,
     "pushed": "2026-10-01",
     "license": "CC0-1.0",
     "asOf": "2026-10-02"
   },
   "evermind-ai/everos": {
-    "stars": 13322,
+    "stars": 13325,
     "pushed": "2026-10-01",
     "license": "Apache-2.0",
     "asOf": "2026-10-02"
@@ -54,55 +54,55 @@
     "asOf": "2026-10-02"
   },
   "dataelement/dsh-desktop": {
-    "stars": 11392,
-    "pushed": "2026-10-01",
+    "stars": 11494,
+    "pushed": "2026-10-02",
     "license": "MIT",
     "asOf": "2026-10-02"
   },
   "zhu1090093659/dsh-web": {
-    "stars": 8255,
+    "stars": 8264,
     "pushed": "2026-10-01",
     "license": "Apache-2.0",
     "asOf": "2026-10-02"
   },
   "tencent/browserskill": {
-    "stars": 8022,
+    "stars": 8033,
     "pushed": "2026-09-30",
     "license": "MIT",
     "asOf": "2026-10-02"
   },
   "yjh051108/dsh-routing-suite": {
-    "stars": 6994,
+    "stars": 6993,
     "pushed": "2026-09-18",
     "license": "MIT",
     "asOf": "2026-10-02"
   },
   "devin-axis/ipollowork": {
-    "stars": 6521,
+    "stars": 6534,
     "pushed": "2026-10-01",
     "license": "NOASSERTION",
     "asOf": "2026-10-02"
   },
   "q00/ouroboros": {
-    "stars": 6164,
+    "stars": 6166,
     "pushed": "2026-10-01",
     "license": "MIT",
     "asOf": "2026-10-02"
   },
   "loopx-project/loopx": {
-    "stars": 6123,
+    "stars": 6127,
     "pushed": "2026-10-01",
     "license": "Apache-2.0",
     "asOf": "2026-10-02"
   },
   "dsh-market/dsh-market": {
-    "stars": 5233,
+    "stars": 5252,
     "pushed": "2026-10-01",
     "license": "MIT",
     "asOf": "2026-10-02"
   },
   "crafter-station/petdex": {
-    "stars": 4180,
+    "stars": 4183,
     "pushed": "2026-09-28",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -114,37 +114,37 @@
     "asOf": "2026-10-02"
   },
   "superdesigndev/treg": {
-    "stars": 3983,
-    "pushed": "2026-10-01",
+    "stars": 3996,
+    "pushed": "2026-10-02",
     "license": "NOASSERTION",
     "asOf": "2026-10-02"
   },
   "omdsh-dev/dsh-better-sidebar": {
-    "stars": 3942,
+    "stars": 3945,
     "pushed": "2026-10-01",
     "license": "MIT",
     "asOf": "2026-10-02"
   },
   "ccch1mneyyy/dsh-tui": {
-    "stars": 3907,
-    "pushed": "2026-10-01",
+    "stars": 3914,
+    "pushed": "2026-10-02",
     "license": "MIT",
     "asOf": "2026-10-02"
   },
   "meteornox/deepseek-balance-whale-widget": {
-    "stars": 3783,
+    "stars": 3803,
     "pushed": "2026-09-29",
     "license": "MIT",
     "asOf": "2026-10-02"
   },
   "xiaobright/dsh-anchored-standard": {
-    "stars": 3782,
+    "stars": 3783,
     "pushed": "2026-09-10",
     "license": "NOASSERTION",
     "asOf": "2026-10-02"
   },
   "zouyuxuan122/dsh-our-free-model": {
-    "stars": 588,
+    "stars": 608,
     "pushed": "2026-10-01",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -174,7 +174,7 @@
     "asOf": "2026-10-02"
   },
   "jipika/dsh-memory": {
-    "stars": 1,
+    "stars": 2,
     "pushed": "2026-10-01",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -186,7 +186,7 @@
     "asOf": "2026-10-02"
   },
   "_meta": {
-    "updatedAt": "2026-10-01T18:56:55.421Z",
+    "updatedAt": "2026-10-02T04:10:04.423Z",
     "liveCount": 31,
     "token": "yes"
   }
