@@ -6,13 +6,13 @@
     "asOf": "2026-10-02"
   },
   "tt-a1i/archify": {
-    "stars": 76121,
+    "stars": 76122,
     "pushed": "2026-10-02",
     "license": "MIT",
     "asOf": "2026-10-02"
   },
   "volcengine/openviking": {
-    "stars": 39122,
+    "stars": 39120,
     "pushed": "2026-10-02",
     "license": "AGPL-3.0",
     "asOf": "2026-10-02"
@@ -96,7 +96,7 @@
     "asOf": "2026-10-02"
   },
   "dsh-market/dsh-market": {
-    "stars": 5315,
+    "stars": 5316,
     "pushed": "2026-10-02",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -186,7 +186,7 @@
     "asOf": "2026-10-02"
   },
   "_meta": {
-    "updatedAt": "2026-10-02T15:19:47.386Z",
+    "updatedAt": "2026-10-02T15:24:33.275Z",
     "liveCount": 31,
     "token": "yes"
   }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-02T15:19:47.386Z",
+  "generatedAt": "2026-10-02T15:24:33.275Z",
   "liveCount": 31,
   "priorAsOf": null,
   "rows": [
@@ -23,7 +23,7 @@
       "cn": "从代码库生成可验证的架构/流程/时序图，自带 HTML 导出",
       "cat": "文档图",
       "kind": "Skill",
-      "stars": 76121,
+      "stars": 76122,
       "starsSource": "live",
       "asOf": "2026-10-02",
       "delta": null,
@@ -37,7 +37,7 @@
       "cn": "把记忆/知识/RAG/Skill 统一进 `viking://` 虚拟文件系统；**AGPL 且是独立部署**，不适合只想加记忆的人",
       "cat": "记忆",
       "kind": "外部",
-      "stars": 39122,
+      "stars": 39120,
       "starsSource": "live",
       "asOf": "2026-10-02",
       "delta": null,
@@ -233,7 +233,7 @@
       "cn": "DSH 界面内的插件市场：浏览/搜索/一键安装",
       "cat": "插件市场",
       "kind": "原生bundle",
-      "stars": 5315,
+      "stars": 5316,
       "starsSource": "live",
       "asOf": "2026-10-02",
       "delta": null,
@@ -483,7 +483,7 @@
   "fresh": [
     {
       "repo": "walkinglabs/learn-harness-engineering",
-      "stars": 18069,
+      "stars": 18071,
       "pushed": "2026-10-01",
       "desc": "Harness engineering beginner tutorial, from 0 to 1"
     }
