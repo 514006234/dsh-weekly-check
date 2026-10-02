@@ -162,8 +162,16 @@ await api(`/repos/${REPO}/git/refs/heads/${BRANCH}`, {
   body: JSON.stringify({ sha: commit.sha, force: false }),
 });
 
-// 把本地 ref 也对齐，免得下次 diff 又算一遍
-spawnSync('git', ['update-ref', 'refs/heads/' + BRANCH, commit.sha]);
+// 只有本地确实有这个提交对象时才移动本地 ref。
+// 否则（API 提交的父提交是本地没有的 CI 提交）update-ref 会把分支指向一个不存在的对象，
+// 整个本地仓库会直接坏掉——所以这里必须先探一下对象在不在。
+const hasObj = spawnSync('git', ['cat-file', '-e', commit.sha + '^{commit}']);
+if (hasObj.status === 0) {
+  spawnSync('git', ['update-ref', 'refs/heads/' + BRANCH, commit.sha]);
+  console.log('  本地 ref 已对齐到该提交');
+} else {
+  console.log('  （本地没有这个提交对象，保持本地 ref 不动；下次 git fetch 后正常 rebase 即可）');
+}
 
 console.log('✓ 已推送 ' + commit.sha.slice(0, 10) + ' → ' + BRANCH);
 console.log('  https://github.com/' + REPO + '/commit/' + commit.sha);
