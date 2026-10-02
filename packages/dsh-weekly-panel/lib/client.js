@@ -48,7 +48,12 @@ window.__ModuleLoader__.load({
     var CSS = [
       '.dwp-entry{--dwp-surface:rgba(255,255,255,.92);--dwp-card:rgba(255,255,255,.62);--dwp-ink:#0f1115;--dwp-dim:#61666b;--dwp-border:rgba(0,0,0,.10);--dwp-border-strong:rgba(0,0,0,.22);--dwp-hover:rgba(0,0,0,.05);--dwp-accent:#3b82f6;--dwp-shadow:0 14px 34px rgba(0,0,0,.16);}',
       'body[data-ds-dark-theme] .dwp-entry{--dwp-surface:rgba(24,24,27,.86);--dwp-card:rgba(255,255,255,.045);--dwp-ink:#f9fafb;--dwp-dim:#adb2b8;--dwp-border:rgba(255,255,255,.10);--dwp-border-strong:rgba(255,255,255,.26);--dwp-hover:rgba(255,255,255,.07);--dwp-accent:#60a5fa;--dwp-shadow:0 16px 38px rgba(0,0,0,.5);}',
-      '.dwp-entry{width:100%;min-width:0;display:flex;flex-direction:column;gap:8px;color:var(--dwp-ink);font-size:13px;}',
+      /* box-sizing:border-box 是本面板「右侧不被裁」的命门：
+         实测宿主（DSH Web 前端 index-DPX2bQLO.css）**没有**全局 border-box reset，
+         而 .dwp-main 既 width:100% 又左右各 28px 内边距，content-box 下会
+         比父容器宽 56px，被框架 .pI_x6G_centerCol{overflow:hidden} 裁掉右侧。
+         内联 max-width 也救不了（它只限制内容盒，padding 照样撑出去）。 */
+      '.dwp-entry{box-sizing:border-box;width:100%;min-width:0;display:flex;flex-direction:column;gap:8px;color:var(--dwp-ink);font-size:13px;}',
       '.dwp-entry *{box-sizing:border-box;}',
       /* 抽屉时代结束：入口按钮 / 角标 / rail 浮层已随 sidebar.footer.action 移除（面板化） */
       /* 面板主体：流内布局（不使用任何固定定位，天然不遮挡对话），子项禁止收缩 */
@@ -106,11 +111,14 @@ window.__ModuleLoader__.load({
       '.dwp-retry:hover{background:var(--dwp-hover);}',
       /* 中间主列模式：整列宽度、居中限宽、去浮层化；TOP 行在宽屏折成网格。
          min(…,100%) 是窄窗口（窗口未最大化）不被裁切的关键：网格列永远不超过容器。 */
-      '.dwp-main{width:100%;max-width:min(1100px,100%);min-width:0;margin:0 auto;padding:24px 28px 40px;overflow-x:hidden;overflow-y:auto;}',
+      '.dwp-main{box-sizing:border-box;width:100%;max-width:min(1100px,100%);min-width:0;margin:0 auto;padding:24px 28px 40px;overflow-x:hidden;overflow-y:auto;}',
       '.dwp-main .dwp-panel{max-height:none;overflow:visible;border:none;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none;padding:0;gap:14px;}',
       '.dwp-main .dwp-head{padding-bottom:4px;}',
       '.dwp-main .dwp-head .dwp-title{font-size:13px;letter-spacing:.04em;}',
-      '.dwp-main .dwp-section{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));gap:10px;}',
+      '.dwp-main .dwp-section{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));gap:10px;min-width:0;max-width:100%;}',
+      /* 网格子项一律 min-width:0：否则 grid 的 `1fr` 自带 auto 最小尺寸，
+         长仓库名会把轨道顶宽、溢出容器（容器是 overflow-x:hidden，看就是被裁）。 */
+      '.dwp-main .dwp-section>*{min-width:0;max-width:100%;}',
       '.dwp-main .dwp-section-title{grid-column:1/-1;}',
       /* 卡片：长度收短（260px 起）、高度加高（内边距 + 最小高） */
       '.dwp-main .dwp-row{padding:12px 14px;min-height:60px;border-radius:12px;}',
@@ -295,32 +303,56 @@ window.__ModuleLoader__.load({
     }
 
     /**
-     * 窄窗兜底：量父容器的真实宽度，用内联 max-width 强制收敛。
-     * 为什么需要：实测发现框架中间列的百分比解析链不可靠——窗口未最大化时，
-     * 内容仍会被父列的 overflow:hidden 按窗口边缘裁掉。父元素的 clientWidth
-     * 是唯一真相，内联样式优先级高于样式表，对任何框架布局行为都成立。
+     * 窄窗兜底：量「真正能看见多少」，用内联 max-width 收敛。
+     *
+     * v0.4.0 修正的旧版缺陷：旧版只量**直接父元素**的 clientWidth。
+     * 父元素自己可能已经溢出（宽度远大于可视区），报出来的是个偏大的假宽度，
+     * 照它设 max-width 等于没设；而 window.innerWidth 是整扇窗的宽度，
+     * 比中间列宽得多，同样不能用来当上限。
+     * 真正决定「能不能看见」的，是祖先链上最窄的那一环——框架中间列
+     * `.pI_x6G_centerCol{overflow:hidden}`。所以这里取整条祖先链的最小宽度。
      */
+    function visibleWidth(el) {
+      var best = 0;
+      for (var n = el && el.parentElement; n; n = n.parentElement) {
+        var w = n.clientWidth || 0;
+        if (w > 4 && (best === 0 || w < best)) best = w;
+      }
+      var doc = typeof document !== 'undefined' ? document.documentElement : null;
+      var vw = (doc && doc.clientWidth) || window.innerWidth || 0;
+      if (vw > 4 && (best === 0 || vw < best)) best = vw;
+      return best;
+    }
+
     function makeFitGuard(className, cap) {
       if (typeof document === 'undefined' || typeof window === 'undefined') return function () {};
       function fit() {
         var el = document.querySelector('.' + className);
-        if (!el || !el.parentElement) return;
-        var p = el.parentElement;
-        var avail = p.clientWidth || 0;
-        var vw = window.innerWidth || 0;
+        if (!el) return;
+        var avail = visibleWidth(el);
         var want = cap;
-        if (avail > 4) want = Math.min(want, avail - 2);
-        if (vw > 4) want = Math.min(want, vw - 16);
+        if (avail > 4) want = Math.min(want, avail);
         if (want > 0) el.style.maxWidth = want + 'px';
       }
       fit();
       window.addEventListener('resize', fit);
-      var t1 = setTimeout(fit, 250);   // 布局求解器异步收敛后再兜一次
-      var t2 = setTimeout(fit, 1500);  // 数据到达引起重排后再兜一次
+      // 布局会异步收敛好几次（字体、数据到达、侧栏动画），多点触发比单次可靠
+      var timers = [0, 120, 400, 1200, 3000].map(function (ms) { return setTimeout(fit, ms); });
+      var raf = 0;
+      if (typeof requestAnimationFrame === 'function') raf = requestAnimationFrame(fit);
+      var obs = null;
+      if (typeof ResizeObserver === 'function') {
+        try {
+          obs = new ResizeObserver(fit);
+          obs.observe(document.documentElement);
+          if (document.body) obs.observe(document.body);
+        } catch (err) { obs = null; }
+      }
       return function () {
         window.removeEventListener('resize', fit);
-        clearTimeout(t1);
-        clearTimeout(t2);
+        timers.forEach(function (t) { clearTimeout(t); });
+        if (raf && typeof cancelAnimationFrame === 'function') cancelAnimationFrame(raf);
+        if (obs) { try { obs.disconnect(); } catch (err) { /* 忽略 */ } }
       };
     }
 

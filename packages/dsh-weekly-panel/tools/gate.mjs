@@ -156,6 +156,11 @@ try {
   const zIndexes = [...css.matchAll(/z-index:(\d+)/g)].map((m) => Number(m[1]))
   assert.equal(zIndexes.length, 0, '不得声明 z-index 浮层，实际 ' + zIndexes.length + ' 处')
   assert.ok(/\.dwp-main\{[^}]*max-width:min\(1100px,\s*100%\)/.test(css), '主列容器必须 min(1100px,100%) 防窄窗裁切')
+  // 右侧被裁的真凶：宿主没有全局 border-box reset（见 tools/css-reset-check.mjs），
+  // 根元素 width:100% + 28px 内边距会撑出 56px。必须两处都写死。
+  assert.ok(/\.dwp-entry\{[^}]*box-sizing:border-box/.test(css), '面板根元素必须 box-sizing:border-box（宿主无全局 reset）')
+  assert.ok(/\.dwp-main\{[^}]*box-sizing:border-box/.test(css), '中间主列必须 box-sizing:border-box（宿主无全局 reset）')
+  assert.ok(/\.dwp-main \.dwp-section>\*\{[^}]*min-width:0/.test(css), '网格子项必须 min-width:0（否则 1fr 的 auto 最小尺寸把轨道顶宽）')
   assert.ok(/\.dwp-main \.dwp-section\{[^}]*minmax\(min\(260px,\s*100%\)/.test(css), '网格列必须 min(260px,100%) 防窄窗裁切')
   assert.ok(/\.dwp-main \.dwp-row\{[^}]*min-height:60px/.test(css), '卡片行要有 min-height:60px（用户要求高度再高点）')
   assert.ok(!/max-height:min\(46vh/.test(css), '抽屉限高样式已随抽屉移除')
@@ -273,6 +278,8 @@ try {
     const src = readFileSync(join(ROOT, 'lib', 'client.js'), 'utf8')
     assert.ok(/max-width:min\(1100px,\s*100%\)/.test(src), '容器 max-width 必须用 min(1100px,100%) 防窄窗溢出')
     assert.ok(/minmax\(min\(260px,\s*100%\),\s*1fr\)/.test(src), '网格列必须用 min(260px,100%) 防窄窗溢出')
+    assert.ok(/\.dwp-main\{[^}]*box-sizing:border-box/.test(src), '主列必须 box-sizing:border-box：宿主无全局 reset，否则右溢 56px 被裁')
+    assert.ok(/function visibleWidth/.test(src), '窄窗兜底必须量整条祖先链的最小宽度（只量父元素会拿到溢出的假宽度）')
     ok('窄窗口（未最大化）不裁切：容器与网格列都做了 min() 约束')
   }
 
