@@ -166,13 +166,27 @@ function boot(options = {}) {
   })
   let Component = null
   let registerOptions = null
+  const regs = {}          // 槽 key → { opts, comp }（面板化后 apply 注册三个槽）
+  let curSlot = null
   const slots = {
-    inject(_key, cb) { return cb() },
-    register(opts, comp) { registerOptions = opts; Component = comp; return () => {} },
+    inject(key, cb) { curSlot = key; return cb() },
+    register(opts, comp) {
+      regs[curSlot] = { opts, comp }
+      // 兼容老断言：registerOptions/Component 永远指向保底入口（footer）
+      if (curSlot === 'sidebar.footer.action') { registerOptions = opts; Component = comp }
+      return () => {}
+    },
     entries() { return [] },
   }
-  mod.apply({ get: (name) => (name === 'slots' ? slots : undefined) })
-  return { Component, registerOptions, writes, fetchCalls }
+  const baseCtx = { get: (name) => (name === 'slots' ? slots : undefined) }
+  // options.layout 可注入假 layout face（测试 selectPanel 分岔用）
+  if (options.layout) baseCtx.layout = options.layout
+  mod.apply(baseCtx)
+  if (!Component && regs['sidebar.footer.action']) {
+    Component = regs['sidebar.footer.action'].comp
+    registerOptions = regs['sidebar.footer.action'].opts
+  }
+  return { Component, registerOptions, regs, writes, fetchCalls }
 }
 
 function mount(Component, props) {
@@ -449,6 +463,76 @@ async function run() {
     const opened = rail.click(byClass(rail.tree, 'dwp-btn')[0])
     expect(byClass(opened, 'is-float').length === 1, 'rail 展开时用浮层（唯一的固定定位）')
     expect(byClass(opened, 'dwp-panel').length === 1, '浮层里仍是同一个抽屉')
+  }
+
+  console.log('[14] 面板化：main 槽 + 图标行 + 点击分岔（本轮新增）')
+  {
+    // (a) 三槽注册齐全且 id === main.key
+    const booted = boot()
+    expect(booted.regs['main'] && booted.regs['main'].opts.key === 'dsh-weekly', 'main 槽 key = dsh-weekly')
+    expect(booted.regs['sidebar.panellist'] && booted.regs['sidebar.panellist'].opts.id === 'dsh-weekly', 'panellist id 与 main.key 同值')
+    expect(booted.regs['sidebar.panellist'].opts.order === 15, 'panellist order = 15（在工作台 20 之前）')
+    expect(String(booted.regs['sidebar.panellist'].opts.label).includes('周榜'), 'panellist label 含「周榜」')
+    expect(booted.regs['sidebar.footer.action'] && booted.regs['sidebar.footer.action'].opts.order === 20, '保底入口仍在（order 20）')
+
+    // (b) main 面板内容：整列容器、无按钮、无浮层、TOP 行在
+    // 注意：settle() 返回的就是新的树（不是 api），老用法就是这么写的
+    const MainComp = booted.regs['main'].comp
+    const mainView = mount(MainComp, {})
+    const mainAfter = await mainView.settle()
+    expect(byClass(mainAfter, 'dwp-main').length === 1, 'main 模式容器是 .dwp-main')
+    expect(byClass(mainAfter, 'dwp-panel').length === 1, 'main 模式有面板主体')
+    expect(byClass(mainAfter, 'dwp-btn').length === 0, 'main 模式不渲染折叠按钮')
+    expect(byClass(mainAfter, 'is-float').length === 0, 'main 模式无浮层类（流内布局，不遮挡对话）')
+    expect(byClass(mainAfter, 'dwp-row').length === 10, 'main 模式渲染 TOP10 行')
+    expect(textOf(mainAfter).includes('免费模型'), 'main 模式含免费模型区')
+
+    // (c) footer 分岔①：layout 可用 → 切面板，不弹抽屉
+    let clicked = null
+    const withLayout = boot({ layout: { selectPanel(k) { clicked = k } } })
+    const v1 = mount(withLayout.Component, propsFor())
+    await v1.settle()
+    const afterSwitch = v1.click(byClass(v1.tree, 'dwp-btn')[0])
+    expect(clicked === 'dsh-weekly', '点击 footer 按钮调用 selectPanel(dsh-weekly)，实际=' + clicked)
+    expect(byClass(afterSwitch, 'dwp-panel').length === 0, '切换成功时不再弹抽屉')
+
+    // (d) footer 分岔②：无 layout → 降级开抽屉（老行为）
+    const noLayout = boot()
+    const v2 = mount(noLayout.Component, propsFor())
+    await v2.settle()
+    const drawer = v2.click(byClass(v2.tree, 'dwp-btn')[0])
+    expect(byClass(drawer, 'dwp-panel').length === 1, '无 layout 时降级打开原抽屉')
+
+    // (e) footer 分岔③：selectPanel 抛异常 → 吞掉并降级开抽屉，不崩
+    let threwFromRender = null
+    try {
+      const throwing = boot({ layout: { selectPanel() { throw new Error('面板未注册') } } })
+      const v3 = mount(throwing.Component, propsFor())
+      await v3.settle()
+      const fallback = v3.click(byClass(v3.tree, 'dwp-btn')[0])
+      expect(byClass(fallback, 'dwp-panel').length === 1, 'selectPanel 抛异常 → 降级开抽屉')
+    } catch (err) { threwFromRender = err }
+    expect(threwFromRender === null, '抛异常路径不许崩：' + (threwFromRender && threwFromRender.message))
+
+    // (f) 图标组件：active 高亮 + 点击走 selectPanel
+    const iconComp = booted.regs['sidebar.panellist'].comp
+    const iconOn = iconComp({ size: 24, active: true })
+    expect(String((iconOn.props.style || {}).border || '').includes('3b82f6'), 'active 图标有高亮边框')
+    const iconOff = iconComp({ size: 24, active: false })
+    expect(String((iconOff.props.style || {}).border || '').includes('transparent'), '非 active 图标边框透明')
+
+    let iconClicked = null
+    const iconBoot = boot({ layout: { selectPanel(k) { iconClicked = k } } })
+    const iconLive = iconBoot.regs['sidebar.panellist'].comp({ size: 20, active: false })
+    iconLive.props.onClick({ stopPropagation() {}, preventDefault() {} })
+    expect(iconClicked === 'dsh-weekly', '图标点击双保险调用 selectPanel(dsh-weekly)')
+
+    let iconNoLayout = null
+    try {
+      const iconFallback = iconOn   // (f) 的 iconOn 来自无 layout 的 booted ctx
+      iconFallback.props.onClick({ stopPropagation() {}, preventDefault() {} })
+    } catch (err) { iconNoLayout = err }
+    expect(iconNoLayout === null, '无 layout 点击图标不许抛：' + (iconNoLayout && iconNoLayout.message))
   }
 
   console.log('')

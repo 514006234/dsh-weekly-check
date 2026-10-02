@@ -21,19 +21,26 @@ import { fileURLToPath } from 'node:url'
 
 const HERE = dirname(fileURLToPath(import.meta.url))
 const ROOT = resolve(HERE, '..')
-const SRC = resolve(ROOT, 'packages', 'dsh-weekly-panel')
 
-const PKG_NAME = 'dsh-weekly-panel'
+const argv = process.argv.slice(2)
+const uninstall = argv.includes('--uninstall')
+const checkOnly = argv.includes('--check')
+const pkgArg = argv.includes('--pkg') ? argv[argv.indexOf('--pkg') + 1] : 'dsh-weekly-panel'
+// 支持 --pkg all：把 packages/ 下每个带 dsh.bundle 的子包都装一遍
+const PKG_LIST = pkgArg === 'all'
+  ? (existsSync(resolve(ROOT, 'packages'))
+      ? readdirSync(resolve(ROOT, 'packages')).filter((d) => {
+          try { const p = JSON.parse(readFileSync(resolve(ROOT, 'packages', d, 'package.json'), 'utf8')); return !!(p.dsh && p.dsh.bundle) } catch { return false }
+        })
+      : [])
+  : [pkgArg]
+if (!PKG_LIST.length) { console.error('ERROR --pkg ' + pkgArg + ' 没有匹配到任何带 dsh.bundle 的子包'); process.exit(2) }
+
 const DSH_HOME = join(homedir(), '.dsh')
 const PROFILES = join(DSH_HOME, 'profiles')
 const PROFILE = process.env.DSH_PROFILE || 'desktop'
 const PROFILE_JSON = join(PROFILES, PROFILE, 'package.json')
 const MODULES = join(PROFILES, 'node_modules')
-const DEST = join(MODULES, PKG_NAME)
-
-const argv = process.argv.slice(2)
-const uninstall = argv.includes('--uninstall')
-const checkOnly = argv.includes('--check')
 
 const readJson = (f) => JSON.parse(readFileSync(f, 'utf8'))
 function writeJsonNoBom(file, value) {
@@ -57,8 +64,10 @@ function report(profile) {
   const bundles = (profile.dsh && profile.dsh.profile && profile.dsh.profile.bundles) || []
   console.log('profile: ' + PROFILE + '  (' + PROFILE_JSON + ')')
   console.log('bundles(' + bundles.length + '): ' + bundles.join(', '))
-  console.log('已注册: ' + bundles.includes(PKG_NAME))
-  console.log('目录存在: ' + existsSync(DEST) + '  (' + DEST + ')')
+  for (const name of PKG_LIST) {
+    const dest = join(MODULES, name)
+    console.log('  ' + name + '：已注册=' + bundles.includes(name) + '  目录=' + existsSync(dest))
+  }
   const bytes = readFileSync(PROFILE_JSON)
   const bom = bytes[0] === 0xef && bytes[1] === 0xbb && bytes[2] === 0xbf
   console.log('package.json 带 BOM: ' + bom + (bom ? '  ← 危险，DSH 会启动失败！' : ''))
@@ -73,44 +82,61 @@ if (!profile.dsh || !profile.dsh.profile || !Array.isArray(profile.dsh.profile.b
 if (checkOnly) { report(profile); process.exit(0) }
 
 if (uninstall) {
-  profile.dsh.profile.bundles = profile.dsh.profile.bundles.filter((b) => b !== PKG_NAME)
+  profile.dsh.profile.bundles = profile.dsh.profile.bundles.filter((b) => !PKG_LIST.includes(b))
   copyFileSync(PROFILE_JSON, PROFILE_JSON + '.bak')
   writeJsonNoBom(PROFILE_JSON, profile)
-  if (existsSync(DEST)) rmSync(DEST, { recursive: true, force: true })
-  console.log('✓ 已从 bundles 移除并删除目录')
+  for (const name of PKG_LIST) {
+    const dest = join(MODULES, name)
+    if (existsSync(dest)) rmSync(dest, { recursive: true, force: true })
+  }
+  console.log('✓ 已从 bundles 移除并删除目录：' + PKG_LIST.join(', '))
   report(readJson(PROFILE_JSON))
   console.log('\n完全重启 DSH 后生效（客户端 bundle 在启动时快照）。')
   process.exit(0)
 }
 
-// ── 安装 ───────────────────────────────────────────────────────────────
-for (const f of ['package.json', 'cordis.patch.yml', join('lib', 'index.js'), join('lib', 'client.js')]) {
-  if (!existsSync(resolve(SRC, f))) { console.error('ERROR 源文件缺失：' + f); process.exit(2) }
+// ── 安装（可能一次装多个；一份备份、一次写盘、失败整体回滚）────────────
+for (const pkg of PKG_LIST) {
+  const src = resolve(ROOT, 'packages', pkg)
+  for (const f of ['package.json', 'cordis.patch.yml', join('lib', 'index.js'), join('lib', 'client.js')]) {
+    if (!existsSync(resolve(src, f))) { console.error('ERROR ' + pkg + ' 源文件缺失：' + f); process.exit(2) }
+  }
 }
 
 const backup = PROFILE_JSON + '.bak'
 copyFileSync(PROFILE_JSON, backup)
 console.log('已备份 → ' + backup)
 
-copyTree(SRC, DEST)
-console.log('已拷贝插件目录 → ' + DEST)
-
-const before = profile.dsh.profile.bundles.slice()
-if (!profile.dsh.profile.bundles.includes(PKG_NAME)) profile.dsh.profile.bundles.push(PKG_NAME)   // 追加到末尾，不动别人
+const copied = []
 try {
+  for (const pkg of PKG_LIST) {
+    const src = resolve(ROOT, 'packages', pkg)
+    const dest = join(MODULES, pkg)
+    if (existsSync(dest)) rmSync(dest, { recursive: true, force: true })   // 更新覆盖旧版
+    copyTree(src, dest)
+    copied.push(dest)
+    console.log('已拷贝 → ' + dest)
+  }
+
+  const before = profile.dsh.profile.bundles.slice()
+  for (const pkg of PKG_LIST) {
+    if (!profile.dsh.profile.bundles.includes(pkg)) profile.dsh.profile.bundles.push(pkg)   // 追加到末尾，不动别人
+  }
   writeJsonNoBom(PROFILE_JSON, profile)
+
+  const after = readJson(PROFILE_JSON)
+  console.log('bundles: ' + before.length + ' → ' + after.dsh.profile.bundles.length)
+  console.log('新增条目: ' + (after.dsh.profile.bundles.filter((b) => !before.includes(b)).join(', ') || '（都已在列）'))
+  console.log('其他条目未被改动: ' + before.every((b) => after.dsh.profile.bundles.includes(b)))
+  report(after)
 } catch (e) {
-  console.error('✗ 写 profile 失败：' + e.message + ' → 正在回滚')
+  console.error('✗ 失败：' + e.message + ' → 正在回滚')
   copyFileSync(backup, PROFILE_JSON)
-  rmSync(DEST, { recursive: true, force: true })
+  for (const dest of copied) { try { rmSync(dest, { recursive: true, force: true }) } catch { /* 忽略 */ } }
   process.exit(3)
 }
 
-const after = readJson(PROFILE_JSON)
-console.log('bundles: ' + before.length + ' → ' + after.dsh.profile.bundles.length)
-console.log('新增条目: ' + after.dsh.profile.bundles.filter((b) => !before.includes(b)).join(', '))
-console.log('其他条目未被改动: ' + before.every((b) => after.dsh.profile.bundles.includes(b)))
-report(after)
 console.log('\n⚠ 现在请**完全重启 DSH**（关闭再打开）——桌面端插件的界面改动只有在重启后才会出现。')
-console.log('   重启后：侧边栏底部应出现「📊 周榜」按钮；点开是不遮挡对话的抽屉面板。')
-console.log('   若启动异常：node tools/deploy-panel.mjs --uninstall 即可撤销（或把 profile 的 package.json.bak 拷回去）。')
+console.log('   重启后：侧边栏图标行出现「📊 周榜 / 🧰 工作台 / 📈 仪表盘」，点开是中间整列的面板。')
+console.log('   若图标行没出现但侧边栏底部旧按钮还在（保底入口），用它切面板；再不行：')
+console.log('   node tools/deploy-panel.mjs --uninstall --pkg <名字> 或 --pkg all 一键撤销。')

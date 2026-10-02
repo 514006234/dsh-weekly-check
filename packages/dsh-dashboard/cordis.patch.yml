@@ -1,0 +1,7 @@
+# dsh-dashboard 的组合层（bundle 形态）：把自身挂载为一行 insert。
+# 宿主半只提供一个只读路由（/dashboard/data），界面全部在客户端半 lib/client.js：
+#   * main 槽（key: dsh-dashboard）—— 中间整列的仪表盘面板
+#   * sidebar.panellist 槽（id: dsh-dashboard）—— 侧边栏全局面板图标行（id 与 key 同值）
+- insert:
+    - id: dsh-dashboard
+      name: dsh-dashboard

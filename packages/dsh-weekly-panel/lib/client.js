@@ -1,15 +1,18 @@
-// dsh-weekly-panel — client half（客户端半，v0.1.0，手写 bundle、无需构建）。
+// dsh-weekly-panel — client half（客户端半，v0.2.0，手写 bundle、无需构建）。
 //
-// 把《DSH 插件周榜》搬进 DSH 侧边栏：
-//   * 挂在 sidebar.footer.action（list / root 加法槽位，order 20，排在 workbench 的 15 之后）
-//   * 按钮「📊 周榜」+ 角标（= 插件数）
-//   * 点开是**内联抽屉**：更新时间/插件总数、插件 TOP10（中文名 / owner/repo / 星数 / 较上期涨星）、
-//     免费模型可用性（可用 x/y，已下线/地区墙数量）、赞助位（有才显示，且明确标注「赞助」）、
-//     两个外链按钮（完整榜单 / 商务合作）
+// 把《DSH 插件周榜》搬进 DSH（面板化改造）：
+//   * **主入口（本轮新增）**：注册进框架 `main` 槽（keyed，key='dsh-weekly'）——
+//     中间整列宽度的面板，不再挤在侧边栏的狭长抽屉里
+//   * **侧边栏图标行**：注册进 `sidebar.panellist`（id 与 main key 同值，order 15）
+//   * **保底入口**：原 `sidebar.footer.action` 按钮保留；点击时优先切到中间面板，
+//     切不动（layout face 缺失/抛异常）才回落旧抽屉
 //
-// 为什么不遮挡对话：sidebar.footer.action 位于侧边栏 footArea（flex:none 的列），
-// 上方 regionArea 是 flex:1 + overflow:hidden —— 面板展开只会把工作区列表往上挤，
-// 不会盖住对话区。只有侧边栏收起（wide=false）时才退化为临时浮层（唯一一处 position:fixed）。
+// 内容：更新时间/插件总数、插件 TOP10（中文名 / owner/repo / 星数 / 较上期涨星）、
+// 免费模型可用性（可用 x/y，已下线/地区墙数量）、赞助位（有才显示，且明确标注「赞助」）、
+// 两个外链按钮（完整榜单 / 商务合作）。
+//
+// 不遮挡对话：中间面板是流内布局（max-width 1100 居中，无 fixed/z-index）；
+// 只有「保底抽屉 + 侧边栏收起（rail）」这条降级路径才用浮层（z-index 90）。
 //
 // 数据来自宿主半的只读路由 GET /weekly-panel/data（它自己再缓存 30 分钟）。
 // 本文件不 import/export 任何东西；副作用都在 factory 内。
@@ -25,10 +28,15 @@ window.__ModuleLoader__.load({
     /* ===================================================================
      * 契约区：DSH 版本敏感的东西集中在这里。
      * =================================================================== */
-    var SLOT = 'sidebar.footer.action';   // 侧边栏底部的加法槽位（list / root）
+    var SLOT = 'sidebar.footer.action';   // 侧边栏底部的加法槽位（list / root）——保底入口，保留
     var ENTRY_ID = 'dsh-weekly-panel';
     var ENTRY_ORDER = 20;                 // 排在 dsh-workbench-lite（15）之后，不冲突
     var ENTRY_LABEL = '📊 周榜';
+    // 面板化（v0.2.0）：中间主列的 key + 侧边栏图标行的 id（两者必须同值）
+    var MAIN_SLOT = 'main';               // 框架 keyed 槽：中间主列（已占用 key 只有 conversation）
+    var PANEL_SLOT = 'sidebar.panellist'; // 框架 list 槽：侧边栏全局面板图标行
+    var PANEL_KEY = 'dsh-weekly';
+    var PANEL_ORDER = 15;                 // 图标行排序（周榜在工作台 20 之前）
     var STORE_KEY = 'dsh.weekly-panel.v1';// localStorage：只存抽屉展开态
     var DATA_ROUTE = '/weekly-panel/data';
     var SITE_URL = 'https://514006234.github.io/dsh-weekly-check/';
@@ -112,6 +120,15 @@ window.__ModuleLoader__.load({
       '.dwp-empty-reason{font-size:10.5px;word-break:break-word;}',
       '.dwp-retry{margin-top:8px;padding:6px 12px;border-radius:999px;border:1px solid var(--dwp-border-strong);background:transparent;color:inherit;font:inherit;font-size:11px;cursor:pointer;}',
       '.dwp-retry:hover{background:var(--dwp-hover);}',
+      /* 中间主列模式：整列宽度、居中限宽、去浮层化；TOP 行在宽屏折成网格 */
+      '.dwp-main{width:100%;max-width:1100px;margin:0 auto;padding:24px 28px 40px;overflow:auto;}',
+      '.dwp-main .dwp-panel{max-height:none;overflow:visible;border:none;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none;padding:0;gap:14px;}',
+      '.dwp-main .dwp-head{padding-bottom:4px;}',
+      '.dwp-main .dwp-head .dwp-title{font-size:13px;letter-spacing:.04em;}',
+      '.dwp-main .dwp-section{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:8px;}',
+      '.dwp-main .dwp-section-title{grid-column:1/-1;}',
+      '.dwp-main .dwp-empty{grid-column:1/-1;padding:20px 12px;border:1px dashed var(--dwp-border);border-radius:12px;}',
+      '@media (max-width:720px){.dwp-main{padding:16px 14px 32px;}}',
       '@media (prefers-reduced-motion: reduce){.dwp-btn{transition:none;}}',
     ].join('');
 
@@ -307,8 +324,9 @@ window.__ModuleLoader__.load({
     }
 
     function WeeklyPanel(props) {
+      var mainMode = props.main === true;
       var openPair = React.useState(readOpen);
-      var open = openPair[0];
+      var open = mainMode ? true : openPair[0];
       var setOpen = openPair[1];
       var tickPair = React.useState(0);
       var tick = tickPair[0];
@@ -334,6 +352,8 @@ window.__ModuleLoader__.load({
       }
 
       function toggleOpen() {
+        // 面板化：能切到中间面板就切，切不动（layout face 不可用/抛异常）才回落旧抽屉
+        if (selectPanel(CTX, PANEL_KEY)) return;
         var next = !open;
         writeOpen(next);
         setOpen(next);
@@ -436,6 +456,9 @@ window.__ModuleLoader__.load({
         ),
       );
 
+      // 中间主列模式：只要内容、不要按钮、不要浮层（流内布局，天然不遮挡对话）
+      if (mainMode) return h('div', { className: 'dwp-entry dwp-main' }, panel);
+
       return h('div', { className: 'dwp-entry' + (wide ? '' : ' is-rail is-float') }, panel, button);
     }
 
@@ -458,15 +481,76 @@ window.__ModuleLoader__.load({
       return value === null ? undefined : value;
     }
 
+    /**
+     * 切到自己的中间面板。任何异常都吞掉并返回 false——
+     * 调用方据 true/false 分岔：false 时回落到旧抽屉（降级路径）。
+     */
+    function selectPanel(ctx, key) {
+      try {
+        if (typeof (ctx && ctx.layout && ctx.layout.selectPanel) === 'function') {
+          ctx.layout.selectPanel(key);
+          return true;
+        }
+      } catch (err) { /* 降级 */ }
+      return false;
+    }
+
+    /** 中间主列里的内容：同一套 WeeklyPanel，强制展开态、去掉按钮与浮层样式。 */
+    function MainContent() {
+      return h(WeeklyPanel, { main: true });
+    }
+
+    /** 侧边栏图标行的格子：size/active 由宿主给，点击双保险（宿主会切，我们再切一次）。 */
+    function PanelIcon(props) {
+      var size = (props && props.size) || 28;
+      var active = !!(props && props.active);
+      return h('button', {
+        type: 'button',
+        title: '周榜' + (active ? '（当前面板）' : ''),
+        'aria-label': 'DSH 插件周榜',
+        onClick: function () { selectPanel(CTX, PANEL_KEY); },
+        style: {
+          width: size + 'px', height: size + 'px', display: 'inline-flex', alignItems: 'center',
+          justifyContent: 'center', borderRadius: '8px', cursor: 'pointer', fontSize: Math.round(size * 0.55) + 'px',
+          lineHeight: 1, padding: 0, fontFamily: 'inherit',
+          border: '1px solid ' + (active ? 'var(--dwp-accent,#3b82f6)' : 'transparent'),
+          background: active ? 'rgba(59,130,246,.16)' : 'transparent',
+          color: 'inherit', transition: 'background .12s ease,border-color .12s ease',
+        },
+      }, '📊');
+    }
+
+    /** apply 里捕获的插件 ctx（图标点击要拿它切面板）。 */
+    var CTX = null;
+
     function apply(ctx) {
       try {
         var slots = resolveService(ctx, 'slots');
         if (slots === undefined || slots === null) return;
         ensureStyle();
+        CTX = ctx;
+
+        // 1) 保底入口：侧边栏底部按钮（点击时优先切中间面板，切不动才开抽屉）
         slots.inject(SLOT, function () {
           return slots.register(
             { name: SLOT, id: ENTRY_ID, order: ENTRY_ORDER, label: '周榜' },
             WeeklyPanel,
+          );
+        });
+
+        // 2) 中间主列面板（框架 keyed 槽；key 与图标行 id 同值）
+        slots.inject(MAIN_SLOT, function () {
+          return slots.register(
+            { name: MAIN_SLOT, key: PANEL_KEY },
+            MainContent,
+          );
+        });
+
+        // 3) 侧边栏图标行（list 槽；id 必须等于 main 的 key，"Each list id addresses the matching main panel"）
+        slots.inject(PANEL_SLOT, function () {
+          return slots.register(
+            { name: PANEL_SLOT, id: PANEL_KEY, order: PANEL_ORDER, label: ENTRY_LABEL },
+            PanelIcon,
           );
         });
       } catch (err) {

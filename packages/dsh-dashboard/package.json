@@ -1,8 +1,8 @@
 {
-  "name": "dsh-weekly-panel",
-  "version": "0.2.0",
+  "name": "dsh-dashboard",
+  "version": "0.1.0",
   "private": true,
-  "description": "把《DSH 插件周榜》搬进侧边栏：只读的周报抽屉（TOP10 / 免费模型可用性 / 赞助位）",
+  "description": "DSH 中央仪表盘：中间整列的卡片网格（周榜 TOP6 / 免费模型 / 最近会话 / 快捷动作 / 支持本项目）+ 侧边栏全局面板图标行",
   "license": "MIT",
   "type": "module",
   "main": "./lib/index.js",
