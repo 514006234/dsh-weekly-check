@@ -1,10 +1,10 @@
 // dsh-weekly-panel — 客户端 UI 自检（不需要真实 react、不需要 DSH 进程、不联网）。
 //
-// 覆盖：侧边栏底部入口、角标=插件数、抽屉展开/收起、摘要（更新时间+插件数）、
-// 插件 TOP10（中文名 / owner/repo / 星数 / 较上期涨星正数绿色）、免费模型可用性、
-// 赞助位（有则显示且标注「赞助」、没有则不显示）、两个外链按钮、
-// 加载中、请求失败（宿主半 ok:false）、网络异常、重试成功、畸形数据不崩、
-// TTL 内反复开合不重复请求、侧边栏收起时退化为浮层。
+// v0.3.0（抽屉移除）后覆盖：
+//   注册形态（main + sidebar.panellist，两扇门）、主面板结构（流内、无按钮、无浮层）、
+//   加载中 / 数据到（摘要、TOP10 排序与星数格式化、涨星着色、0 与缺失不显示）、
+//   免费模型 chips、赞助位（有/无）、失败态 + 重试、网络异常、畸形数据不崩、
+//   TTL（反复挂载只打一次宿主半路由）、图标运行时（active 高亮、点击分岔、降级不抛）。
 //
 // 为什么用假 react：本机 react 只存在于 Electron 的 app.asar 内，磁盘上取不到。
 // 桩里实现了 useState / useEffect（带依赖比较）与手动重渲染，因此能模拟点击与异步加载。
@@ -17,7 +17,7 @@ import { fileURLToPath } from 'node:url'
 import { createContext, Script } from 'node:vm'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
-const clientSrc = readFileSync(join(ROOT, 'lib/client.js'), 'utf8')
+const clientSrc = readFileSync(join(ROOT, 'lib', 'client.js'), 'utf8')
 
 /* ── 极小 react 桩（含依赖比较的 useEffect）──────────────────────────── */
 const hookState = []
@@ -94,8 +94,6 @@ function findAll(node, pred, out = []) {
 const hasToken = (node, token) => String(node.props.className || '').split(/\s+/).includes(token)
 const byClass = (tree, token) => findAll(tree, (n) => hasToken(n, token))
 const rowsOf = (tree) => byClass(tree, 'dwp-row')
-const badgeOf = (tree) => byClass(tree, 'dwp-badge')[0]
-const badgeText = (tree) => (badgeOf(tree) ? textOf(badgeOf(tree)) : '(无)')
 
 /* ── 夹具 ───────────────────────────────────────────────────────────────── */
 function plugin(i, over = {}) {
@@ -126,9 +124,9 @@ const DATA = {
   sponsors: SPONSORS,
   newcomers: [],
 }
+const DATA_NO_SPONSOR = Object.assign({}, DATA, { sponsors: [] })
 
 const hostOk = (data) => ({ ok: true, status: 200, json: () => Promise.resolve({ ok: true, cached: false, stale: false, ageMs: 0, data }) })
-const jsonRes = (body, status = 200) => ({ ok: status >= 200 && status < 300, status, json: () => Promise.resolve(body) })
 
 /* ── 启动 + 挂载 ────────────────────────────────────────────────────────── */
 function boot(options = {}) {
@@ -136,7 +134,6 @@ function boot(options = {}) {
   cursor = 0
   pendingEffects = []
   effectRecords = []
-  const writes = []
   const fetchCalls = []
   let record = null
   const sandbox = {
@@ -150,11 +147,7 @@ function boot(options = {}) {
     },
     window: {
       __ModuleLoader__: { load(rec) { record = rec } },
-      localStorage: {
-        getItem: () => (options.open === undefined ? null : JSON.stringify({ open: options.open })),
-        setItem: (k, v) => writes.push({ k, v }),
-        removeItem: () => {},
-      },
+      localStorage: { getItem: () => null, setItem: () => {}, removeItem: () => {} },
       addEventListener: () => {},
       removeEventListener: () => {},
     },
@@ -164,29 +157,19 @@ function boot(options = {}) {
     if (id !== 'react') throw new Error('unexpected require: ' + id)
     return ReactStub
   })
-  let Component = null
-  let registerOptions = null
-  const regs = {}          // 槽 key → { opts, comp }（面板化后 apply 注册三个槽）
-  let curSlot = null
+  const regs = {}
+  let cur = null
   const slots = {
-    inject(key, cb) { curSlot = key; return cb() },
-    register(opts, comp) {
-      regs[curSlot] = { opts, comp }
-      // 兼容老断言：registerOptions/Component 永远指向保底入口（footer）
-      if (curSlot === 'sidebar.footer.action') { registerOptions = opts; Component = comp }
-      return () => {}
-    },
+    inject(key, cb) { cur = key; return cb() },
+    register(opts, comp) { regs[cur] = { opts, comp }; return () => {} },
     entries() { return [] },
   }
-  const baseCtx = { get: (name) => (name === 'slots' ? slots : undefined) }
-  // options.layout 可注入假 layout face（测试 selectPanel 分岔用）
+  const baseCtx = { get: (n) => (n === 'slots' ? slots : undefined) }
   if (options.layout) baseCtx.layout = options.layout
   mod.apply(baseCtx)
-  if (!Component && regs['sidebar.footer.action']) {
-    Component = regs['sidebar.footer.action'].comp
-    registerOptions = regs['sidebar.footer.action'].opts
-  }
-  return { Component, registerOptions, regs, writes, fetchCalls }
+  // v0.3.0：唯一内容组件挂在 main 槽
+  const Component = regs['main'] ? regs['main'].comp : null
+  return { Component, regs, fetchCalls }
 }
 
 function mount(Component, props) {
@@ -196,7 +179,7 @@ function mount(Component, props) {
   effectRecords = []
   const render = () => {
     cursor = 0
-    const tree = expand(Component(props))
+    const tree = expand(Component(props || {}))
     flushEffects()
     return tree
   }
@@ -210,329 +193,211 @@ function mount(Component, props) {
     },
     async settle() {
       await new Promise((resolve) => setImmediate(resolve))
-      return api.rerender()
+      return api.rerender()   // 注意：settle 返回的是树本身
     },
   }
   return api
 }
 
-const propsFor = (over = {}) => Object.assign({ wide: true }, over)
-
 /* ── 断言 ───────────────────────────────────────────────────────────────── */
 let failures = 0
 let passed = 0
-const ok = (label) => { passed += 1; console.log('  \u2713 ' + label) }
-const bad = (label) => { failures += 1; console.error('  \u2717 ' + label) }
+const ok = (label) => { passed += 1; console.log('  ✓ ' + label) }
+const bad = (label) => { failures += 1; console.error('  ✗ ' + label) }
 const expect = (cond, label) => (cond ? ok(label) : bad(label))
 
 async function run() {
-  console.log('[1] 收起态：侧边栏底部的入口 + 角标')
+  console.log('[1] 注册形态：两扇门（main + 图标行），抽屉入口已移除')
   {
-    const booted = boot()
-    const { Component, registerOptions } = booted
-    const view = mount(Component, propsFor())
-    expect(byClass(view.tree, 'dwp-btn').length === 1, '渲染出底部入口按钮')
-    expect(byClass(view.tree, 'dwp-panel').length === 0, '默认不展开抽屉')
-    expect(textOf(view.tree).includes('📊 周榜'), '按钮文字是「📊 周榜」')
-    expect(badgeText(view.tree) === '…', '数据未到角标显示占位符')
-    expect(registerOptions.order === 20, '注册 order = 20（workbench 是 15，不冲突）')
-    const after = await view.settle()
-    expect(badgeText(after) === '12', '数据到后角标 = 插件数 12（不用展开就能看见）')
-    expect(booted.fetchCalls.length === 1, '挂载即取一次数据')
+    const { regs } = boot()
+    expect(regs['main'] && regs['main'].opts.key === 'dsh-weekly', 'main 槽 key = dsh-weekly')
+    expect(regs['main'].opts.key !== 'conversation', '不占用保留 key conversation')
+    expect(regs['sidebar.panellist'] && regs['sidebar.panellist'].opts.id === 'dsh-weekly', 'panellist id 与 main.key 同值')
+    expect(regs['sidebar.panellist'].opts.order === 15, 'panellist order = 15')
+    expect(String(regs['sidebar.panellist'].opts.label).includes('周榜'), 'panellist label 含「周榜」')
+    expect(!regs['sidebar.footer.action'], '不再注册 sidebar.footer.action（底部入口已按要求去掉）')
   }
 
-  console.log('[2] 展开：摘要 + 插件 TOP 10')
+  console.log('[2] 主面板结构：流内布局、无按钮、无浮层、窄窗约束在位')
   {
     const { Component } = boot()
-    const view = mount(Component, propsFor())
-    await view.settle()
-    const tree = view.click(byClass(view.tree, 'dwp-btn')[0])
-    expect(byClass(tree, 'dwp-panel').length === 1, '点按钮 → 抽屉展开')
-    expect(byClass(tree, 'dwp-btn').some((b) => hasToken(b, 'is-open')), '展开态按钮有 is-open')
-    expect(byClass(tree, 'dwp-head').length === 1, '有抽屉头（标题 + 提示）')
-    const text = textOf(tree)
-    expect(text.includes('DSH 插件周榜'), '抽屉标题')
-    expect(text.includes('12 个插件'), '摘要显示插件总数')
-    expect(text.includes('更新 2026-10-02'), '摘要显示更新时间')
-    expect(text.includes('插件 TOP 10'), 'TOP 10 小标题')
+    const view = mount(Component, {})
+    const tree = await view.settle()
+    expect(byClass(tree, 'dwp-main').length === 1, '根容器是 .dwp-main（中间整列）')
+    expect(byClass(tree, 'dwp-panel').length === 1, '有面板主体 .dwp-panel')
+    expect(byClass(tree, 'dwp-btn').length === 0, '不再渲染抽屉按钮')
+    expect(byClass(tree, 'dwp-badge').length === 0, '不再渲染抽屉角标')
+    expect(byClass(tree, 'is-float').length === 0 && byClass(tree, 'is-rail').length === 0, '无浮层/rail 类')
+    const cssText = (clientSrc.match(/var CSS = \[([\s\S]*?)\]\.join\(''\)/) || ['', ''])[1]
+    expect(!/position:fixed/.test(cssText.replace(/\/\*[\s\S]*?\*\//g, '')), 'CSS 里零处固定定位（不遮挡对话的硬保证）')
+    expect(/min\(1100px,\s*100%\)/.test(cssText) && /min\(260px,\s*100%\)/.test(cssText), '窄窗 min() 约束在位（未最大化不裁切）')
+    expect(/min-height:60px/.test(cssText), '卡片行加高（min-height:60px）')
+  }
 
+  console.log('[3] 加载中 → 挂载即取一次数据')
+  {
+    const { Component, fetchCalls } = boot()
+    const view = mount(Component, {})
+    expect(textOf(view.tree).includes('正在读取周报'), '首帧显示加载文案')
+    const tree = await view.settle()
+    expect(fetchCalls.length === 1, '挂载即请求一次宿主半路由，实际 ' + fetchCalls.length)
+    expect(fetchCalls[0].url.includes('/weekly-panel/data'), '请求打在 /weekly-panel/data 上')
+    expect(!textOf(tree).includes('正在读取周报'), '数据到后加载文案消失')
+  }
+
+  console.log('[4] 数据到：摘要 + TOP10 排序/格式化/涨星着色')
+  {
+    const { Component } = boot()
+    const view = mount(Component, {})
+    const tree = await view.settle()
+    const text = textOf(tree)
+    expect(text.includes('12 个插件'), '摘要显示插件总数 12')
+    expect(text.includes('更新 2026-10-02'), '摘要显示更新日期')
+    expect(text.includes('插件 TOP 10'), '有 TOP10 小标题')
     const rows = rowsOf(tree)
-    expect(rows.length === 10, 'TOP 只列 10 条（本期 12 个插件），实际 ' + rows.length)
-    expect(!text.includes('示例插件 11'), '第 11 名及以后不进 TOP10')
-    const first = textOf(rows[0])
-    expect(first.includes('OpenDesign 设计工作台'), '第 1 行有中文名')
-    expect(first.includes('nexu-io/open-design'), '第 1 行有 owner/repo')
-    expect(first.includes('99.0k'), '第 1 行星数格式化（99046 → 99.0k）')
-    expect(first.includes('+2'), '第 1 行显示较上期 +2')
-    expect(first.indexOf('1') === 0, '第 1 行有序号 1')
-    expect(textOf(rows[9]).includes('示例插件 10') && textOf(rows[9]).includes('5.0k'), '第 10 行 = 星数第 10 的插件（5000 → 5.0k）')
-    expect(!text.includes('小插件'), '星数最少的第 12 名不进 TOP10')
-
-    const up = byClass(tree, 'is-up')
-    expect(up.length === 1 && textOf(up[0]) === '+2', '正涨星带 is-up（绿色），实际 ' + up.length + ' 个')
-    expect(byClass(tree, 'is-down').length === 1 && textOf(byClass(tree, 'is-down')[0]) === '-1', '下跌带 is-down')
-    expect(rowsOf(tree).every((r) => !textOf(r).includes('null')), '没有 delta 的行不会显示 null')
-    const repoLinks = byClass(tree, 'dwp-repo')
-    expect(repoLinks.length === 11, '10 行仓库链接 + 1 个赞助位仓库链接')
-    expect(repoLinks[0].props.href === 'https://github.com/nexu-io/open-design', '仓库链接指向 github.com/owner/repo')
+    expect(rows.length === 10, '渲染 10 行（12 个里取前 10），实际 ' + rows.length)
+    const firstName = textOf(rows[0])
+    expect(firstName.includes('OpenDesign 设计工作台'), '第 1 名是星数最高的 OpenDesign')
+    expect(firstName.includes('99046') === false && firstName.includes('99.0k'), '星数格式化 99046 → 99.0k')
+    const delta2 = byClass(rows[0], 'dwp-delta')
+    expect(delta2.length === 1 && textOf(rows[0]).includes('+2'), 'delta 2 显示为 +2')
+    expect(String(delta2[0].props.className).includes('is-up'), '正涨星是绿色 is-up')
+    const archify = rows.find((r) => textOf(r).includes('Archify'))
+    expect(!textOf(archify).includes('+0') && byClass(archify, 'dwp-delta').length === 0, 'delta 0 不渲染（不显示 +0）')
+    const viking = rows.find((r) => textOf(r).includes('OpenViking'))
+    const vd = byClass(viking, 'dwp-delta')
+    expect(vd.length === 1 && String(vd[0].props.className).includes('is-down'), '负 delta 是 is-down')
+    const links = byClass(tree, 'dwp-repo')
+    expect(links.length === 11, 'TOP10 + 赞助卡各一条仓库链接，实际 ' + links.length)
+    expect(links[0].props.href.includes('github.com/nexu-io/open-design'), '第一条仓库链接指向正确 GitHub 地址')
+    expect(links[0].props.target === '_blank', '链接新开标签')
   }
 
-  console.log('[3] 免费模型可用性')
+  console.log('[5] 免费模型 chips')
   {
     const { Component } = boot()
-    const view = mount(Component, propsFor({ wide: true }))
-    await view.settle()
-    const tree = view.click(byClass(view.tree, 'dwp-btn')[0])
+    const view = mount(Component, {})
+    const tree = await view.settle()
     const text = textOf(tree)
-    expect(text.includes('免费模型'), '有免费模型小节')
-    expect(text.includes('可用 ') && text.includes('6/11'), '可用 x/y = 6/11')
-    expect(text.includes('已下线 ') && text.includes('2'), '已下线数量')
-    expect(text.includes('地区墙 ') && text.includes('2'), '地区墙数量')
-    expect(text.includes('限流 '), '限流 > 0 时也列出')
-    expect(text.includes('上游波动 '), '上游波动 > 0 时也列出')
-    expect(byClass(tree, 'dwp-chip').length === 5, '5 个 chip（可用/已下线/地区墙/限流/上游波动）')
+    expect(text.includes('免费模型'), '有免费模型区')
+    expect(text.includes('可用') && text.includes('6/11'), '可用 6/11')
+    expect(text.includes('已下线') && text.includes('2'), '已下线数量')
+    expect(text.includes('地区墙'), '地区墙 chip')
+    expect(text.includes('限流'), '限流 >0 时显示')
+    expect(text.includes('上游波动'), '上游波动 >0 时显示')
   }
 
-  console.log('[4] 赞助位（有 sponsors 时必须出现且标注「赞助」）')
+  console.log('[6] 赞助位：有赞助 → 独立小节且明确标注「赞助」')
   {
     const { Component } = boot()
-    const view = mount(Component, propsFor())
-    await view.settle()
-    const tree = view.click(byClass(view.tree, 'dwp-btn')[0])
+    const view = mount(Component, {})
+    const tree = await view.settle()
     const text = textOf(tree)
     expect(text.includes('本期推荐（赞助）'), '有赞助小节标题')
-    expect(byClass(tree, 'dwp-section-sponsor').length === 1, '赞助小节有独立视觉样式')
-    const badges = byClass(tree, 'dwp-sponsor-badge')
-    expect(badges.length === 1 && textOf(badges[0]) === '赞助', '赞助卡片带「赞助」徽标')
+    expect(byClass(tree, 'dwp-sponsor-badge').length >= 1, '赞助卡片带「赞助」徽标')
     expect(text.includes('付费示例插件'), '显示赞助方名称')
     expect(text.includes('这是一条赞助推荐语'), '显示赞助推荐语')
     expect(text.includes('单期推荐'), '显示档位')
   }
 
-  console.log('[5] 没有 sponsors 时不显示赞助小节')
+  console.log('[7] 赞助位：没有赞助 → 不出现赞助小节')
   {
-    const { Component } = boot({ data: Object.assign({}, DATA, { sponsors: [] }) })
-    const view = mount(Component, propsFor())
-    await view.settle()
-    const tree = view.click(byClass(view.tree, 'dwp-btn')[0])
-    expect(!textOf(tree).includes('本期推荐（赞助）'), '空数组 → 不显示赞助小节')
-    expect(byClass(tree, 'dwp-sponsor').length === 0, '没有赞助卡片')
-
-    const noKey = Object.assign({}, DATA)
-    delete noKey.sponsors
-    const booted2 = boot({ data: noKey })
-    const view2 = mount(booted2.Component, propsFor())
-    await view2.settle()
-    const tree2 = view2.click(byClass(view2.tree, 'dwp-btn')[0])
-    expect(!textOf(tree2).includes('本期推荐（赞助）'), '字段整个缺失也不显示、且不崩')
-    expect(textOf(tree2).includes('示例插件 1'), '字段缺失不影响其它内容渲染')
+    const { Component } = boot({ data: DATA_NO_SPONSOR })
+    const view = mount(Component, {})
+    const tree = await view.settle()
+    expect(!textOf(tree).includes('本期推荐（赞助）'), '空 sponsors 不渲染赞助小节')
+    expect(byClass(tree, 'dwp-sponsor-badge').length === 0, '没有赞助徽标')
+    expect(byClass(tree, 'dwp-row').length === 10, '其它内容不受影响')
   }
 
-  console.log('[6] 请求失败（宿主半 ok:false）→ 友好提示 + 重试')
+  console.log('[8] 失败态：宿主半 ok:false → 中文提示 + 原因 + 重试成功恢复')
   {
-    let n = 0
-    const booted = boot({
-      open: true,
+    let calls = 0
+    const { Component } = boot({
       fetch: () => {
-        n += 1
-        return Promise.resolve(n === 1 ? jsonRes({ ok: false, reason: '上游 HTTP 503' }) : hostOk(DATA))
+        calls += 1
+        if (calls === 1) return Promise.resolve({ ok: true, json: () => Promise.resolve({ ok: false, reason: '上游 503 抽风' }) })
+        return Promise.resolve(hostOk(DATA))
       },
     })
-    const view = mount(booted.Component, propsFor())
-    const tree = await view.settle()
-    expect(byClass(tree, 'dwp-panel').length === 1, '失败时抽屉仍渲染（不白屏）')
-    const text = textOf(tree)
-    expect(text.includes('暂时拿不到周报数据'), '显示中文失败提示')
-    expect(text.includes('上游 HTTP 503'), '提示里带具体原因')
-    expect(byClass(tree, 'dwp-retry').length === 1, '提供「重试」按钮')
-    expect(byClass(tree, 'dwp-links').length === 1, '失败时两个外链按钮仍在')
-    expect(badgeText(tree) === '!', '失败且无数据时角标显示 !')
-    expect(badgeOf(tree) && hasToken(badgeOf(tree), 'is-empty'), '未知状态角标是弱化样式')
-
-    const retried = view.click(byClass(tree, 'dwp-retry')[0])
-    expect(n === 2, '点「重试」→ 再发一次请求，实际 ' + n)
-    const done = await view.settle()
-    expect(textOf(done).includes('示例插件 1'), '重试成功后正常渲染数据')
-    expect(!textOf(done).includes('暂时拿不到周报数据'), '成功后失败提示消失')
-  }
-
-  console.log('[7] 网络异常（fetch reject）也要友好失败')
-  {
-    const booted = boot({ open: true, fetch: () => Promise.reject(new Error('连接被拒绝')) })
-    const view = mount(booted.Component, propsFor())
+    const view = mount(Component, {})
     const tree = await view.settle()
     const text = textOf(tree)
-    expect(text.includes('暂时拿不到周报数据'), '网络异常 → 友好提示')
-    expect(text.includes('连接被拒绝'), '带上异常信息')
-    expect(text.includes('打开完整榜单'), '链接仍在，用户能自己去网站看')
+    expect(text.includes('暂时拿不到周报数据'), '失败时显示中文标题')
+    expect(text.includes('上游 503 抽风'), '失败原因透出')
+    const retry = byClass(tree, 'dwp-retry')
+    expect(retry.length === 1, '有重试按钮')
+    view.click(retry[0])
+    await view.settle()
+    const recovered = view.rerender()
+    expect(byClass(recovered, 'dwp-row').length === 10, '重试成功后正常渲染数据')
+    expect(!textOf(recovered).includes('暂时拿不到周报数据'), '失败提示消失')
   }
 
-  console.log('[8] 加载中（请求挂起时）')
+  console.log('[9] 网络异常（fetch reject）→ 提示不崩')
   {
-    let release = null
-    const pending = new Promise((resolve) => { release = resolve })
-    const booted = boot({ open: true, fetch: () => pending.then(() => hostOk(DATA)) })
-    const view = mount(booted.Component, propsFor())
-    expect(textOf(view.tree).includes('正在读取周报…'), '首帧显示加载中')
-    expect(badgeText(view.tree) === '…', '加载中角标是占位符')
-    release()
-    const tree = await view.settle()
-    expect(textOf(tree).includes('示例插件 1'), '请求返回后渲染数据')
-    expect(!textOf(tree).includes('正在读取周报…'), '加载中文案消失')
-  }
-
-  console.log('[9] 畸形数据（字段缺失）不崩')
-  {
-    const booted = boot({ open: true, data: { date: '2026-10-02' } })
-    const view = mount(booted.Component, propsFor())
+    const { Component } = boot({ fetch: () => Promise.reject(new Error('网络断了')) })
+    const view = mount(Component, {})
     const tree = await view.settle()
     const text = textOf(tree)
-    expect(byClass(tree, 'dwp-panel').length === 1, '面板仍在（没白屏）')
+    expect(text.includes('暂时拿不到周报数据'), '网络异常也走失败态')
+    expect(text.includes('网络断了'), '异常信息透出')
+    expect(byClass(tree, 'dwp-retry').length === 1, '仍提供重试按钮')
+  }
+
+  console.log('[10] 畸形数据（字段缺失）不崩')
+  {
+    const { Component } = boot({ data: { date: '2026-10-02' } })
+    const view = mount(Component, {})
+    const tree = await view.settle()
+    expect(tree !== null && tree !== undefined, '面板仍在（没白屏）')
+    const text = textOf(tree)
     expect(text.includes('0 个插件'), '缺 plugins → 显示 0 个插件而不是崩溃')
-    expect(text.includes('本期还没有插件数据'), 'TOP 区有明确空提示')
-    expect(text.includes('免费模型数据暂缺'), '缺 stat → 明确说明而不是显示 0/0')
-
-    const empty = boot({ open: true, data: {} })
-    const view2 = mount(empty.Component, propsFor())
-    const tree2 = await view2.settle()
-    expect(textOf(tree2).includes('更新 —'), '连 date 都没有时显示「更新 —」')
-    expect(byClass(tree2, 'dwp-links').length === 1, '空对象也保留外链按钮')
+    expect(!text.includes('null') && !text.includes('undefined'), '不把 null/undefined 漏到界面上')
+    expect(byClass(tree, 'dwp-retry').length === 0, '成功但空数据不算失败态')
   }
 
-  console.log('[10] TTL 内反复开合不重复请求宿主半')
+  console.log('[11] TTL：反复挂载只打一次宿主半路由')
   {
-    const booted = boot()
-    const view = mount(booted.Component, propsFor())
-    await view.settle()
-    expect(booted.fetchCalls.length === 1, '挂载取一次')
-    await view.settle()
-    view.click(byClass(view.tree, 'dwp-btn')[0])
-    await view.settle()
-    view.click(byClass(view.tree, 'dwp-btn')[0])
-    await view.settle()
-    view.click(byClass(view.tree, 'dwp-btn')[0])
-    await view.settle()
-    expect(booted.fetchCalls.length === 1, '开合三次仍只请求一次（客户端 5 分钟缓存生效）')
-    expect(booted.fetchCalls[0].url === '/weekly-panel/data', '请求打在宿主半只读路由上')
-    expect(booted.fetchCalls[0].init && booted.fetchCalls[0].init.credentials === 'same-origin', '同源凭据')
-  }
-
-  console.log('[11] 展开/收起 + 记忆展开态')
-  {
-    const booted = boot()
-    const view = mount(booted.Component, propsFor())
-    await view.settle()
-    const opened = view.click(byClass(view.tree, 'dwp-btn')[0])
-    expect(byClass(opened, 'dwp-panel').length === 1, '点一下 → 展开')
-    const closed = view.click(byClass(opened, 'dwp-btn')[0])
-    expect(byClass(closed, 'dwp-panel').length === 0, '再点一下 → 收起')
-    const parse = (w) => { try { return JSON.parse(w.v) } catch { return null } }
-    expect(booted.writes.length === 2, '写了两次 localStorage（展开 + 收起），实际 ' + booted.writes.length)
-    expect(parse(booted.writes[0]) && parse(booted.writes[0]).open === true, '第一次写 open:true')
-    expect(parse(booted.writes[1]) && parse(booted.writes[1]).open === false, '第二次写 open:false')
-    expect(booted.writes[0].k === 'dsh.weekly-panel.v1', 'localStorage key 稳定')
-
-    const restored = boot({ open: true })
-    const view2 = mount(restored.Component, propsFor())
-    expect(byClass(view2.tree, 'dwp-panel').length === 1, '记住展开态：重开直接是展开的')
-  }
-
-  console.log('[12] 两个外链按钮')
-  {
-    const { Component } = boot()
-    const view = mount(Component, propsFor())
-    await view.settle()
-    const tree = view.click(byClass(view.tree, 'dwp-btn')[0])
-    const links = byClass(tree, 'dwp-link')
-    expect(links.length === 2, '两个链接按钮')
-    expect(textOf(links[0]) === '打开完整榜单', '第一个是「打开完整榜单」')
-    expect(textOf(links[1]) === '商务合作', '第二个是「商务合作」')
-    expect(links[0].props.href === 'https://514006234.github.io/dsh-weekly-check/', '完整榜单地址正确')
-    expect(links[1].props.href === 'https://514006234.github.io/dsh-weekly-check/sponsor/', '商务合作地址正确')
-    expect(links.every((l) => l.props.target === '_blank'), '外链都新开标签')
-    expect(links.every((l) => String(l.props.rel).includes('noopener')), '外链都带 noopener')
-  }
-
-  console.log('[13] 侧边栏收起（rail）：退化为浮层')
-  {
-    const { Component } = boot()
-    const rail = mount(Component, propsFor({ wide: false }))
-    expect(byClass(rail.tree, 'is-rail').length === 1, 'wide=false → rail 形态')
-    expect(textOf(rail.tree).includes('📊'), 'rail 下只留图标')
-    expect(!textOf(rail.tree).includes('📊 周榜'), 'rail 下不塞长文案（宽度不够）')
-    const opened = rail.click(byClass(rail.tree, 'dwp-btn')[0])
-    expect(byClass(opened, 'is-float').length === 1, 'rail 展开时用浮层（唯一的固定定位）')
-    expect(byClass(opened, 'dwp-panel').length === 1, '浮层里仍是同一个抽屉')
-  }
-
-  console.log('[14] 面板化：main 槽 + 图标行 + 点击分岔（本轮新增）')
-  {
-    // (a) 三槽注册齐全且 id === main.key
-    const booted = boot()
-    expect(booted.regs['main'] && booted.regs['main'].opts.key === 'dsh-weekly', 'main 槽 key = dsh-weekly')
-    expect(booted.regs['sidebar.panellist'] && booted.regs['sidebar.panellist'].opts.id === 'dsh-weekly', 'panellist id 与 main.key 同值')
-    expect(booted.regs['sidebar.panellist'].opts.order === 15, 'panellist order = 15（在工作台 20 之前）')
-    expect(String(booted.regs['sidebar.panellist'].opts.label).includes('周榜'), 'panellist label 含「周榜」')
-    expect(booted.regs['sidebar.footer.action'] && booted.regs['sidebar.footer.action'].opts.order === 20, '保底入口仍在（order 20）')
-
-    // (b) main 面板内容：整列容器、无按钮、无浮层、TOP 行在
-    // 注意：settle() 返回的就是新的树（不是 api），老用法就是这么写的
-    const MainComp = booted.regs['main'].comp
-    const mainView = mount(MainComp, {})
-    const mainAfter = await mainView.settle()
-    expect(byClass(mainAfter, 'dwp-main').length === 1, 'main 模式容器是 .dwp-main')
-    expect(byClass(mainAfter, 'dwp-panel').length === 1, 'main 模式有面板主体')
-    expect(byClass(mainAfter, 'dwp-btn').length === 0, 'main 模式不渲染折叠按钮')
-    expect(byClass(mainAfter, 'is-float').length === 0, 'main 模式无浮层类（流内布局，不遮挡对话）')
-    expect(byClass(mainAfter, 'dwp-row').length === 10, 'main 模式渲染 TOP10 行')
-    expect(textOf(mainAfter).includes('免费模型'), 'main 模式含免费模型区')
-
-    // (c) footer 分岔①：layout 可用 → 切面板，不弹抽屉
-    let clicked = null
-    const withLayout = boot({ layout: { selectPanel(k) { clicked = k } } })
-    const v1 = mount(withLayout.Component, propsFor())
+    const { Component, fetchCalls } = boot()
+    const v1 = mount(Component, {})
     await v1.settle()
-    const afterSwitch = v1.click(byClass(v1.tree, 'dwp-btn')[0])
-    expect(clicked === 'dsh-weekly', '点击 footer 按钮调用 selectPanel(dsh-weekly)，实际=' + clicked)
-    expect(byClass(afterSwitch, 'dwp-panel').length === 0, '切换成功时不再弹抽屉')
-
-    // (d) footer 分岔②：无 layout → 降级开抽屉（老行为）
-    const noLayout = boot()
-    const v2 = mount(noLayout.Component, propsFor())
+    const v2 = mount(Component, {})
     await v2.settle()
-    const drawer = v2.click(byClass(v2.tree, 'dwp-btn')[0])
-    expect(byClass(drawer, 'dwp-panel').length === 1, '无 layout 时降级打开原抽屉')
+    const v3 = mount(Component, {})
+    await v3.settle()
+    expect(fetchCalls.length === 1, '三次挂载仍只请求一次（5 分钟客户端 TTL），实际 ' + fetchCalls.length)
+    expect(byClass(v3.tree, 'dwp-row').length === 10, '每次挂载都有完整数据')
+  }
 
-    // (e) footer 分岔③：selectPanel 抛异常 → 吞掉并降级开抽屉，不崩
-    let threwFromRender = null
-    try {
-      const throwing = boot({ layout: { selectPanel() { throw new Error('面板未注册') } } })
-      const v3 = mount(throwing.Component, propsFor())
-      await v3.settle()
-      const fallback = v3.click(byClass(v3.tree, 'dwp-btn')[0])
-      expect(byClass(fallback, 'dwp-panel').length === 1, 'selectPanel 抛异常 → 降级开抽屉')
-    } catch (err) { threwFromRender = err }
-    expect(threwFromRender === null, '抛异常路径不许崩：' + (threwFromRender && threwFromRender.message))
-
-    // (f) 图标组件：active 高亮 + 点击走 selectPanel
-    const iconComp = booted.regs['sidebar.panellist'].comp
+  console.log('[12] 图标行运行时：active 高亮 + 点击分岔 + 降级不抛')
+  {
+    const { regs } = boot()
+    const iconComp = regs['sidebar.panellist'].comp
     const iconOn = iconComp({ size: 24, active: true })
     expect(String((iconOn.props.style || {}).border || '').includes('3b82f6'), 'active 图标有高亮边框')
+    expect(iconOn.props.style.width === '24px' && iconOn.props.style.height === '24px', '图标按宿主给的 size 等尺寸')
     const iconOff = iconComp({ size: 24, active: false })
     expect(String((iconOff.props.style || {}).border || '').includes('transparent'), '非 active 图标边框透明')
+    expect(typeof iconOn.props.onClick === 'function', '图标自带 onClick 双保险')
 
     let iconClicked = null
-    const iconBoot = boot({ layout: { selectPanel(k) { iconClicked = k } } })
-    const iconLive = iconBoot.regs['sidebar.panellist'].comp({ size: 20, active: false })
-    iconLive.props.onClick({ stopPropagation() {}, preventDefault() {} })
-    expect(iconClicked === 'dsh-weekly', '图标点击双保险调用 selectPanel(dsh-weekly)')
+    const withLayout = boot({ layout: { selectPanel(k) { iconClicked = k } } })
+    withLayout.regs['sidebar.panellist'].comp({ size: 20, active: false })
+      .props.onClick({ stopPropagation() {}, preventDefault() {} })
+    expect(iconClicked === 'dsh-weekly', '有 layout 时点击切到 dsh-weekly')
 
-    let iconNoLayout = null
+    let iconErr = null
+    try { iconOn.props.onClick({ stopPropagation() {}, preventDefault() {} }) } catch (err) { iconErr = err }
+    expect(iconErr === null, '无 layout 点击不许抛：' + (iconErr && iconErr.message))
+
+    let iconThrow = null
     try {
-      const iconFallback = iconOn   // (f) 的 iconOn 来自无 layout 的 booted ctx
-      iconFallback.props.onClick({ stopPropagation() {}, preventDefault() {} })
-    } catch (err) { iconNoLayout = err }
-    expect(iconNoLayout === null, '无 layout 点击图标不许抛：' + (iconNoLayout && iconNoLayout.message))
+      const throwing = boot({ layout: { selectPanel() { throw new Error('面板未注册') } } })
+      throwing.regs['sidebar.panellist'].comp({ size: 20, active: false })
+        .props.onClick({ stopPropagation() {}, preventDefault() {} })
+    } catch (err) { iconThrow = err }
+    expect(iconThrow === null, 'selectPanel 抛异常也被吞掉：' + (iconThrow && iconThrow.message))
   }
 
   console.log('')

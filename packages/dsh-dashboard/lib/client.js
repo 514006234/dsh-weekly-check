@@ -60,13 +60,14 @@ window.__ModuleLoader__.load({
       /* 面板根：占满中间主列，自带滚动（内容多时不裁切） */
       '.dd-root{width:100%;height:100%;overflow:auto;padding:16px;box-sizing:border-box;color:var(--dd-ink);font-size:13px;}',
       '.dd-root *{box-sizing:border-box;}',
-      '.dd-wrap{max-width:1000px;margin:0 auto;display:flex;flex-direction:column;gap:12px;}',
+      '.dd-wrap{max-width:min(1000px,100%);min-width:0;margin:0 auto;display:flex;flex-direction:column;gap:12px;}',
       '.dd-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;}',
       '.dd-title{font-size:16px;font-weight:800;}',
       '.dd-subtitle{font-size:11px;color:var(--dd-dim);}',
-      /* 卡片网格：auto-fit 自适应列数，窄屏自动折行 */
-      '.dd-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px;align-items:start;}',
-      '.dd-card{display:flex;flex-direction:column;gap:8px;padding:12px;border-radius:14px;border:1px solid var(--dd-border);',
+      /* 卡片网格：auto-fit 自适应列数；min(…,100%) 让列宽永不超出容器（窗口未最大化不裁切）；
+         240px 起 + 卡片 min-height 92：长度收短、高度加高（用户反馈的卡片比例） */
+      '.dd-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:12px;align-items:start;}',
+      '.dd-card{display:flex;flex-direction:column;gap:8px;padding:14px 16px;min-height:92px;border-radius:14px;border:1px solid var(--dd-border);',
       'background:var(--dd-card);backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);box-shadow:var(--dd-shadow);',
       'transition:transform .12s ease,box-shadow .12s ease,border-color .12s ease;}',
       '.dd-card.is-wide{grid-column:1 / -1;}',

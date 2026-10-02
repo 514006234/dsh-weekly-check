@@ -1,6 +1,6 @@
 {
   "name": "dsh-weekly-panel",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "description": "把《DSH 插件周榜》搬进侧边栏：只读的周报抽屉（TOP10 / 免费模型可用性 / 赞助位）",
   "license": "MIT",

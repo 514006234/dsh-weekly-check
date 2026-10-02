@@ -129,7 +129,8 @@ function cssBlock(src) {
 const css = cssBlock(clientSrc)
 try {
   assert.ok(css.length > 500, '必须能取到 CSS 常量（否则下面的样式不变量检查都是空转）')
-  assert.ok(css.includes('.dwp-panel{') && css.includes('.dwp-btn{'), 'CSS 常量里必须有抽屉与入口按钮的样式')
+  assert.ok(css.includes('.dwp-panel{') && css.includes('.dwp-main{'), 'CSS 常量里必须有面板主体与中间主列的样式')
+  assert.ok(!css.includes('.dwp-btn{'), '不得再有抽屉按钮样式（v0.3.0 抽屉已移除）')
   assert.ok(!/^\s*import\s/m.test(clientSrc), '客户端 bundle 里不能出现 import 语句')
   assert.ok(!/^\s*export\s/m.test(clientSrc), '客户端 bundle 里不能出现 export 语句')
   assert.ok(clientSrc.includes('window.__ModuleLoader__.load'), '必须通过 window.__ModuleLoader__.load 注册 factory')
@@ -137,32 +138,28 @@ try {
   assert.ok(/id:\s*'dsh-weekly-panel'/.test(clientSrc), "load 的 id 必须是 dsh-weekly-panel")
   ok('经典脚本形态 / 无 import-export / 无跨插件值导入 / load id 正确')
 
-  assert.ok(clientSrc.includes("'sidebar.footer.action'"), '必须注册到 sidebar.footer.action（侧边栏底部）')
-  assert.ok(/ENTRY_ORDER\s*=\s*20/.test(clientSrc), 'order 必须是 20（workbench 用 15，不能撞）')
-  assert.ok(clientSrc.includes('📊 周榜'), '按钮文字必须是「📊 周榜」')
+  assert.ok(!clientSrc.includes("'sidebar.footer.action'"), '不得注册 sidebar.footer.action（用户要求去掉左侧底部入口）')
+  assert.ok(/PANEL_ORDER\s*=\s*15/.test(clientSrc), '图标行 order 必须是 15（工作台 20，不撞）')
+  assert.ok(clientSrc.includes('📊 周榜'), '图标行文案必须是「📊 周榜」')
   assert.ok(clientSrc.includes("'/weekly-panel/data'"), '数据必须来自宿主半路由 /weekly-panel/data')
   assert.ok(clientSrc.includes('https://514006234.github.io/dsh-weekly-check/'), '必须带「完整榜单」链接')
   assert.ok(clientSrc.includes('https://514006234.github.io/dsh-weekly-check/sponsor/'), '必须带「商务合作」链接')
   assert.ok(clientSrc.includes('本期推荐（赞助）') && clientSrc.includes("'赞助'"), '赞助位必须明确标注「赞助」')
   assert.ok(/fetch\(\s*DATA_ROUTE/.test(clientSrc), '客户端只能 fetch 宿主半路由（DATA_ROUTE）')
   assert.ok(!/fetch\(\s*['"]https?:/.test(clientSrc), '客户端不得直接打外网地址')
-  ok('槽位 / order 20 / 文案 / 宿主半路由 / 两个外链 / 赞助标注')
+  ok('双槽注册 / order 15 / 文案 / 宿主半路由 / 两个外链 / 赞助标注 / 无 footer 槽')
 
-  // 抽屉「不遮挡对话」的三条不变量（只看 CSS 常量，避免被注释误导）
+  // 中间面板「不遮挡对话」的不变量（只看 CSS 常量，避免被注释误导）
   assert.ok(/\.dwp-panel>\*\{flex:0 0 auto;\}/.test(css), '面板子项必须禁止收缩（否则内容被压扁裁切）')
-  assert.ok(/\.dwp-panel\{[^}]*max-height:min\(46vh,440px\)/.test(css), '面板必须限高（在流内挤出空间，而不是盖住对话）')
-  assert.ok(/\.dwp-panel\{[^}]*overflow:auto/.test(css), '面板必须自带滚动')
-  assert.ok(/\.dwp-badge\{flex:0 0 auto/.test(css), '角标必须 flex:0 0 auto（否则被压变形）')
   const fixedCount = (css.match(/position:fixed/g) || []).length
-  assert.equal(fixedCount, 1, '只允许一处 position:fixed（侧边栏收起时的临时浮层），实际 ' + fixedCount + ' 处')
-  assert.ok(/\.dwp-entry\.is-float \.dwp-panel\{[^}]*position:fixed/.test(css), '唯一那处 fixed 必须挂在 .is-float（rail 形态）上')
+  assert.equal(fixedCount, 0, '整段 CSS 不得出现任何固定定位（抽屉/rail 浮层已移除），实际 ' + fixedCount + ' 处')
   const zIndexes = [...css.matchAll(/z-index:(\d+)/g)].map((m) => Number(m[1]))
-  assert.ok(zIndexes.length >= 1, '浮层必须显式声明 z-index')
-  assert.ok(Math.max(...zIndexes) <= 90, 'z-index 不得超过 90（必须低于宿主弹窗层级），实际 ' + Math.max(...zIndexes))
-  // 注意锚点：不能用裸的 /\.dwp-panel\{position:/，那会命中
-  // 「.dwp-entry.is-float .dwp-panel{position:fixed…}」这条合法规则的尾巴
-  assert.ok(!/(?:^|[};])\.dwp-panel\{[^}]*position:/.test(css), '默认（宽屏）面板不得脱离文档流')
-  ok('抽屉不遮挡对话：在流内 + 仅 rail 浮层 + z-index ≤ 90 + 自带滚动/限高')
+  assert.equal(zIndexes.length, 0, '不得声明 z-index 浮层，实际 ' + zIndexes.length + ' 处')
+  assert.ok(/\.dwp-main\{[^}]*max-width:min\(1100px,\s*100%\)/.test(css), '主列容器必须 min(1100px,100%) 防窄窗裁切')
+  assert.ok(/\.dwp-main \.dwp-section\{[^}]*minmax\(min\(260px,\s*100%\)/.test(css), '网格列必须 min(260px,100%) 防窄窗裁切')
+  assert.ok(/\.dwp-main \.dwp-row\{[^}]*min-height:60px/.test(css), '卡片行要有 min-height:60px（用户要求高度再高点）')
+  assert.ok(!/max-height:min\(46vh/.test(css), '抽屉限高样式已随抽屉移除')
+  ok('面板完全流内（0 处 fixed、0 处 z-index）+ 窄窗 min() 约束 + 卡片加高')
 } catch (err) { fail('client.js 静态形态', err.message) }
 
 // ── [5] client.js 运行时（node:vm）────────────────────────────────────────
@@ -211,7 +208,7 @@ try {
 } catch (err) { fail('factory 导出契约', err.message) }
 
 // ── [6] 槽位注册调用 ──────────────────────────────────────────────────────
-console.log('[6] 槽位注册调用（假 ctx）')
+console.log('[6] 槽位注册调用（假 ctx，v0.3.0 抽屉入口已移除）')
 try {
   const events = []
   const regs = {}
@@ -224,22 +221,12 @@ try {
   const ctx = { get: (name) => (name === 'slots' ? slots : undefined) }
   mod.apply(ctx)
   assert.deepEqual(events, [
-    ['inject', 'sidebar.footer.action'],
     ['inject', 'main'],
     ['inject', 'sidebar.panellist'],
-  ], '必须按 保底入口 → 中间主列 → 图标行 的顺序 inject 三个槽')
+  ], '只注册两个槽：中间主列 + 图标行')
+  assert.ok(!events.some((e) => e[1] === 'sidebar.footer.action'), '不注册 sidebar.footer.action（用户要求去掉左侧底部入口）')
 
-  // 1) 保底入口（原抽屉保留）
-  const foot = regs['sidebar.footer.action']
-  assert.ok(foot, '必须注册 sidebar.footer.action')
-  assert.equal(foot.options.name, 'sidebar.footer.action', 'footer 的 name')
-  assert.equal(foot.options.id, pkg.name, 'footer 的 id 必须是包名')
-  assert.equal(foot.options.order, 20, 'footer 的 order 必须是 20')
-  assert.equal(foot.options.label, '周榜', 'footer 的 label 必须是「周榜」')
-  assert.equal(typeof foot.component, 'function', 'footer 组件必须是函数')
-  ok('sidebar.footer.action 注册 / id / order 20 / label 齐全（保底入口）')
-
-  // 2) 中间主列（keyed 槽）
+  // 1) 中间主列（keyed 槽）
   const main = regs['main']
   assert.ok(main, '必须注册 main 槽')
   assert.equal(main.options.name, 'main', 'main 的 name')
@@ -248,7 +235,7 @@ try {
   assert.equal(typeof main.component, 'function', 'main 组件必须是函数')
   ok('main 槽注册 / key=dsh-weekly / 未占用 conversation')
 
-  // 3) 侧边栏图标行（id 必须等于 main 的 key——框架据 id 寻址 main 面板）
+  // 2) 侧边栏图标行（id 必须等于 main 的 key——框架据 id 寻址 main 面板）
   const panel = regs['sidebar.panellist']
   assert.ok(panel, '必须注册 sidebar.panellist')
   assert.equal(panel.options.name, 'sidebar.panellist', 'panellist 的 name')
@@ -258,16 +245,35 @@ try {
   assert.equal(typeof panel.component, 'function', '图标组件必须是函数')
   ok('sidebar.panellist 注册 / id 与 main.key 同值 / order 15 / label 含周榜')
 
-  // 图标组件的静态契约（gate 的 react 桩 createElement 返回 null，不能执行组件；
-  // 运行时行为——active 高亮、点击降级——由 render-test [14] 覆盖）
+  // 图标静态契约（gate 的 react 桩 createElement 返回 null，不能执行组件；
+  // 运行时行为——active 高亮、点击降级——由 render-test 覆盖）
   {
     const src = readFileSync(join(ROOT, 'lib', 'client.js'), 'utf8')
     assert.ok(/function PanelIcon\s*\(props\)/.test(src), '必须存在 PanelIcon 组件')
     assert.ok(src.includes('selectPanel(CTX, PANEL_KEY)'), '图标点击必须走 selectPanel(CTX, PANEL_KEY) 双保险')
     assert.ok(/border:\s*'1px solid ' \+ \(active \?/.test(src), 'active 时边框必须用高亮色（非 active 透明）')
     assert.ok(/active \? 'rgba\(59,130,246,\.16\)' : 'transparent'/.test(src), 'active 时背景必须高亮')
-    assert.ok(/h\(WeeklyPanel, \{ main: true \}\)/.test(src), 'main 槽必须复用同一内容组件（main:true）')
-    ok('PanelIcon 静态契约（active 高亮 + 点击双保险）+ main 内容复用')
+    ok('PanelIcon 静态契约（active 高亮 + 点击双保险）')
+  }
+
+  // 抽屉时代代码必须彻底清零（用户明确要求去掉底部入口）
+  {
+    const src = readFileSync(join(ROOT, 'lib', 'client.js'), 'utf8')
+    assert.ok(!/position:\s*fixed/.test(src), '整包不得出现 position:fixed（抽屉/rail 浮层已移除）')
+    assert.ok(!/is-float/.test(src), '不得再有 is-float 浮层类')
+    assert.ok(!/dwp-btn\b/.test(src), '不得再有抽屉按钮 dwp-btn')
+    assert.ok(!/dwp-badge\b/.test(src), '不得再有抽屉角标 dwp-badge')
+    assert.ok(!/readOpen|writeOpen|toggleOpen/.test(src), '不得再有抽屉展开态读写代码')
+    assert.ok(!/inject\(SLOT/.test(src) && !src.includes("'sidebar.footer.action'"), '源码里不得再出现 sidebar.footer.action')
+    ok('抽屉代码清零（无 fixed / 无按钮角标 / 无展开态持久化 / 无 footer 槽）')
+  }
+
+  // 窄窗口修复（用户反馈：窗口未最大化时右侧被裁切）
+  {
+    const src = readFileSync(join(ROOT, 'lib', 'client.js'), 'utf8')
+    assert.ok(/max-width:min\(1100px,\s*100%\)/.test(src), '容器 max-width 必须用 min(1100px,100%) 防窄窗溢出')
+    assert.ok(/minmax\(min\(260px,\s*100%\),\s*1fr\)/.test(src), '网格列必须用 min(260px,100%) 防窄窗溢出')
+    ok('窄窗口（未最大化）不裁切：容器与网格列都做了 min() 约束')
   }
 
   // 拿不到 slots 服务时必须安静跳过，绝不抛
