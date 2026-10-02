@@ -4,9 +4,9 @@
 
 ## 一、本期要点
 
-- 收录插件 31 个，合计 420,627 ★；前三名：OpenDesign 设计工作台（99.1k★）、Archify 架构图（76.1k★）、OpenViking 上下文库（39.1k★）。
+- 收录插件 31 个，合计 420,636 ★；前三名：OpenDesign 设计工作台（99.1k★）、Archify 架构图（76.1k★）、OpenViking 上下文库（39.1k★）。
 - 本期为首期（或与上期间隔内星数无变化），暂无涨星对比。
-- 免费模型可用性：**7/12 可用**，已下线 2 个，上游波动 3 个；可用模型首字延迟中位 0.87s。
+- 免费模型可用性：**7/12 可用**，已下线 2 个，上游波动 3 个；可用模型首字延迟中位 1.36s。
 - 待审新面孔：walkinglabs/learn-harness-engineering（18.1k★，2026-10-01）。
 
 ## 二、DSH 生态项目榜
@@ -59,16 +59,16 @@
 |---|---|---|---|---|---|
 | 🔁 上游波动 | `jev-1.13-free` | chat | — | 0.1s | Internal server error |
 | ❌ 已下线 | `deepseek-v4-flash-free` | chat | — | 0.2s | Error from provider (Console): Upstream request failed: Model is unavailable. |
-| 🔁 上游波动 | `muse-spark-1.3-contributor-free` | responses | 2.21s | 2.8s | HTTP 200 但无正文 |
-| 🔁 上游波动 | `muse-spark-1.2-contributor-free` | responses | 0.67s | 1.1s | HTTP 200 但无正文 |
-| ✅ 可用 | `mimo-v2.6-flash-free` | chat | 2.98s | 3.4s | "通了" |
-| ✅ 可用 | `space-bunny-free` | chat | 0.72s | 1.9s | "[仅思考 240 字]" |
-| ✅ 可用 | `longcat-2.5-preview-free` | chat | 1.52s | 2.3s | "通了" |
-| ✅ 可用 | `mimo-v2.5-free` | chat | 4.00s | 4.4s | "通了" |
-| ❌ 已下线 | `ling-3.0-flash-fin-free` | chat | — | 2.1s | Error from provider (Console): Upstream request failed: Endpoint is unavailable. |
-| ✅ 可用 | `nemotron-3-ultra-free` | chat | 0.87s | 2.8s | "通了" |
-| ✅ 可用 | `nemotron-3.5-lightning-free` | chat | 0.45s | 1.3s | "通了" |
-| ✅ 可用 | `fledge-alpha-free` | chat | 0.58s | 1.3s | "[仅思考 214 字]" |
+| 🔁 上游波动 | `muse-spark-1.3-contributor-free` | responses | 0.78s | 2.1s | HTTP 200 但无正文 |
+| 🔁 上游波动 | `muse-spark-1.2-contributor-free` | responses | 0.95s | 1.4s | HTTP 200 但无正文 |
+| ✅ 可用 | `mimo-v2.6-flash-free` | chat | 5.89s | 9.2s | "通了" |
+| ✅ 可用 | `space-bunny-free` | chat | 2.05s | 2.4s | "通了" |
+| ✅ 可用 | `longcat-2.5-preview-free` | chat | 4.49s | 5.2s | "通了" |
+| ✅ 可用 | `mimo-v2.5-free` | chat | 1.06s | 1.8s | "通了" |
+| ❌ 已下线 | `ling-3.0-flash-fin-free` | chat | — | 0.2s | Error from provider (Console): Upstream request failed: Endpoint is unavailable. |
+| ✅ 可用 | `nemotron-3-ultra-free` | chat | 0.88s | 3.2s | "通了" |
+| ✅ 可用 | `nemotron-3.5-lightning-free` | chat | 0.44s | 1.4s | "通了" |
+| ✅ 可用 | `fledge-alpha-free` | chat | 1.36s | 2.6s | "[仅思考 196 字]" |
 
 > 「上游波动」= 供应商临时过载/超时（已自动重试）；「已下线」= 接口明确返回模型或端点不可用。二者对使用者的含义不同，故分开列。
 
@@ -110,4 +110,4 @@
 另有一份付费报告《DSH 插件选型与风险报告》的**公开预览**（分档结论 + 公开数据全在）：<https://514006234.github.io/dsh-weekly-check/report-preview/>
 榜单排序永远按真实星数，赞助位会明确标注「赞助」，不卖榜一。
 
-<sub>生成时间 2026-10-02T15:16:48.160Z｜数据源 tools/rank-plugins.mjs + tools/survey-free-models.mjs + tools/traffic.mjs</sub>
+<sub>生成时间 2026-10-02T15:20:32.456Z｜数据源 tools/rank-plugins.mjs + tools/survey-free-models.mjs + tools/traffic.mjs</sub>

@@ -1,12 +1,12 @@
 {
   "nexu-io/open-design": {
-    "stars": 99145,
+    "stars": 99148,
     "pushed": "2026-10-02",
     "license": "Apache-2.0",
     "asOf": "2026-10-02"
   },
   "tt-a1i/archify": {
-    "stars": 76118,
+    "stars": 76121,
     "pushed": "2026-10-02",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -24,19 +24,19 @@
     "asOf": "2026-10-02"
   },
   "titanwings/distilly": {
-    "stars": 25234,
+    "stars": 25235,
     "pushed": "2026-09-22",
     "license": "MIT",
     "asOf": "2026-10-02"
   },
   "voyager-crew/voyager": {
-    "stars": 20284,
+    "stars": 20285,
     "pushed": "2026-09-29",
     "license": "GPL-3.0",
     "asOf": "2026-10-02"
   },
   "awesome-dsh-plugin/awesome-dsh-plugin": {
-    "stars": 17613,
+    "stars": 17612,
     "pushed": "2026-10-01",
     "license": "CC0-1.0",
     "asOf": "2026-10-02"
@@ -60,7 +60,7 @@
     "asOf": "2026-10-02"
   },
   "zhu1090093659/dsh-web": {
-    "stars": 8284,
+    "stars": 8283,
     "pushed": "2026-10-02",
     "license": "Apache-2.0",
     "asOf": "2026-10-02"
@@ -108,7 +108,7 @@
     "asOf": "2026-10-02"
   },
   "liustack/modlens": {
-    "stars": 4102,
+    "stars": 4103,
     "pushed": "2026-09-27",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -120,7 +120,7 @@
     "asOf": "2026-10-02"
   },
   "omdsh-dev/dsh-better-sidebar": {
-    "stars": 3954,
+    "stars": 3955,
     "pushed": "2026-10-01",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -132,7 +132,7 @@
     "asOf": "2026-10-02"
   },
   "meteornox/deepseek-balance-whale-widget": {
-    "stars": 3855,
+    "stars": 3856,
     "pushed": "2026-10-02",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -186,7 +186,7 @@
     "asOf": "2026-10-02"
   },
   "_meta": {
-    "updatedAt": "2026-10-02T15:16:17.297Z",
+    "updatedAt": "2026-10-02T15:19:47.386Z",
     "liveCount": 31,
     "token": "yes"
   }
