@@ -1,5 +1,5 @@
 {
-  "collectedAt": "2026-10-02T15:28:51.455Z",
+  "collectedAt": "2026-10-02T15:36:52.872Z",
   "repo": "514006234/dsh-weekly-check",
   "windowDays": 14,
   "stars": 0,
@@ -14,5 +14,13 @@
     "views": true,
     "clones": true
   },
+  "errors": {
+    "info": null,
+    "views": "HTTP 403 HTTP 403 on /repos/514006234/dsh-weekly-check/traffic/views",
+    "clones": "HTTP 403 HTTP 403 on /repos/514006234/dsh-weekly-check/traffic/clones",
+    "referrers": "HTTP 404 HTTP 404 on /repos/514006234/dsh-weekly-check/traffic/referrers"
+  },
+  "tokenPresent": true,
+  "tokenHint": "已提供（长度 377）",
   "prev": null
 }

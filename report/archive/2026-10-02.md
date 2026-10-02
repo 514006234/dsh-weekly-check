@@ -4,9 +4,9 @@
 
 ## 一、本期要点
 
-- 收录插件 31 个，合计 420,643 ★；前三名：OpenDesign 设计工作台（99.1k★）、Archify 架构图（76.1k★）、OpenViking 上下文库（39.1k★）。
+- 收录插件 31 个，合计 420,652 ★；前三名：OpenDesign 设计工作台（99.1k★）、Archify 架构图（76.1k★）、OpenViking 上下文库（39.1k★）。
 - 本期为首期（或与上期间隔内星数无变化），暂无涨星对比。
-- 免费模型可用性：**7/12 可用**，已下线 2 个，上游波动 3 个；可用模型首字延迟中位 0.83s。
+- 免费模型可用性：**7/12 可用**，已下线 2 个，上游波动 3 个；可用模型首字延迟中位 1.81s。
 - 待审新面孔：walkinglabs/learn-harness-engineering（18.1k★，2026-10-01）。
 
 ## 二、DSH 生态项目榜
@@ -41,7 +41,7 @@
 | 3.9k | **dsh-TUI 终端版**<br>`ccch1mneyyy/dsh-TUI` | 官方公众号收录的 TUI：鲸鱼顶栏/流式思考/上下文进度+TPS | 终端 | 原生bundle | — | 2026-10-02 | MIT |
 | 3.9k | **余额小鲸鱼**<br>`MeteorNOX/DeepSeek-Balance-Whale-Widget` | 右下角动画小鲸鱼盯余额，可拖拽吸附 | 娱乐 | 原生bundle | — | 2026-10-02 | MIT |
 | 3.8k | **anchored-standard 两阶段预设**<br>`xiaobright/dsh-anchored-standard` | 先最小对齐启动、再放开全套标准工具的 preset | 预设 | 原生bundle | — | 2026-09-10 | NOASSERTION |
-| 680 | **Our Free Model 免费模型**<br>`zouyuxuan122/dsh-our-free-model` | 免登录免 Key 用 11 个免费模型（MiMo/Nemotron/Space Bunny 等）；**本机已装并调优** | 免费模型 | 原生bundle | — | 2026-10-02 | MIT |
+| 682 | **Our Free Model 免费模型**<br>`zouyuxuan122/dsh-our-free-model` | 免登录免 Key 用 11 个免费模型（MiMo/Nemotron/Space Bunny 等）；**本机已装并调优** | 免费模型 | 原生bundle | — | 2026-10-02 | MIT |
 | 411 | **玻璃透明主题**<br>`WYH66666666/DSH-Transparent-UI-Plugin` | 全界面磨砂玻璃主题，模糊度/磨砂度可调 | 主题皮肤 | 原生bundle | — | 2026-08-22 | AGPL-3.0 |
 | 148 | **插件升级 Skill**<br>`oh-my-dsh/dsh-plugin-upgrade-skill` | 让已装插件跟着 DSH 版本升级（升级顾问） | 维护 | Skill | — | 2026-10-01 | MIT |
 | 105 | **Web 界面插件市场**<br>`Sanqi-normal/dsh-webui-market-plugin` | 在 Web GUI 里浏览目录、一键装卸到 profile | 插件市场 | 原生bundle | — | 2026-08-22 | MIT |
@@ -57,18 +57,18 @@
 
 | 状态 | 模型 | 线路 | 首字延迟 | 总耗时 | 结果 |
 |---|---|---|---|---|---|
-| 🔁 上游波动 | `jev-1.13-free` | chat | — | 0.0s | Internal server error |
+| 🔁 上游波动 | `jev-1.13-free` | chat | — | 0.1s | Internal server error |
 | ❌ 已下线 | `deepseek-v4-flash-free` | chat | — | 0.2s | Error from provider (Console): Upstream request failed: Model is unavailable. |
-| 🔁 上游波动 | `muse-spark-1.3-contributor-free` | responses | 0.46s | 1.0s | HTTP 200 但无正文 |
-| 🔁 上游波动 | `muse-spark-1.2-contributor-free` | responses | 0.60s | 1.3s | HTTP 200 但无正文 |
-| ✅ 可用 | `mimo-v2.6-flash-free` | chat | 2.62s | 3.0s | "通了" |
-| ✅ 可用 | `space-bunny-free` | chat | 0.42s | 2.6s | "通了" |
-| ✅ 可用 | `longcat-2.5-preview-free` | chat | 3.43s | 4.2s | "通了" |
-| ✅ 可用 | `mimo-v2.5-free` | chat | 2.14s | 2.4s | "通了" |
+| 🔁 上游波动 | `muse-spark-1.3-contributor-free` | responses | 0.62s | 1.4s | HTTP 200 但无正文 |
+| 🔁 上游波动 | `muse-spark-1.2-contributor-free` | responses | 0.69s | 1.4s | HTTP 200 但无正文 |
+| ✅ 可用 | `mimo-v2.6-flash-free` | chat | 1.81s | 2.1s | "通了" |
+| ✅ 可用 | `space-bunny-free` | chat | 3.34s | 4.3s | "通了" |
+| ✅ 可用 | `longcat-2.5-preview-free` | chat | 29.98s | 30.7s | "通了" |
+| ✅ 可用 | `mimo-v2.5-free` | chat | 6.13s | 11.7s | "通了" |
 | ❌ 已下线 | `ling-3.0-flash-fin-free` | chat | — | 0.2s | Error from provider (Console): Upstream request failed: Endpoint is unavailable. |
-| ✅ 可用 | `nemotron-3-ultra-free` | chat | 0.83s | 23.2s | "通了" |
-| ✅ 可用 | `nemotron-3.5-lightning-free` | chat | 0.48s | 1.7s | "The user asks: \"只回复两个字：通了\"  |
-| ✅ 可用 | `fledge-alpha-free` | chat | 0.58s | 1.8s | "[仅思考 73 字]" |
+| ✅ 可用 | `nemotron-3-ultra-free` | chat | 0.80s | 2.2s | "通了" |
+| ✅ 可用 | `nemotron-3.5-lightning-free` | chat | 0.95s | 9.0s | "通了" |
+| ✅ 可用 | `fledge-alpha-free` | chat | 0.76s | 1.5s | "[仅思考 240 字]" |
 
 > 「上游波动」= 供应商临时过载/超时（已自动重试）；「已下线」= 接口明确返回模型或端点不可用。二者对使用者的含义不同，故分开列。
 
@@ -80,18 +80,22 @@
 
 > 这些是 `topic:dsh-plugin` 里星数较高但尚未人工核实的新项目，核实后会进入正式榜。
 
-## 五、星数陷阱（贴了标签但不是插件）
+## 五、为什么不能只按星数排（贴了标签、但不是可安装插件的项目）
 
-| ⭐ | 仓库 | 为什么不算
+> 这一栏**只陈述事实，不做动机判断**：`dsh-plugin` 这个标签任何人都能用，平台本体、同类工具、独立应用都可能带上它。
+
+> 说这些不是要指责谁，而是解释**为什么直接按「标签 + 星数」排序会误导你**——下面这些项目星数很高，但它们不是能装进 DSH 的插件。
+
+| ⭐ | 仓库 | 为什么不能算作可安装插件
 |---:|---|---|
-| 241.0k | `deepseek-ai/deepseek-harness` | DeepSeek Harness 本体，不是插件 |
-| 73.6k | `ruvnet/ruflo` | 另一个 agent harness 项目 |
-| 43.6k | `reactive-resume/reactive-resume` | 简历生成器，蹭标签 |
-| 35.7k | `esengine/DeepSeek-Reasonix` | 独立编码代理，不是插件 |
-| 33.8k | `freestylefly/awesome-gpt-image-2` | 提示词案例库，不是插件 |
-| 31.5k | `Tencent/WeKnora` | LLM 知识平台，蹭标签 |
-| 27.3k | `Molunerfinn/PicGo` | 图片上传工具，与 DSH 无关 |
-| 24.4k | `nocobase/nocobase` | 无代码平台，蹭标签 |
+| 241.0k | `deepseek-ai/deepseek-harness` | DeepSeek Harness 平台本体——不是插件，而是所有插件运行的地方 |
+| 73.6k | `ruvnet/ruflo` | 另一个 agent harness 项目——同类工具，不是本生态的插件 |
+| 43.6k | `reactive-resume/reactive-resume` | 简历生成器：与 DSH 插件生态无关，只是标签用法不同 |
+| 35.7k | `esengine/DeepSeek-Reasonix` | 独立的编码代理，不是可安装进 DSH 的插件 |
+| 33.8k | `freestylefly/awesome-gpt-image-2` | 提示词案例库：内容集合，不是可安装插件 |
+| 31.5k | `Tencent/WeKnora` | LLM 知识平台：独立产品，不是 DSH 插件 |
+| 27.3k | `Molunerfinn/PicGo` | 图片上传工具：与 DSH 无关 |
+| 24.4k | `nocobase/nocobase` | 无代码平台：独立产品，不是 DSH 插件 |
 
 ## 六、方法与免责
 
@@ -102,7 +106,9 @@
 
 ## 七、影响力与流量（GitHub 真实数据）
 
-- 本期未采集到流量数据（GitHub 流量接口需要对仓库有推送权限的 token）。
+- 本期未采集到流量数据。
+- 采集失败原因（逐端点）：info `正常` · views `HTTP 403 HTTP 403 on /repos/514006234/dsh-weekly-check/traffic/views` · clones `HTTP 403 HTTP 403 on /repos/514006234/dsh-weekly-check/traffic/clones` · 凭据：已提供（长度 377）
+- GitHub 流量接口要求 token 对仓库有推送权限。这一栏就是用来公开我们自己的真实数字的：取不到时如实说明原因，不编数字。
 
 ## 八、商务合作
 
@@ -110,4 +116,4 @@
 另有一份付费报告《DSH 插件选型与风险报告》的**公开预览**（分档结论 + 公开数据全在）：<https://514006234.github.io/dsh-weekly-check/report-preview/>
 榜单排序永远按真实星数，赞助位会明确标注「赞助」，不卖榜一。
 
-<sub>生成时间 2026-10-02T15:28:51.471Z｜数据源 tools/rank-plugins.mjs + tools/survey-free-models.mjs + tools/traffic.mjs</sub>
+<sub>生成时间 2026-10-02T15:36:52.896Z｜数据源 tools/rank-plugins.mjs + tools/survey-free-models.mjs + tools/traffic.mjs</sub>

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-02T15:28:00.855Z",
+  "generatedAt": "2026-10-02T15:35:37.178Z",
   "liveCount": 31,
   "priorAsOf": null,
   "rows": [
@@ -9,7 +9,7 @@
       "cn": "生成网页/PPT/图片/视频并导出，**不是 DSH 插件**，是它反过来管理 DSH 运行时",
       "cat": "设计交付",
       "kind": "外部",
-      "stars": 99148,
+      "stars": 99149,
       "starsSource": "live",
       "asOf": "2026-10-02",
       "delta": null,
@@ -23,7 +23,7 @@
       "cn": "从代码库生成可验证的架构/流程/时序图，自带 HTML 导出",
       "cat": "文档图",
       "kind": "Skill",
-      "stars": 76125,
+      "stars": 76129,
       "starsSource": "live",
       "asOf": "2026-10-02",
       "delta": null,
@@ -51,7 +51,7 @@
       "cn": "把整个 Harness 打进安装包，**无需 Node 环境**；个人项目非官方",
       "cat": "桌面端",
       "kind": "外部",
-      "stars": 29792,
+      "stars": 29791,
       "starsSource": "live",
       "asOf": "2026-10-02",
       "delta": null,
@@ -65,7 +65,7 @@
       "cn": "把「别人怎么想」蒸馏成可复用 Skills（原 colleague-skill）",
       "cat": "技能",
       "kind": "外部",
-      "stars": 25236,
+      "stars": 25237,
       "starsSource": "live",
       "asOf": "2026-10-02",
       "delta": null,
@@ -177,7 +177,7 @@
       "cn": "按任务把请求路由到不同模型/提供商",
       "cat": "模型路由",
       "kind": "原生bundle",
-      "stars": 6991,
+      "stars": 6992,
       "starsSource": "live",
       "asOf": "2026-10-02",
       "delta": null,
@@ -303,7 +303,7 @@
       "cn": "官方公众号收录的 TUI：鲸鱼顶栏/流式思考/上下文进度+TPS",
       "cat": "终端",
       "kind": "原生bundle",
-      "stars": 3939,
+      "stars": 3940,
       "starsSource": "live",
       "asOf": "2026-10-02",
       "delta": null,
@@ -345,7 +345,7 @@
       "cn": "免登录免 Key 用 11 个免费模型（MiMo/Nemotron/Space Bunny 等）；**本机已装并调优**",
       "cat": "免费模型",
       "kind": "原生bundle",
-      "stars": 680,
+      "stars": 682,
       "starsSource": "live",
       "asOf": "2026-10-02",
       "delta": null,
@@ -442,48 +442,48 @@
     {
       "repo": "deepseek-ai/deepseek-harness",
       "stars": 241006,
-      "why": "DeepSeek Harness 本体，不是插件"
+      "why": "DeepSeek Harness 平台本体——不是插件，而是所有插件运行的地方"
     },
     {
       "repo": "reactive-resume/reactive-resume",
       "stars": 43621,
-      "why": "简历生成器，蹭标签"
+      "why": "简历生成器：与 DSH 插件生态无关，只是标签用法不同"
     },
     {
       "repo": "Molunerfinn/PicGo",
       "stars": 27289,
-      "why": "图片上传工具，与 DSH 无关"
+      "why": "图片上传工具：与 DSH 无关"
     },
     {
       "repo": "nocobase/nocobase",
       "stars": 24414,
-      "why": "无代码平台，蹭标签"
+      "why": "无代码平台：独立产品，不是 DSH 插件"
     },
     {
       "repo": "ruvnet/ruflo",
       "stars": 73575,
-      "why": "另一个 agent harness 项目"
+      "why": "另一个 agent harness 项目——同类工具，不是本生态的插件"
     },
     {
       "repo": "esengine/DeepSeek-Reasonix",
       "stars": 35721,
-      "why": "独立编码代理，不是插件"
+      "why": "独立的编码代理，不是可安装进 DSH 的插件"
     },
     {
       "repo": "Tencent/WeKnora",
       "stars": 31469,
-      "why": "LLM 知识平台，蹭标签"
+      "why": "LLM 知识平台：独立产品，不是 DSH 插件"
     },
     {
       "repo": "freestylefly/awesome-gpt-image-2",
       "stars": 33810,
-      "why": "提示词案例库，不是插件"
+      "why": "提示词案例库：内容集合，不是可安装插件"
     }
   ],
   "fresh": [
     {
       "repo": "walkinglabs/learn-harness-engineering",
-      "stars": 18071,
+      "stars": 18075,
       "pushed": "2026-10-01",
       "desc": "Harness engineering beginner tutorial, from 0 to 1"
     }
