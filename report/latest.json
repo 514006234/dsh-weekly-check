@@ -1,6 +1,6 @@
 {
   "date": "2026-10-02",
-  "generatedAt": "2026-10-02T04:10:29.620Z",
+  "generatedAt": "2026-10-02T09:41:46.735Z",
   "plugins": [
     {
       "repo": "nexu-io/open-design",
@@ -8,10 +8,10 @@
       "cn": "生成网页/PPT/图片/视频并导出，**不是 DSH 插件**，是它反过来管理 DSH 运行时",
       "cat": "设计交付",
       "kind": "外部",
-      "stars": 99098,
+      "stars": 99126,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 53,
+      "delta": 81,
       "pushed": "2026-10-02",
       "license": "Apache-2.0",
       "archived": false
@@ -22,10 +22,10 @@
       "cn": "从代码库生成可验证的架构/流程/时序图，自带 HTML 导出",
       "cat": "文档图",
       "kind": "Skill",
-      "stars": 75901,
+      "stars": 76023,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 239,
+      "delta": 361,
       "pushed": "2026-09-30",
       "license": "MIT",
       "archived": false
@@ -36,10 +36,10 @@
       "cn": "把记忆/知识/RAG/Skill 统一进 `viking://` 虚拟文件系统；**AGPL 且是独立部署**，不适合只想加记忆的人",
       "cat": "记忆",
       "kind": "外部",
-      "stars": 39105,
+      "stars": 39127,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 20,
+      "delta": 42,
       "pushed": "2026-10-02",
       "license": "AGPL-3.0",
       "archived": false
@@ -50,10 +50,10 @@
       "cn": "把整个 Harness 打进安装包，**无需 Node 环境**；个人项目非官方",
       "cat": "桌面端",
       "kind": "外部",
-      "stars": 29768,
+      "stars": 29791,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 31,
+      "delta": 54,
       "pushed": "2026-10-01",
       "license": "MIT",
       "archived": false
@@ -64,10 +64,10 @@
       "cn": "把「别人怎么想」蒸馏成可复用 Skills（原 colleague-skill）",
       "cat": "技能",
       "kind": "外部",
-      "stars": 25224,
+      "stars": 25233,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 17,
+      "delta": 26,
       "pushed": "2026-09-22",
       "license": "MIT",
       "archived": false
@@ -78,10 +78,10 @@
       "cn": "浏览器扩展，可在 DSH 网页里复用提示词；**不是 DSH bundle**",
       "cat": "提示词",
       "kind": "外部",
-      "stars": 20280,
+      "stars": 20282,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 2,
+      "delta": 4,
       "pushed": "2026-09-29",
       "license": "GPL-3.0",
       "archived": false
@@ -92,10 +92,10 @@
       "cn": "社区维护的插件清单，找插件的入口",
       "cat": "榜单",
       "kind": "外部",
-      "stars": 17560,
+      "stars": 17589,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 20,
+      "delta": 49,
       "pushed": "2026-10-01",
       "license": "CC0-1.0",
       "archived": false
@@ -120,10 +120,10 @@
       "cn": "面向 LLM/Agent 的自进化记忆系统，带混合检索",
       "cat": "记忆",
       "kind": "外部",
-      "stars": 11673,
+      "stars": 11675,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 1,
+      "delta": 3,
       "pushed": "2026-09-29",
       "license": "Apache-2.0",
       "archived": false
@@ -134,10 +134,10 @@
       "cn": "又一个社区桌面版",
       "cat": "桌面端",
       "kind": "外部",
-      "stars": 11494,
+      "stars": 11597,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 109,
+      "delta": 212,
       "pushed": "2026-10-02",
       "license": "MIT",
       "archived": false
@@ -148,11 +148,11 @@
       "cn": "任务看板/Git图谱/右侧面板/移动端/皮肤等聚合分发",
       "cat": "工作台",
       "kind": "原生bundle",
-      "stars": 8264,
+      "stars": 8279,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 15,
-      "pushed": "2026-10-01",
+      "delta": 30,
+      "pushed": "2026-10-02",
       "license": "Apache-2.0",
       "archived": false
     },
@@ -162,10 +162,10 @@
       "cn": "让 Agent 用你**已登录的真实浏览器**干活，CLI+扩展",
       "cat": "浏览器",
       "kind": "Skill",
-      "stars": 8033,
+      "stars": 8041,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 17,
+      "delta": 25,
       "pushed": "2026-09-30",
       "license": "MIT",
       "archived": false
@@ -176,10 +176,10 @@
       "cn": "按任务把请求路由到不同模型/提供商",
       "cat": "模型路由",
       "kind": "原生bundle",
-      "stars": 6993,
+      "stars": 6995,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 0,
+      "delta": 2,
       "pushed": "2026-09-18",
       "license": "MIT",
       "archived": false
@@ -190,11 +190,11 @@
       "cn": "本地优先的多引擎 Agent 工作台",
       "cat": "工作台",
       "kind": "外部",
-      "stars": 6534,
+      "stars": 6548,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 12,
-      "pushed": "2026-10-01",
+      "delta": 26,
+      "pushed": "2026-10-02",
       "license": "NOASSERTION",
       "archived": false
     },
@@ -208,7 +208,7 @@
       "starsSource": "live",
       "asOf": "2026-10-02",
       "delta": 1,
-      "pushed": "2026-10-01",
+      "pushed": "2026-10-02",
       "license": "MIT",
       "archived": false
     },
@@ -218,11 +218,11 @@
       "cn": "带持久状态内核，维持长任务与团队持续推进",
       "cat": "多Agent",
       "kind": "外部",
-      "stars": 6127,
+      "stars": 6128,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 4,
-      "pushed": "2026-10-01",
+      "delta": 5,
+      "pushed": "2026-10-02",
       "license": "Apache-2.0",
       "archived": false
     },
@@ -232,10 +232,10 @@
       "cn": "DSH 界面内的插件市场：浏览/搜索/一键安装",
       "cat": "插件市场",
       "kind": "原生bundle",
-      "stars": 5252,
+      "stars": 5288,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 27,
+      "delta": 63,
       "pushed": "2026-10-01",
       "license": "MIT",
       "archived": false
@@ -246,10 +246,10 @@
       "cn": "界面里养动画宠物（Codex/Claude/DSH 通用）",
       "cat": "娱乐",
       "kind": "原生bundle",
-      "stars": 4183,
+      "stars": 4184,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 3,
+      "delta": 4,
       "pushed": "2026-09-28",
       "license": "MIT",
       "archived": false
@@ -260,10 +260,10 @@
       "cn": "纯文本模型**直接看图**：粘贴图片返回 OCR/布局/语义证据",
       "cat": "视觉识图",
       "kind": "原生bundle",
-      "stars": 4100,
+      "stars": 4103,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 1,
+      "delta": 4,
       "pushed": "2026-09-27",
       "license": "MIT",
       "archived": false
@@ -274,10 +274,10 @@
       "cn": "「Agent 工具界的 OpenRouter」，统一调度工具调用",
       "cat": "多Agent",
       "kind": "原生bundle",
-      "stars": 3996,
+      "stars": 4009,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 21,
+      "delta": 34,
       "pushed": "2026-10-02",
       "license": "NOASSERTION",
       "archived": false
@@ -288,10 +288,10 @@
       "cn": "侧边栏变 IDE：文件树/终端/Git/子代理，且开放给三方扩展",
       "cat": "工作台",
       "kind": "原生bundle",
-      "stars": 3945,
+      "stars": 3952,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 3,
+      "delta": 10,
       "pushed": "2026-10-01",
       "license": "MIT",
       "archived": false
@@ -302,10 +302,10 @@
       "cn": "官方公众号收录的 TUI：鲸鱼顶栏/流式思考/上下文进度+TPS",
       "cat": "终端",
       "kind": "原生bundle",
-      "stars": 3914,
+      "stars": 3929,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 10,
+      "delta": 25,
       "pushed": "2026-10-02",
       "license": "MIT",
       "archived": false
@@ -316,10 +316,10 @@
       "cn": "右下角动画小鲸鱼盯余额，可拖拽吸附",
       "cat": "娱乐",
       "kind": "原生bundle",
-      "stars": 3803,
+      "stars": 3828,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 29,
+      "delta": 54,
       "pushed": "2026-09-29",
       "license": "MIT",
       "archived": false
@@ -330,10 +330,10 @@
       "cn": "先最小对齐启动、再放开全套标准工具的 preset",
       "cat": "预设",
       "kind": "原生bundle",
-      "stars": 3783,
+      "stars": 3782,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 1,
+      "delta": 0,
       "pushed": "2026-09-10",
       "license": "NOASSERTION",
       "archived": false
@@ -344,11 +344,11 @@
       "cn": "免登录免 Key 用 11 个免费模型（MiMo/Nemotron/Space Bunny 等）；**本机已装并调优**",
       "cat": "免费模型",
       "kind": "原生bundle",
-      "stars": 608,
+      "stars": 637,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 26,
-      "pushed": "2026-10-01",
+      "delta": 55,
+      "pushed": "2026-10-02",
       "license": "MIT",
       "archived": false
     },
@@ -358,10 +358,10 @@
       "cn": "全界面磨砂玻璃主题，模糊度/磨砂度可调",
       "cat": "主题皮肤",
       "kind": "原生bundle",
-      "stars": 409,
+      "stars": 411,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 0,
+      "delta": 2,
       "pushed": "2026-08-22",
       "license": "AGPL-3.0",
       "archived": false
@@ -441,13 +441,13 @@
     "total": 12,
     "ok": 7,
     "limited": 0,
-    "region": 0,
+    "region": 2,
     "gone": 2,
-    "flaky": 3,
+    "flaky": 1,
     "retried": 3,
-    "ttfbFast": 0.242,
-    "ttfbMid": 0.855,
-    "ttfbSlow": 4.561
+    "ttfbFast": 1.208,
+    "ttfbMid": 2.043,
+    "ttfbSlow": 6.232
   },
   "models": [
     {
@@ -455,7 +455,7 @@
       "wire": "chat",
       "status": 500,
       "ttfb": null,
-      "total": 0.054,
+      "total": 0.287,
       "text": "",
       "reasoning": 0,
       "err": "Internal server error",
@@ -469,7 +469,7 @@
       "wire": "chat",
       "status": 400,
       "ttfb": null,
-      "total": 0.132,
+      "total": 0.744,
       "text": "",
       "reasoning": 0,
       "err": "Error from provider (Console): Upstream request failed: Model is unavailable.",
@@ -481,37 +481,37 @@
     {
       "model": "muse-spark-1.3-contributor-free",
       "wire": "responses",
-      "status": 200,
-      "ttfb": 0.485,
-      "total": 1,
+      "status": 403,
+      "ttfb": null,
+      "total": 0.277,
       "text": "",
       "reasoning": 0,
-      "err": "HTTP 200 但无正文",
+      "err": "This model is not available in your country.",
       "ok": false,
-      "attempts": 2,
-      "lastError": "HTTP 200 但无正文",
-      "verdict": "flaky"
+      "attempts": 1,
+      "lastError": "",
+      "verdict": "region"
     },
     {
       "model": "muse-spark-1.2-contributor-free",
       "wire": "responses",
-      "status": 200,
-      "ttfb": 0.506,
-      "total": 1.247,
+      "status": 403,
+      "ttfb": null,
+      "total": 0.753,
       "text": "",
       "reasoning": 0,
-      "err": "HTTP 200 但无正文",
+      "err": "This model is not available in your country.",
       "ok": false,
-      "attempts": 2,
-      "lastError": "HTTP 200 但无正文",
-      "verdict": "flaky"
+      "attempts": 1,
+      "lastError": "",
+      "verdict": "region"
     },
     {
       "model": "mimo-v2.6-flash-free",
       "wire": "chat",
       "status": 200,
-      "ttfb": 4.561,
-      "total": 4.896,
+      "ttfb": 6.232,
+      "total": 12.502,
       "text": "通了",
       "reasoning": 0,
       "err": "",
@@ -524,22 +524,22 @@
       "model": "space-bunny-free",
       "wire": "chat",
       "status": 200,
-      "ttfb": 0.855,
-      "total": 1.131,
-      "text": "通了",
-      "reasoning": 142,
+      "ttfb": 2.955,
+      "total": 3.667,
+      "text": "",
+      "reasoning": 254,
       "err": "",
       "ok": true,
-      "attempts": 1,
-      "lastError": "",
+      "attempts": 2,
+      "lastError": "fetch failed",
       "verdict": "ok"
     },
     {
       "model": "longcat-2.5-preview-free",
       "wire": "chat",
       "status": 200,
-      "ttfb": 2.069,
-      "total": 2.778,
+      "ttfb": 2.043,
+      "total": 2.99,
       "text": "通了",
       "reasoning": 45,
       "err": "",
@@ -552,8 +552,8 @@
       "model": "mimo-v2.5-free",
       "wire": "chat",
       "status": 200,
-      "ttfb": 1.487,
-      "total": 2.477,
+      "ttfb": 2.157,
+      "total": 3.509,
       "text": "通了",
       "reasoning": 0,
       "err": "",
@@ -567,7 +567,7 @@
       "wire": "chat",
       "status": 400,
       "ttfb": null,
-      "total": 0.161,
+      "total": 1.141,
       "text": "",
       "reasoning": 0,
       "err": "Error from provider (Console): Upstream request failed: Endpoint is unavailable.",
@@ -580,23 +580,23 @@
       "model": "nemotron-3-ultra-free",
       "wire": "chat",
       "status": 200,
-      "ttfb": 0.789,
-      "total": 1.798,
+      "ttfb": 1.208,
+      "total": 2.432,
       "text": "通了",
       "reasoning": 0,
       "err": "",
       "ok": true,
-      "attempts": 1,
-      "lastError": "",
+      "attempts": 2,
+      "lastError": "Streaming response failed: [503] Upstream error from Nvidia: Service temporarily overloaded",
       "verdict": "ok"
     },
     {
       "model": "nemotron-3.5-lightning-free",
       "wire": "chat",
       "status": 200,
-      "ttfb": 0.242,
-      "total": 0.506,
-      "text": "通了",
+      "ttfb": 1.989,
+      "total": 4.506,
+      "text": "The user says \"只回复两个字：通了\" which translates to \"Reply in only two characters: '通了'\" (meaning \"passed\" or \"through\"). So they want the assistant to output only two characters: \"通了\". That's Chinese for \"tong le\" meaning \"it",
       "reasoning": 0,
       "err": "",
       "ok": true,
@@ -608,10 +608,10 @@
       "model": "fledge-alpha-free",
       "wire": "chat",
       "status": 200,
-      "ttfb": 0.761,
-      "total": 1.267,
+      "ttfb": 1.504,
+      "total": 2.269,
       "text": "",
-      "reasoning": 229,
+      "reasoning": 230,
       "err": "",
       "ok": true,
       "attempts": 1,
@@ -620,10 +620,176 @@
     }
   ],
   "sponsors": [],
+  "traffic": {
+    "collectedAt": "2026-10-02T09:41:46.701Z",
+    "repo": "514006234/dsh-weekly-check",
+    "windowDays": 14,
+    "stars": 0,
+    "forks": 0,
+    "watchers": 0,
+    "views": {
+      "total": 0,
+      "days": [
+        {
+          "date": "2026-09-18",
+          "count": 0,
+          "uniques": 0
+        },
+        {
+          "date": "2026-09-19",
+          "count": 0,
+          "uniques": 0
+        },
+        {
+          "date": "2026-09-20",
+          "count": 0,
+          "uniques": 0
+        },
+        {
+          "date": "2026-09-21",
+          "count": 0,
+          "uniques": 0
+        },
+        {
+          "date": "2026-09-22",
+          "count": 0,
+          "uniques": 0
+        },
+        {
+          "date": "2026-09-23",
+          "count": 0,
+          "uniques": 0
+        },
+        {
+          "date": "2026-09-24",
+          "count": 0,
+          "uniques": 0
+        },
+        {
+          "date": "2026-09-25",
+          "count": 0,
+          "uniques": 0
+        },
+        {
+          "date": "2026-09-26",
+          "count": 0,
+          "uniques": 0
+        },
+        {
+          "date": "2026-09-27",
+          "count": 0,
+          "uniques": 0
+        },
+        {
+          "date": "2026-09-28",
+          "count": 0,
+          "uniques": 0
+        },
+        {
+          "date": "2026-09-29",
+          "count": 0,
+          "uniques": 0
+        },
+        {
+          "date": "2026-09-30",
+          "count": 0,
+          "uniques": 0
+        },
+        {
+          "date": "2026-10-01",
+          "count": 0,
+          "uniques": 0
+        }
+      ]
+    },
+    "clones": {
+      "total": 116,
+      "days": [
+        {
+          "date": "2026-09-18",
+          "count": 0,
+          "uniques": 0
+        },
+        {
+          "date": "2026-09-19",
+          "count": 0,
+          "uniques": 0
+        },
+        {
+          "date": "2026-09-20",
+          "count": 0,
+          "uniques": 0
+        },
+        {
+          "date": "2026-09-21",
+          "count": 0,
+          "uniques": 0
+        },
+        {
+          "date": "2026-09-22",
+          "count": 0,
+          "uniques": 0
+        },
+        {
+          "date": "2026-09-23",
+          "count": 0,
+          "uniques": 0
+        },
+        {
+          "date": "2026-09-24",
+          "count": 0,
+          "uniques": 0
+        },
+        {
+          "date": "2026-09-25",
+          "count": 0,
+          "uniques": 0
+        },
+        {
+          "date": "2026-09-26",
+          "count": 0,
+          "uniques": 0
+        },
+        {
+          "date": "2026-09-27",
+          "count": 0,
+          "uniques": 0
+        },
+        {
+          "date": "2026-09-28",
+          "count": 0,
+          "uniques": 0
+        },
+        {
+          "date": "2026-09-29",
+          "count": 0,
+          "uniques": 0
+        },
+        {
+          "date": "2026-09-30",
+          "count": 0,
+          "uniques": 0
+        },
+        {
+          "date": "2026-10-01",
+          "count": 116,
+          "uniques": 53
+        }
+      ]
+    },
+    "referrers": [],
+    "referrersError": "404（新建仓库还没有引荐记录）",
+    "partial": {
+      "info": false,
+      "views": false,
+      "clones": false
+    },
+    "prev": null
+  },
   "newcomers": [
     {
       "repo": "walkinglabs/learn-harness-engineering",
-      "stars": 17850,
+      "stars": 17953,
       "pushed": "2026-10-01",
       "desc": "Harness engineering beginner tutorial, from 0 to 1"
     }

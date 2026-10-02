@@ -42,6 +42,14 @@ function runRank(env) {
   return { exit: r.status, json, err: (r.stderr || '').trim().split('\n').slice(-2).join(' / ') }
 }
 
+// 网络探针：GitHub 不可达时，网络依赖的断言降级为"跳过"而不是"失败"
+function githubReachable() {
+  const r = spawnSync(process.execPath, ['-e',
+    "fetch('https://api.github.com/rate_limit',{signal:AbortSignal.timeout(4000)}).then(x=>process.exit(x.ok?0:1)).catch(()=>process.exit(1))"],
+    { timeout: 8000 })
+  return r.status === 0
+}
+
 console.log('用例 1：有上期历史 → 应算出「较上期」涨星')
 const a = runRank({})
 if (!a.json) {
@@ -52,7 +60,14 @@ if (!a.json) {
   check('涨星 delta 正确', ofm && ofm.delta === ofm.stars - 400, ofm ? `${ofm.stars} - 400 = ${ofm.delta}` : 'missing')
   check('只有上期收录的仓库有 delta', a.json.rows.filter((r) => r.delta !== null).length === 3,
     'delta 行数=' + a.json.rows.filter((r) => r.delta !== null).length)
-  check('实时星数已取到', a.json.liveCount > 0, 'live=' + a.json.liveCount)
+  // 网络抖动不算自测失败：GitHub 可达时才强制要求 live>0，不可达则如实跳过
+  if (a.json.liveCount > 0) {
+    check('实时星数已取到', true, 'live=' + a.json.liveCount)
+  } else if (githubReachable()) {
+    check('实时星数已取到', false, 'GitHub 可达但 live=0 → 真失败')
+  } else {
+    check('实时星数：GitHub 不可达，本项跳过（不影响其余断言）', true, 'live=0 且网络探针失败')
+  }
 }
 
 console.log('用例 2：GitHub 不可用 → 退化到策展快照，退出码 2')
@@ -99,6 +114,10 @@ if (existsSync(join(sandbox, 'report', 'index.html'))) {
   check('HTML 含免费模型状态标签', h.includes('地区墙'))
   check('HTML 无脚本外链（单文件）', !/<script[^>]+src=/.test(h) && !/<link[^>]+stylesheet/.test(h))
   check('Markdown 含涨星', /\+56/.test(m))
+  // 影响力流量栏目：离线且无缓存时必须优雅降级，但栏目本身必须存在
+  check('Markdown 含影响力与流量栏目', m.includes('影响力与流量'))
+  check('HTML 含影响力与流量栏目', h.includes('影响力与流量'))
+  check('无流量缓存时降级为「未采集」而不是崩溃', m.includes('未采集到流量数据'))
 }
 
 rmSync(sandbox, { recursive: true, force: true })

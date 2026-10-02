@@ -64,12 +64,22 @@ if (offline) {
 } else {
   const p = runTool('rank-plugins.mjs', ['--json'])
   if (p.ok) { plugins = p.json; write(resolve(DATA, 'last-plugins.json'), JSON.stringify(p.json, null, 2)) }
-  else notes.push('插件榜采集失败：' + p.why)
+  else { plugins = readJson(resolve(DATA, 'last-plugins.json')); notes.push('插件榜采集失败（沿用上次缓存）：' + p.why) }
 
   const m = runTool('survey-free-models.mjs', ['--json'])
   if (m.ok) { models = m.json; write(resolve(DATA, 'last-free-models.json'), JSON.stringify(m.json, null, 2)) }
-  else notes.push('免费模型采集失败：' + m.why)
+  else { models = readJson(resolve(DATA, 'last-free-models.json')); notes.push('免费模型采集失败（沿用上次缓存）：' + m.why) }
 }
+
+// ── 影响力流量（GitHub 真实数据；离线模式只用缓存）───────────────────────
+let traffic = null
+if (!offline) {
+  const t = runTool('traffic.mjs', ['--json'])
+  if (t.ok) { traffic = t.json; write(resolve(DATA, 'traffic.json'), JSON.stringify(t.json, null, 2)) }
+  else notes.push('仓库流量采集失败（沿用上次缓存）：' + t.why)
+}
+if (!traffic) traffic = readJson(resolve(DATA, 'traffic.json'), null)
+if (traffic) write(resolve(DATA, 'traffic.json'), JSON.stringify(traffic, null, 2))
 
 // ── 统计与要点 ─────────────────────────────────────────────────────────
 const P = plugins?.rows || []
@@ -89,6 +99,7 @@ const catLine = Object.entries(categoryCount).sort((a, b) => b[1] - a[1])
 
 const star = (n) => n === null || n === undefined ? '—' : (n >= 1000 ? (n / 1000).toFixed(1) + 'k' : String(n))
 const deltaText = (d) => d === null || d === undefined ? '—' : (d > 0 ? '+' + d : String(d))
+const num = (v) => (v === null || v === undefined ? '—' : String(v))
 
 const bullets = []
 if (P.length) {
@@ -185,12 +196,28 @@ function md() {
   L.push('- 免费模型为**真实调用**（一条极短补全），走的就是免费模型插件自己的传输与指纹；地区墙受出口 IP 影响，换地区结论会变。')
   L.push('- 周报立场：只推荐本机实测过、且读过源码确认没有外网/密钥/定时器风险的项目；其余只列不荐。')
   L.push('')
+  L.push(H('影响力与流量（GitHub 真实数据）'), '')
+  if (traffic && traffic.views && typeof traffic.views.total === 'number') {
+    const t14 = traffic.windowDays || 14
+    const dv = traffic.prev && typeof traffic.prev.views === 'number' ? (traffic.views.total - traffic.prev.views) : null
+    L.push(`- 仓库指标：★${num(traffic.stars)} · fork ${num(traffic.forks)} · 关注 ${num(traffic.watchers)}`)
+    L.push(`- 近 ${t14} 天仓库页浏览 **${traffic.views.total}** 次${dv === null ? '' : `（较上次采集 ${dv >= 0 ? '+' + '' + dv : dv}）`} · 克隆 **${traffic.clones ? traffic.clones.total : 0}** 次`)
+    if (Array.isArray(traffic.referrers) && traffic.referrers.length > 0) {
+      L.push('- 引荐来源（仓库历史累计，谁从哪里点进来）：' + traffic.referrers.map((r) => `${r.referrer} ${r.count} 次`).join('、'))
+    } else {
+      L.push('- 引荐来源：**暂无外部引荐**——还没有人从别处点进来（项目第一周，正常）' + (traffic.referrersError ? `（接口记录：${traffic.referrersError}）` : ''))
+    }
+    L.push('> 网页端（GitHub Pages）访问暂无独立统计；引荐来源一旦出现，就能直接看出流量从哪里来。')
+  } else {
+    L.push('- 本期未采集到流量数据（GitHub 流量接口需要对仓库有推送权限的 token）。')
+  }
+  L.push('')
   L.push(H('商务合作'), '')
   L.push('榜单赞助位（插件作者）/ 插件定制开发 / 企业私有部署与可信插件白名单，明码标价见 [COMMERCIAL.md](../COMMERCIAL.md) 或在线页 <https://514006234.github.io/dsh-weekly-check/sponsor/>。')
   L.push('另有一份付费报告《DSH 插件选型与风险报告》的**公开预览**（分档结论 + 公开数据全在）：<https://514006234.github.io/dsh-weekly-check/report-preview/>')
   L.push('榜单排序永远按真实星数，赞助位会明确标注「赞助」，不卖榜一。')
   L.push('')
-  L.push(`<sub>生成时间 ${new Date().toISOString()}｜数据源 tools/rank-plugins.mjs + tools/survey-free-models.mjs</sub>`)
+  L.push(`<sub>生成时间 ${new Date().toISOString()}｜数据源 tools/rank-plugins.mjs + tools/survey-free-models.mjs + tools/traffic.mjs</sub>`)
   return L.join('\n') + '\n'
 }
 
@@ -353,9 +380,17 @@ ${trapRows ? `<h2>${sponsors.length ? '六' : '五'}、星数陷阱（贴了标�
   <li>周报立场：只推荐本机实测过、且读过源码确认没有外网 / 密钥 / 定时器风险的项目；其余只列不荐。</li>
 </ul>
 
+<h2>${sponsors.length ? '八' : '七'}、影响力与流量（GitHub 真实数据）</h2>
+${traffic && traffic.views && typeof traffic.views.total === 'number' ? `<ul class="points">
+  <li>仓库指标：<strong>★${num(traffic.stars)}</strong> · fork ${num(traffic.forks)} · 关注 ${num(traffic.watchers)}</li>
+  <li>近 ${traffic.windowDays || 14} 天仓库页浏览 <strong>${traffic.views.total}</strong> 次${traffic.prev && typeof traffic.prev.views === 'number' ? `（较上次采集 ${deltaText(traffic.views.total - traffic.prev.views)}）` : ''} · 克隆 <strong>${traffic.clones ? traffic.clones.total : 0}</strong> 次</li>
+  <li>引荐来源：${Array.isArray(traffic.referrers) && traffic.referrers.length ? traffic.referrers.map((r) => `${inline(r.referrer)} ${r.count} 次`).join('、') : `<strong>暂无外部引荐</strong>——还没有人从别处点进来（项目第一周，正常）${traffic.referrersError ? `（接口记录：${esc(traffic.referrersError)}）` : ''}`}</li>
+  <li class="lede">网页端（GitHub Pages）访问暂无独立统计；引荐来源一旦出现，就能直接看出流量从哪里来。</li>
+</ul>` : `<ul class="points"><li>本期未采集到流量数据（GitHub 流量接口需要对仓库有推送权限的 token）。</li></ul>`}
+
 <footer>
   <p><strong>商务合作</strong>：<a href="sponsor/">榜单赞助位 / 插件定制开发 / 企业私有部署与可信白名单</a>（明码标价，榜单排序不因赞助改动）　·　<a href="report-preview/">付费报告的公开预览</a></p>
-  生成时间 ${new Date().toISOString()}｜数据源 tools/rank-plugins.mjs + tools/survey-free-models.mjs
+  生成时间 ${new Date().toISOString()}｜数据源 tools/rank-plugins.mjs + tools/survey-free-models.mjs + tools/traffic.mjs
   ${notes.filter(Boolean).length ? '<br>采集备注：' + notes.filter(Boolean).map(esc).join('；') : ''}
 </footer>
 </div>
@@ -387,7 +422,7 @@ write(resolve(ARCHIVE, TODAY + '.md'), mdText)
 write(resolve(ARCHIVE, TODAY + '.html'), htmlText)
 write(resolve(OUT, 'latest.json'), JSON.stringify({
   date: TODAY, generatedAt: new Date().toISOString(),
-  plugins: P, stat: S, models: M, sponsors,
+  plugins: P, stat: S, models: M, sponsors, traffic,
   newcomers: plugins?.fresh || [], notPlugins: plugins?.notPlugins || [], notes: notes.filter(Boolean),
 }, null, 2))
 
