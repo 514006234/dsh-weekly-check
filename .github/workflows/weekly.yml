@@ -6,11 +6,13 @@ on:
     - cron: '0 1 * * 1'
   workflow_dispatch:
   push:
-    # 改了 site/ 下的页面（赞助页、付费报告预览页）就立刻重新发布，
-    # 否则改完定价要等到下周一才会出现在线上。
-    # 只盯 site/**：流水线自己只提交 data/** 与 report/**，所以不会自我触发成环。
+    # 改了就立刻重新发布，否则要等到下周一。
+    # 只盯 site/** 与 tools/**：流水线自己只提交 data/** 与 report/**，不会自我触发成环。
+    # tools/** 也必须盯：改了周报生成器（例如给卡片加一键安装）同样要重发页面——
+    # 之前只盯 site/**，改生成器那次因为目录不在名单里，线上一直停在旧版。
     paths:
       - 'site/**'
+      - 'tools/**'
 
 permissions:
   contents: write      # 把 data/ 与 report/ 归档回仓库
