@@ -1,12 +1,12 @@
 {
   "nexu-io/open-design": {
-    "stars": 99136,
+    "stars": 99140,
     "pushed": "2026-10-02",
     "license": "Apache-2.0",
     "asOf": "2026-10-02"
   },
   "tt-a1i/archify": {
-    "stars": 76062,
+    "stars": 76074,
     "pushed": "2026-09-30",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -18,13 +18,13 @@
     "asOf": "2026-10-02"
   },
   "anywhere-labs/dsh-desktop": {
-    "stars": 29795,
+    "stars": 29797,
     "pushed": "2026-10-01",
     "license": "MIT",
     "asOf": "2026-10-02"
   },
   "titanwings/distilly": {
-    "stars": 25235,
+    "stars": 25236,
     "pushed": "2026-09-22",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -36,7 +36,7 @@
     "asOf": "2026-10-02"
   },
   "awesome-dsh-plugin/awesome-dsh-plugin": {
-    "stars": 17595,
+    "stars": 17598,
     "pushed": "2026-10-01",
     "license": "CC0-1.0",
     "asOf": "2026-10-02"
@@ -54,7 +54,7 @@
     "asOf": "2026-10-02"
   },
   "dataelement/dsh-desktop": {
-    "stars": 11637,
+    "stars": 11644,
     "pushed": "2026-10-02",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -66,7 +66,7 @@
     "asOf": "2026-10-02"
   },
   "tencent/browserskill": {
-    "stars": 8043,
+    "stars": 8044,
     "pushed": "2026-09-30",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -96,7 +96,7 @@
     "asOf": "2026-10-02"
   },
   "dsh-market/dsh-market": {
-    "stars": 5297,
+    "stars": 5301,
     "pushed": "2026-10-01",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -114,7 +114,7 @@
     "asOf": "2026-10-02"
   },
   "superdesigndev/treg": {
-    "stars": 4014,
+    "stars": 4016,
     "pushed": "2026-10-02",
     "license": "NOASSERTION",
     "asOf": "2026-10-02"
@@ -132,19 +132,19 @@
     "asOf": "2026-10-02"
   },
   "meteornox/deepseek-balance-whale-widget": {
-    "stars": 3840,
+    "stars": 3842,
     "pushed": "2026-09-29",
     "license": "MIT",
     "asOf": "2026-10-02"
   },
   "xiaobright/dsh-anchored-standard": {
-    "stars": 3782,
+    "stars": 3781,
     "pushed": "2026-09-10",
     "license": "NOASSERTION",
     "asOf": "2026-10-02"
   },
   "zouyuxuan122/dsh-our-free-model": {
-    "stars": 651,
+    "stars": 654,
     "pushed": "2026-10-02",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -186,7 +186,7 @@
     "asOf": "2026-10-02"
   },
   "_meta": {
-    "updatedAt": "2026-10-02T11:27:16.139Z",
+    "updatedAt": "2026-10-02T11:58:30.976Z",
     "liveCount": 31,
     "token": "yes"
   }
