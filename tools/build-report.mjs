@@ -152,7 +152,12 @@ function md() {
       L.push('')
     }
   }
-  L.push(H('插件榜'), '')
+  // 标题不能叫「插件榜」：策展里混着外部工具与 Skill，而榜首 OpenDesign（99k★）自己就写着
+  // 「不是 DSH 插件」。叫插件榜会让人一眼觉得「拿高星项目凑数」——那是拿信任换来的假排名感。
+  // 榜单口径本来就是「按真实星数排」，所以排序不动，只把标题和构成说清楚。
+  const bundleCount = P.filter((r) => r.kind === '原生bundle').length
+  L.push(H('DSH 生态项目榜'), '')
+  L.push(`共 ${P.length} 个：其中 **${bundleCount} 个是可直接安装的插件（原生bundle）**，其余 ${P.length - bundleCount} 个是周边工具 / Skill。排序口径是**真实 star 数**，与形态无关。`, '')
   L.push(`分类分布：${catLine}`, '')
   L.push('| ⭐ | 插件 | 中文说明 | 分类 | 形态 | 较上期 | 最近更新 | 许可 |', '|---:|---|---|---|---|---:|---|---|')
   for (const r of P) {
@@ -363,7 +368,8 @@ ${sponsors.length ? `<h2>二、本期推荐（赞助）</h2>
         <div class="stars"><b>推荐</b><span></span></div>
       </article>`).join('')}</div>` : ''}
 
-<h2>${sponsors.length ? '三' : '二'}、插件榜（${P.length}）</h2>
+<h2>${sponsors.length ? '三' : '二'}、DSH 生态项目榜（${P.length}）</h2>
+<p class="lede">排序口径是<strong>真实 star 数</strong>，与形态无关。共 ${P.length} 个：其中 <strong>${P.filter((r) => r.kind === '原生bundle').length} 个是可直接安装的插件</strong>（卡片里带 <code>dsh plugin add</code> 命令），其余 ${P.length - P.filter((r) => r.kind === '原生bundle').length} 个是周边工具 / Skill——<strong>它们不是插件</strong>，别把它们当成要装的东西。</p>
 <div class="chips">${catChips}</div>
 <div class="grid">${P.map(card).join('')}</div>
 <p class="lede" style="margin-top:12px">≈ 表示星数取自上期快照（本次实时接口未取到）。</p>

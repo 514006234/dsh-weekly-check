@@ -118,6 +118,9 @@ if (existsSync(join(sandbox, 'report', 'index.html'))) {
   const copyBtns = (h.match(/class="copy"/g) || []).length
   check('一键安装脚本在位（剪贴板 API + execCommand 兜底）', h.includes('navigator.clipboard') && h.includes('execCommand'))
   check('每个原生bundle 卡片都带一条安装命令', bundles === 0 || copyBtns === bundles)
+  // 榜单口径必须说清楚：31 条里只有 17 条是真插件，榜首那条自己就写着「不是 DSH 插件」
+  check('榜单口径说清「哪些是插件、哪些不是」', m.includes('DSH 生态项目榜') && m.includes('个是可直接安装的插件')
+    && h.includes('DSH 生态项目榜') && h.includes('它们不是插件'))
   check('Markdown 含涨星', /\+56/.test(m))
   // 影响力流量栏目：离线且无缓存时必须优雅降级，但栏目本身必须存在
   check('Markdown 含影响力与流量栏目', m.includes('影响力与流量'))
