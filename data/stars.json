@@ -1,12 +1,12 @@
 {
   "nexu-io/open-design": {
-    "stars": 99159,
+    "stars": 99161,
     "pushed": "2026-10-02",
     "license": "Apache-2.0",
     "asOf": "2026-10-02"
   },
   "tt-a1i/archify": {
-    "stars": 76120,
+    "stars": 76122,
     "pushed": "2026-10-02",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -54,13 +54,13 @@
     "asOf": "2026-10-02"
   },
   "dataelement/dsh-desktop": {
-    "stars": 11659,
+    "stars": 11660,
     "pushed": "2026-10-02",
     "license": "MIT",
     "asOf": "2026-10-02"
   },
   "zhu1090093659/dsh-web": {
-    "stars": 8281,
+    "stars": 8282,
     "pushed": "2026-10-02",
     "license": "Apache-2.0",
     "asOf": "2026-10-02"
@@ -78,7 +78,7 @@
     "asOf": "2026-10-02"
   },
   "devin-axis/ipollowork": {
-    "stars": 6556,
+    "stars": 6557,
     "pushed": "2026-10-02",
     "license": "NOASSERTION",
     "asOf": "2026-10-02"
@@ -96,7 +96,7 @@
     "asOf": "2026-10-02"
   },
   "dsh-market/dsh-market": {
-    "stars": 5315,
+    "stars": 5316,
     "pushed": "2026-10-02",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -144,7 +144,7 @@
     "asOf": "2026-10-02"
   },
   "zouyuxuan122/dsh-our-free-model": {
-    "stars": 674,
+    "stars": 675,
     "pushed": "2026-10-02",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -186,7 +186,7 @@
     "asOf": "2026-10-02"
   },
   "_meta": {
-    "updatedAt": "2026-10-02T14:25:59.901Z",
+    "updatedAt": "2026-10-02T14:29:57.701Z",
     "liveCount": 31,
     "token": "yes"
   }

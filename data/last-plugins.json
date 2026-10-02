@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-02T14:25:59.901Z",
+  "generatedAt": "2026-10-02T14:29:57.702Z",
   "liveCount": 31,
   "priorAsOf": "2026-10-01",
   "rows": [
@@ -9,10 +9,10 @@
       "cn": "生成网页/PPT/图片/视频并导出，**不是 DSH 插件**，是它反过来管理 DSH 运行时",
       "cat": "设计交付",
       "kind": "外部",
-      "stars": 99159,
+      "stars": 99161,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 114,
+      "delta": 116,
       "pushed": "2026-10-02",
       "license": "Apache-2.0",
       "archived": false
@@ -23,10 +23,10 @@
       "cn": "从代码库生成可验证的架构/流程/时序图，自带 HTML 导出",
       "cat": "文档图",
       "kind": "Skill",
-      "stars": 76120,
+      "stars": 76122,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 458,
+      "delta": 460,
       "pushed": "2026-10-02",
       "license": "MIT",
       "archived": false
@@ -135,10 +135,10 @@
       "cn": "又一个社区桌面版",
       "cat": "桌面端",
       "kind": "外部",
-      "stars": 11659,
+      "stars": 11660,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 274,
+      "delta": 275,
       "pushed": "2026-10-02",
       "license": "MIT",
       "archived": false
@@ -149,10 +149,10 @@
       "cn": "任务看板/Git图谱/右侧面板/移动端/皮肤等聚合分发",
       "cat": "工作台",
       "kind": "原生bundle",
-      "stars": 8281,
+      "stars": 8282,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 32,
+      "delta": 33,
       "pushed": "2026-10-02",
       "license": "Apache-2.0",
       "archived": false
@@ -191,10 +191,10 @@
       "cn": "本地优先的多引擎 Agent 工作台",
       "cat": "工作台",
       "kind": "外部",
-      "stars": 6556,
+      "stars": 6557,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 34,
+      "delta": 35,
       "pushed": "2026-10-02",
       "license": "NOASSERTION",
       "archived": false
@@ -233,10 +233,10 @@
       "cn": "DSH 界面内的插件市场：浏览/搜索/一键安装",
       "cat": "插件市场",
       "kind": "原生bundle",
-      "stars": 5315,
+      "stars": 5316,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 90,
+      "delta": 91,
       "pushed": "2026-10-02",
       "license": "MIT",
       "archived": false
@@ -345,10 +345,10 @@
       "cn": "免登录免 Key 用 11 个免费模型（MiMo/Nemotron/Space Bunny 等）；**本机已装并调优**",
       "cat": "免费模型",
       "kind": "原生bundle",
-      "stars": 674,
+      "stars": 675,
       "starsSource": "live",
       "asOf": "2026-10-02",
-      "delta": 92,
+      "delta": 93,
       "pushed": "2026-10-02",
       "license": "MIT",
       "archived": false
@@ -483,7 +483,7 @@
   "fresh": [
     {
       "repo": "walkinglabs/learn-harness-engineering",
-      "stars": 18057,
+      "stars": 18059,
       "pushed": "2026-10-01",
       "desc": "Harness engineering beginner tutorial, from 0 to 1"
     }
