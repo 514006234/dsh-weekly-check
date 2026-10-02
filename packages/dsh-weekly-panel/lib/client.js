@@ -294,6 +294,36 @@ window.__ModuleLoader__.load({
       );
     }
 
+    /**
+     * 窄窗兜底：量父容器的真实宽度，用内联 max-width 强制收敛。
+     * 为什么需要：实测发现框架中间列的百分比解析链不可靠——窗口未最大化时，
+     * 内容仍会被父列的 overflow:hidden 按窗口边缘裁掉。父元素的 clientWidth
+     * 是唯一真相，内联样式优先级高于样式表，对任何框架布局行为都成立。
+     */
+    function makeFitGuard(className, cap) {
+      if (typeof document === 'undefined' || typeof window === 'undefined') return function () {};
+      function fit() {
+        var el = document.querySelector('.' + className);
+        if (!el || !el.parentElement) return;
+        var p = el.parentElement;
+        var avail = p.clientWidth || 0;
+        var vw = window.innerWidth || 0;
+        var want = cap;
+        if (avail > 4) want = Math.min(want, avail - 2);
+        if (vw > 4) want = Math.min(want, vw - 16);
+        if (want > 0) el.style.maxWidth = want + 'px';
+      }
+      fit();
+      window.addEventListener('resize', fit);
+      var t1 = setTimeout(fit, 250);   // 布局求解器异步收敛后再兜一次
+      var t2 = setTimeout(fit, 1500);  // 数据到达引起重排后再兜一次
+      return function () {
+        window.removeEventListener('resize', fit);
+        clearTimeout(t1);
+        clearTimeout(t2);
+      };
+    }
+
     function WeeklyPanel() {
       var tickPair = React.useState(0);
       var tick = tickPair[0];
@@ -303,6 +333,8 @@ window.__ModuleLoader__.load({
       React.useEffect(function () { ensureStyle(); }, []);
       // 挂载即取一次（宿主半有 30 分钟缓存，很便宜）
       React.useEffect(function () { refresh(); }, []);
+      // 窄窗兜底：父容器实测宽度 + 内联 max-width（防未最大化时右侧被裁）
+      React.useEffect(function () { return makeFitGuard('dwp-main', 1100); }, []);
 
       function afterLoad() {
         bump(function (v) { return v + 1; });

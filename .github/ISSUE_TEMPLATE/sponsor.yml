@@ -1,5 +1,5 @@
 name: 我要赞助榜单位
-description: 申请《DSH 插件周榜》的赞助推荐位（¥299/期 起）
+description: 申请《DSH 插件周榜》的赞助推荐位（¥299/期 = 展示 7 天）
 title: "[赞助] "
 body:
   - type: markdown
@@ -29,11 +29,12 @@ body:
   - type: dropdown
     id: tier
     attributes:
-      label: 想要的档位
+      label: 想要的档位（「一期」= 一周，自下一期周报发布起算）
+      description: 展示时长随档位：单期 7 天 / 包月 28 天 / 季度 91 天
       options:
-        - 单期推荐（¥299 / 期）
-        - 包月（¥999 / 月，4 期）
-        - 长期伙伴（¥2,499 / 季）
+        - 单期推荐（¥299 / 期，展示 7 天）
+        - 包月（¥999 / 月，连续 4 期 = 28 天）
+        - 长期伙伴（¥2,499 / 季，连续 13 期 = 91 天）
         - 还不确定，先聊聊
     validations:
       required: true
