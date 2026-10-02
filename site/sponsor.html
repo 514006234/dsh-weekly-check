@@ -40,13 +40,16 @@
   .btn.p{background:var(--acc);color:#04121a}
   .btn.s{border:1px solid var(--line);color:var(--fg)}
   .note{font-size:13px;color:var(--dim);margin-top:12px}
-  .pay{display:grid;grid-template-columns:200px 1fr;gap:18px;align-items:center;margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+  .pay{display:grid;grid-template-columns:minmax(0,360px) 1fr;gap:18px;align-items:center;margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
   @media (max-width:640px){.pay{grid-template-columns:1fr}}
-  .paybox{position:relative;border-radius:12px;overflow:hidden;background:rgba(127,127,127,.08);border:1px dashed var(--line);aspect-ratio:1/1;display:flex;align-items:center;justify-content:center}
+  .paygrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .paybox{position:relative;border-radius:12px;overflow:hidden;background:rgba(127,127,127,.08);border:1px solid var(--line);aspect-ratio:3/4;display:flex;align-items:center;justify-content:center}
   .paybox img{width:100%;height:100%;object-fit:contain;display:block}
-  .paybox .paymiss{display:none;padding:14px;font-size:12.5px;color:var(--dim);text-align:center;line-height:1.6}
+  .paybox::after{content:attr(data-label);position:absolute;left:0;right:0;bottom:0;padding:4px 0 6px;text-align:center;font-size:12.5px;font-weight:700;color:#fff;background:rgba(10,14,22,.72)}
+  .paybox .paymiss{display:none;padding:14px 10px;font-size:11.5px;color:var(--dim);text-align:center;line-height:1.6}
   .paybox.missing img{display:none}
   .paybox.missing .paymiss{display:block}
+  .paybox.missing::after{display:none}
   .paytxt p{margin:0 0 10px;font-size:14.5px}
   .paytxt p:last-child{margin-bottom:0}
   code{background:rgba(127,127,127,.16);padding:1px 6px;border-radius:5px;font-size:13.5px}
@@ -122,9 +125,15 @@
   {{CONTACT_LINE}}
 
   <div class="pay">
-    <div class="paybox">
-      <img src="assets/pay.png" alt="收款码" onerror="this.closest('.paybox').classList.add('missing')">
-      <div class="paymiss">收款码位置：把微信/支付宝收款码存成 <code>site/assets/pay.png</code>，再跑一次 <code>npm run report:offline</code>，这里会自动显示；没放图时只显示这段占位说明。</div>
+    <div class="paygrid">
+      <div class="paybox" data-label="微信">
+        <img src="assets/pay-wechat.png" alt="微信收款码" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='assets/pay.png'}else{this.closest('.paybox').classList.add('missing')}">
+        <div class="paymiss">微信收款码位置：<code>site/assets/pay-wechat.png</code>（或 <code>pay.png</code>）</div>
+      </div>
+      <div class="paybox" data-label="支付宝">
+        <img src="assets/pay-alipay.png" alt="支付宝收款码" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='assets/pay.png'}else{this.closest('.paybox').classList.add('missing')}">
+        <div class="paymiss">支付宝收款码位置：<code>site/assets/pay-alipay.png</code>（或 <code>pay.png</code>）</div>
+      </div>
     </div>
     <div class="paytxt">
       <p><strong>付款方式</strong>：微信 / 支付宝扫码。顺序永远是「先确认范围与验收标准 → 再付款」。</p>
