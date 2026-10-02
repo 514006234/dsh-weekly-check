@@ -19,6 +19,7 @@
 > 另外接：插件定制开发（¥3,000 起）、企业内网私有部署（¥4,999 起）、可信插件白名单体检（¥6,999/份）。
 >
 > **价格表与付款方式（微信 / 支付宝）** → https://514006234.github.io/dsh-weekly-check/sponsor/
+> **联系方式**：514006234@qq.com（一个工作日内回复）｜或直接[开 Issue](https://github.com/514006234/dsh-weekly-check/issues/new?template=sponsor.yml)。
 > 榜单排名**永远按 GitHub 真实 star 数排**——不卖榜一、不卖排名，赞助位不参与排序。
 > 想看付费报告《DSH 插件选型与风险报告》（¥199）：先看 [公开预览](https://514006234.github.io/dsh-weekly-check/report-preview/)，再[开个 Issue](https://github.com/514006234/dsh-weekly-check/issues/new?template=buy-report.yml) 说要买（不用在 Issue 里贴任何付款凭证）。
 
