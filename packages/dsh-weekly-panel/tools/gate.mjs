@@ -163,6 +163,7 @@ try {
   assert.ok(/\.dwp-main \.dwp-section>\*\{[^}]*min-width:0/.test(css), '网格子项必须 min-width:0（否则 1fr 的 auto 最小尺寸把轨道顶宽）')
   assert.ok(/\.dwp-main \.dwp-section\{[^}]*minmax\(min\(260px,\s*100%\)/.test(css), '网格列必须 min(260px,100%) 防窄窗裁切')
   assert.ok(/\.dwp-main \.dwp-row\{[^}]*min-height:60px/.test(css), '卡片行要有 min-height:60px（用户要求高度再高点）')
+  assert.ok(/\.dwp-install\{/.test(css), '一键安装按钮样式必须在位（用户明确要求从周榜点一下就能装）')
   assert.ok(!/max-height:min\(46vh/.test(css), '抽屉限高样式已随抽屉移除')
   ok('面板完全流内（0 处 fixed、0 处 z-index）+ 窄窗 min() 约束 + 卡片加高')
 } catch (err) { fail('client.js 静态形态', err.message) }
@@ -280,6 +281,9 @@ try {
     assert.ok(/minmax\(min\(260px,\s*100%\),\s*1fr\)/.test(src), '网格列必须用 min(260px,100%) 防窄窗溢出')
     assert.ok(/\.dwp-main\{[^}]*box-sizing:border-box/.test(src), '主列必须 box-sizing:border-box：宿主无全局 reset，否则右溢 56px 被裁')
     assert.ok(/function visibleWidth/.test(src), '窄窗兜底必须量整条祖先链的最小宽度（只量父元素会拿到溢出的假宽度）')
+    assert.ok(/function copyInstall/.test(src) && /dsh plugin add /.test(src), '一键安装：必须复制 dsh plugin add <repo> 命令')
+    assert.ok(/'原生bundle'/.test(src), '一键安装只对「原生bundle」显示（外部/Skill 给了也跑不通）')
+    assert.ok(!/position:fixed/.test(src), '整份源码不得出现 position:fixed（含 JS 动态创建的节点）')
     ok('窄窗口（未最大化）不裁切：容器与网格列都做了 min() 约束')
   }
 

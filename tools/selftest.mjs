@@ -113,6 +113,11 @@ if (existsSync(join(sandbox, 'report', 'index.html'))) {
   check('HTML 内联渲染 **粗体**', h.includes('<strong>中文</strong>'))
   check('HTML 含免费模型状态标签', h.includes('地区墙'))
   check('HTML 无脚本外链（单文件）', !/<script[^>]+src=/.test(h) && !/<link[^>]+stylesheet/.test(h))
+  // 一键安装（用户要求：从周榜点一下就能装）
+  const bundles = (h.match(/data-kind="原生bundle"/g) || []).length
+  const copyBtns = (h.match(/class="copy"/g) || []).length
+  check('一键安装脚本在位（剪贴板 API + execCommand 兜底）', h.includes('navigator.clipboard') && h.includes('execCommand'))
+  check('每个原生bundle 卡片都带一条安装命令', bundles === 0 || copyBtns === bundles)
   check('Markdown 含涨星', /\+56/.test(m))
   // 影响力流量栏目：离线且无缓存时必须优雅降级，但栏目本身必须存在
   check('Markdown 含影响力与流量栏目', m.includes('影响力与流量'))

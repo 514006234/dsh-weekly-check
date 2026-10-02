@@ -79,6 +79,11 @@ window.__ModuleLoader__.load({
       '.dwp-repo{font-size:10px;color:var(--dwp-dim);text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}',
       '.dwp-repo:hover{color:var(--dwp-accent);text-decoration:underline;}',
       '.dwp-row-side{flex:0 0 auto;display:flex;flex-direction:column;align-items:flex-end;gap:1px;}',
+      /* 一键安装：只有「原生bundle」才给命令（外部应用 / Skill 不适用，不该给用户一条跑不通的命令） */
+      '.dwp-install{flex:0 0 auto;font:inherit;font-size:10px;line-height:1;padding:4px 7px;border-radius:7px;',
+      'border:1px solid var(--dwp-border-strong);background:transparent;color:var(--dwp-dim);cursor:pointer;white-space:nowrap;}',
+      '.dwp-install:hover{border-color:var(--dwp-accent);color:var(--dwp-accent);}',
+      '.dwp-install.is-done{border-color:rgba(34,197,94,.7);color:#22c55e;}',
       '.dwp-star{font-size:11.5px;font-weight:700;}',
       '.dwp-delta{font-size:10px;font-weight:700;color:var(--dwp-dim);}',
       // 「较上期涨星」正数绿色
@@ -259,10 +264,59 @@ window.__ModuleLoader__.load({
     }
 
     /* ============================ 组件 ============================ */
+    /**
+     * 复制「dsh plugin add <repo>」到剪贴板。
+     *
+     * 为什么按钮文案直接改 DOM 而不是用 React state：TopRow 这个函数既可能被当组件渲染、
+     * 也可能被直接调用，用 hook 会在后者下炸掉。改 DOM 文本对两种调用方式都成立。
+     * 兜底用 window.prompt 而不是插一个 fixed 定位的 textarea——本项目有一条
+     * 「整段 CSS 不得出现任何固定定位」的不变量，不给它留任何擦边的地方。
+     */
+    function copyInstall(repo, ev) {
+      var cmd = 'dsh plugin add ' + repo;
+      var btn = ev && ev.currentTarget ? ev.currentTarget : null;
+      function done() {
+        if (!btn) return;
+        var old = btn.textContent;
+        btn.textContent = '已复制';
+        btn.classList.add('is-done');
+        setTimeout(function () {
+          btn.textContent = old;
+          btn.classList.remove('is-done');
+        }, 1500);
+      }
+      function fallback() {
+        try { window.prompt('复制下面的命令，粘到终端执行：', cmd); } catch (err) { /* 连 prompt 都没有就算了 */ }
+      }
+      try {
+        if (typeof navigator !== 'undefined' && navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(cmd).then(done, fallback);
+          return;
+        }
+        if (document.queryCommandSupported && document.queryCommandSupported('copy')) {
+          var ta = document.createElement('textarea');
+          ta.value = cmd;
+          ta.setAttribute('readonly', '');
+          ta.style.width = '1px';
+          ta.style.height = '1px';
+          ta.style.opacity = '0';
+          ta.style.border = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          done();
+          return;
+        }
+        fallback();
+      } catch (err) { fallback(); }
+    }
+
     function TopRow(props) {
       var row = props.row;
       var repo = repoOf(row);
       var delta = deltaOf(row);
+      var installable = repo !== '' && textOf2(row && row.kind, '') === '原生bundle';
       return h('div', { className: 'dwp-row' },
         h('span', { className: 'dwp-rank' }, String(props.index + 1)),
         h('span', { className: 'dwp-row-main' },
@@ -281,6 +335,14 @@ window.__ModuleLoader__.load({
           h('span', { className: 'dwp-star' }, starText(row && row.stars)),
           delta === null || delta === 0 ? null : h('span', { className: deltaClass(delta) }, deltaText(delta)),
         ),
+        installable
+          ? h('button', {
+              type: 'button',
+              className: 'dwp-install',
+              title: '复制安装命令：dsh plugin add ' + repo,
+              onClick: function (ev) { copyInstall(repo, ev); },
+            }, '装')
+          : null,
       );
     }
 

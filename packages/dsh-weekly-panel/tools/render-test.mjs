@@ -104,11 +104,12 @@ function plugin(i, over = {}) {
     delta: null,
     cn: '中文说明 ' + i,
     starsSource: 'live',
+    kind: '原生bundle',
   }, over)
 }
 const PLUGINS = []
 for (let i = 1; i <= 12; i += 1) PLUGINS.push(plugin(i))
-PLUGINS[0] = plugin(1, { repo: 'nexu-io/open-design', name: 'OpenDesign 设计工作台', stars: 99046, delta: 2 })
+PLUGINS[0] = plugin(1, { repo: 'nexu-io/open-design', name: 'OpenDesign 设计工作台', stars: 99046, delta: 2, kind: '外部' })
 PLUGINS[1] = plugin(2, { repo: 'tt-a1i/archify', name: 'Archify 架构图', stars: 75670, delta: 0 })
 PLUGINS[2] = plugin(3, { repo: 'volcengine/OpenViking', name: 'OpenViking 上下文库', stars: 39088, delta: -1 })
 PLUGINS[11] = plugin(12, { repo: 'demo/tiny', name: '小插件', stars: 5 })
@@ -135,11 +136,14 @@ function boot(options = {}) {
   pendingEffects = []
   effectRecords = []
   const fetchCalls = []
+  const copied = []
   let record = null
   const sandbox = {
     console,
     setTimeout: (fn) => { fn(); return 0 },
     clearTimeout: () => {},
+    // 一键安装要用剪贴板：桩里记下被复制的内容，好在断言里核对命令对不对
+    navigator: { clipboard: { writeText: (text) => { copied.push(String(text)); return Promise.resolve() } } },
     fetch: (url, init) => {
       fetchCalls.push({ url: String(url), init: init || null })
       if (typeof options.fetch === 'function') return options.fetch(url, init)
@@ -169,7 +173,7 @@ function boot(options = {}) {
   mod.apply(baseCtx)
   // v0.3.0：唯一内容组件挂在 main 槽
   const Component = regs['main'] ? regs['main'].comp : null
-  return { Component, regs, fetchCalls }
+  return { Component, regs, fetchCalls, copied }
 }
 
 function mount(Component, props) {
@@ -398,6 +402,35 @@ async function run() {
         .props.onClick({ stopPropagation() {}, preventDefault() {} })
     } catch (err) { iconThrow = err }
     expect(iconThrow === null, 'selectPanel 抛异常也被吞掉：' + (iconThrow && iconThrow.message))
+  }
+
+  console.log('[13] 一键安装：只有「原生bundle」给命令，点击复制 dsh plugin add <repo>')
+  {
+    const { Component, copied } = boot()
+    const view = mount(Component, {})
+    const tree = await view.settle()
+    const rows = rowsOf(tree)
+    const installs = byClass(tree, 'dwp-install')
+    expect(installs.length === 9 && rows.length === 10, '10 行里 9 行是可装的原生bundle，实际按钮 ' + installs.length + ' 个')
+    const openRow = rows.find((r) => JSON.stringify(r).includes('nexu-io/open-design'))
+    expect(!!openRow && byClass(openRow, 'dwp-install').length === 0, '外部形态（OpenDesign）不给安装命令——不给跑不通的命令')
+
+    const btn = installs[0]
+    const title = String((btn.props || {}).title || '')
+    expect(/^复制安装命令：dsh plugin add [\w.-]+\/[\w.-]+$/.test(title), '按钮提示里带完整命令：' + title)
+    const fake = { textContent: '装', dataset: {}, classList: { add() {}, remove() {} } }
+    btn.props.onClick({ currentTarget: fake })
+    expect(copied.length === 1, '点击后确实调用了剪贴板 API，实际 ' + copied.length + ' 次')
+    expect(copied[0] === title.replace('复制安装命令：', ''), '复制出去的就是那条命令：' + copied[0])
+
+    // 没有剪贴板 API 时必须降级到 prompt，而不是抛异常炸掉面板
+    const noClip = boot({ data: DATA })
+    const v2 = mount(noClip.Component, {})
+    const tree2 = await v2.settle()
+    const btn2 = byClass(tree2, 'dwp-install')[0]
+    let threw = null
+    try { btn2.props.onClick({ currentTarget: fake }) } catch (err) { threw = err }
+    expect(threw === null, '剪贴板不可用时安静降级（不抛）：' + (threw && threw.message))
   }
 
   console.log('')

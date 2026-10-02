@@ -244,6 +244,7 @@ function html() {
             <span class="pushed">更新 ${esc(r.pushed || '—')}</span>
             <span class="lic">${esc(r.license || '-')}</span>
           </div>
+          ${r.kind === '原生bundle' ? `<div class="inst"><code>dsh plugin add ${esc(r.repo)}</code><button type="button" class="copy" data-cmd="dsh plugin add ${esc(r.repo)}">复制</button></div>` : ''}
         </div>
         <div class="stars">
           <b>${star(r.stars)}${r.starsSource === 'live' ? '' : '≈'}</b><span>★</span>
@@ -294,6 +295,12 @@ function html() {
   ul.points{list-style:none;padding:0;margin:0}
   ul.points li{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin-bottom:10px;box-shadow:0 1px 2px rgba(0,0,0,.12)}
   .chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 18px}
+  /* 一键安装：原生bundle 直接给出可复制的 dsh plugin add 命令（外部/Skill 不适用，所以不显示） */
+  .inst{display:flex;align-items:center;gap:8px;margin-top:9px;min-width:0}
+  .inst code{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;padding:4px 8px;border:1px solid var(--line);border-radius:8px;background:rgba(127,127,127,.07)}
+  .copy{flex:0 0 auto;font:inherit;font-size:12px;padding:5px 10px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--fg);cursor:pointer}
+  .copy:hover{border-color:var(--acc2);color:var(--acc2)}
+  .copy.ok{border-color:#3fbf7f;color:#3fbf7f}
   .chip{cursor:pointer;background:var(--card);color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:13px}
   .chip.on{color:#04121a;background:var(--acc);border-color:var(--acc);font-weight:600}
   .grid{display:grid;gap:14px}
@@ -406,6 +413,34 @@ for (var i = 0; i < chips.length; i++) {
     }
   });
 }
+// 一键安装：复制 dsh plugin add <repo> 这条命令
+document.addEventListener('click', function (e) {
+  var b = e.target && e.target.closest ? e.target.closest('.copy') : null;
+  if (!b) return;
+  var cmd = b.getAttribute('data-cmd') || '';
+  var done = function () {
+    if (b.dataset.busy) return;
+    b.dataset.busy = '1';
+    var old = b.textContent;
+    b.textContent = '已复制 ✓';
+    b.classList.add('ok');
+    setTimeout(function () { b.textContent = old; b.classList.remove('ok'); delete b.dataset.busy; }, 1600);
+  };
+  var fallback = function () {
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = cmd; ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      done();
+    } catch (err) { b.textContent = '复制失败，请手动选'; }
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(cmd).then(done, fallback);
+  } else { fallback(); }
+});
 </script>
 </body>
 </html>
