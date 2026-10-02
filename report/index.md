@@ -4,9 +4,9 @@
 
 ## 一、本期要点
 
-- 收录插件 31 个，合计 420,679 ★；前三名：OpenDesign 设计工作台（99.2k★）、Archify 架构图（76.1k★）、OpenViking 上下文库（39.1k★）。
-- 本期涨星：Archify 架构图 +457★、DSHDesktop +274★、OpenDesign 设计工作台 +114★。
-- 免费模型可用性：**7/12 可用**，已下线 2 个，上游波动 3 个；可用模型首字延迟中位 0.83s。
+- 收录插件 31 个，合计 420,686 ★；前三名：OpenDesign 设计工作台（99.2k★）、Archify 架构图（76.1k★）、OpenViking 上下文库（39.1k★）。
+- 本期涨星：Archify 架构图 +458★、DSHDesktop +274★、OpenDesign 设计工作台 +114★。
+- 免费模型可用性：**7/12 可用**，已下线 2 个，上游波动 3 个；可用模型首字延迟中位 0.89s。
 - 待审新面孔：walkinglabs/learn-harness-engineering（18.1k★，2026-10-01）。
 
 ## 二、插件榜
@@ -16,12 +16,12 @@
 | ⭐ | 插件 | 中文说明 | 分类 | 形态 | 较上期 | 最近更新 | 许可 |
 |---:|---|---|---|---|---:|---|---|
 | 99.2k | **OpenDesign 设计工作台**<br>`nexu-io/open-design` | 生成网页/PPT/图片/视频并导出，**不是 DSH 插件**，是它反过来管理 DSH 运行时 | 设计交付 | 外部 | +114 | 2026-10-02 | Apache-2.0 |
-| 76.1k | **Archify 架构图**<br>`tt-a1i/archify` | 从代码库生成可验证的架构/流程/时序图，自带 HTML 导出 | 文档图 | Skill | +457 | 2026-10-02 | MIT |
+| 76.1k | **Archify 架构图**<br>`tt-a1i/archify` | 从代码库生成可验证的架构/流程/时序图，自带 HTML 导出 | 文档图 | Skill | +458 | 2026-10-02 | MIT |
 | 39.1k | **OpenViking 上下文库**<br>`volcengine/OpenViking` | 把记忆/知识/RAG/Skill 统一进 `viking://` 虚拟文件系统；**AGPL 且是独立部署**，不适合只想加记忆的人 | 记忆 | 外部 | +41 | 2026-10-02 | AGPL-3.0 |
-| 29.8k | **DSH Desktop（社区桌面端）**<br>`anywhere-labs/dsh-desktop` | 把整个 Harness 打进安装包，**无需 Node 环境**；个人项目非官方 | 桌面端 | 外部 | +65 | 2026-10-01 | MIT |
+| 29.8k | **DSH Desktop（社区桌面端）**<br>`anywhere-labs/dsh-desktop` | 把整个 Harness 打进安装包，**无需 Node 环境**；个人项目非官方 | 桌面端 | 外部 | +67 | 2026-10-01 | MIT |
 | 25.2k | **Distilly 技能提炼**<br>`titanwings/distilly` | 把「别人怎么想」蒸馏成可复用 Skills（原 colleague-skill） | 技能 | 外部 | +32 | 2026-09-22 | MIT |
 | 20.3k | **Voyager 提示词管理**<br>`voyager-crew/voyager` | 浏览器扩展，可在 DSH 网页里复用提示词；**不是 DSH bundle** | 提示词 | 外部 | +8 | 2026-09-29 | GPL-3.0 |
-| 17.6k | **DSH 插件精选列表**<br>`awesome-dsh-plugin/awesome-dsh-plugin` | 社区维护的插件清单，找插件的入口 | 榜单 | 外部 | +73 | 2026-10-01 | CC0-1.0 |
+| 17.6k | **DSH 插件精选列表**<br>`awesome-dsh-plugin/awesome-dsh-plugin` | 社区维护的插件清单，找插件的入口 | 榜单 | 外部 | +74 | 2026-10-01 | CC0-1.0 |
 | 13.3k | **EverOS 记忆层**<br>`EverMind-AI/EverOS` | 本地优先、Markdown 原生、用户自持的跨 Agent 记忆层 | 记忆 | 外部 | +5 | 2026-10-01 | Apache-2.0 |
 | 11.7k | **MemOS 记忆操作系统**<br>`MemTensor/MemOS` | 面向 LLM/Agent 的自进化记忆系统，带混合检索 | 记忆 | 外部 | +5 | 2026-09-29 | Apache-2.0 |
 | 11.7k | **DSHDesktop**<br>`dataelement/dsh-desktop` | 又一个社区桌面版 | 桌面端 | 外部 | +274 | 2026-10-02 | MIT |
@@ -30,8 +30,8 @@
 | 7.0k | **dsh-routing-suite 智能路由**<br>`yjh051108/dsh-routing-suite` | 按任务把请求路由到不同模型/提供商 | 模型路由 | 原生bundle | +1 | 2026-09-18 | MIT |
 | 6.6k | **iPolloWork 企业工作台**<br>`Devin-AXIS/iPolloWork` | 本地优先的多引擎 Agent 工作台 | 工作台 | 外部 | +34 | 2026-10-02 | NOASSERTION |
 | 6.2k | **Ouroboros 自进化 Agent OS**<br>`Q00/ouroboros` | 访谈门控 + 分阶段评测 + 预算约束的长任务闭环 | 多Agent | 原生bundle | +3 | 2026-10-02 | MIT |
-| 6.1k | **loopx 长任务控制面**<br>`loopx-project/loopx` | 带持久状态内核，维持长任务与团队持续推进 | 多Agent | 外部 | +8 | 2026-10-02 | Apache-2.0 |
-| 5.3k | **dsh-market 插件市场**<br>`dsh-market/dsh-market` | DSH 界面内的插件市场：浏览/搜索/一键安装 | 插件市场 | 原生bundle | +89 | 2026-10-02 | MIT |
+| 6.1k | **loopx 长任务控制面**<br>`loopx-project/loopx` | 带持久状态内核，维持长任务与团队持续推进 | 多Agent | 外部 | +9 | 2026-10-02 | Apache-2.0 |
+| 5.3k | **dsh-market 插件市场**<br>`dsh-market/dsh-market` | DSH 界面内的插件市场：浏览/搜索/一键安装 | 插件市场 | 原生bundle | +90 | 2026-10-02 | MIT |
 | 4.2k | **petdex 宠物画廊**<br>`crafter-station/petdex` | 界面里养动画宠物（Codex/Claude/DSH 通用） | 娱乐 | 原生bundle | +5 | 2026-09-28 | MIT |
 | 4.1k | **ModLens 视觉识图**<br>`liustack/modlens` | 纯文本模型**直接看图**：粘贴图片返回 OCR/布局/语义证据 | 视觉识图 | 原生bundle | +6 | 2026-09-27 | MIT |
 | 4.0k | **treg 工具路由器**<br>`superdesigndev/treg` | 「Agent 工具界的 OpenRouter」，统一调度工具调用 | 多Agent | 原生bundle | +48 | 2026-10-02 | NOASSERTION |
@@ -39,7 +39,7 @@
 | 3.9k | **dsh-TUI 终端版**<br>`ccch1mneyyy/dsh-TUI` | 官方公众号收录的 TUI：鲸鱼顶栏/流式思考/上下文进度+TPS | 终端 | 原生bundle | +35 | 2026-10-02 | MIT |
 | 3.9k | **余额小鲸鱼**<br>`MeteorNOX/DeepSeek-Balance-Whale-Widget` | 右下角动画小鲸鱼盯余额，可拖拽吸附 | 娱乐 | 原生bundle | +77 | 2026-10-02 | MIT |
 | 3.8k | **anchored-standard 两阶段预设**<br>`xiaobright/dsh-anchored-standard` | 先最小对齐启动、再放开全套标准工具的 preset | 预设 | 原生bundle | -1 | 2026-09-10 | NOASSERTION |
-| 673 | **Our Free Model 免费模型**<br>`zouyuxuan122/dsh-our-free-model` | 免登录免 Key 用 11 个免费模型（MiMo/Nemotron/Space Bunny 等）；**本机已装并调优** | 免费模型 | 原生bundle | +91 | 2026-10-02 | MIT |
+| 674 | **Our Free Model 免费模型**<br>`zouyuxuan122/dsh-our-free-model` | 免登录免 Key 用 11 个免费模型（MiMo/Nemotron/Space Bunny 等）；**本机已装并调优** | 免费模型 | 原生bundle | +92 | 2026-10-02 | MIT |
 | 411 | **玻璃透明主题**<br>`WYH66666666/DSH-Transparent-UI-Plugin` | 全界面磨砂玻璃主题，模糊度/磨砂度可调 | 主题皮肤 | 原生bundle | +2 | 2026-08-22 | AGPL-3.0 |
 | 148 | **插件升级 Skill**<br>`oh-my-dsh/dsh-plugin-upgrade-skill` | 让已装插件跟着 DSH 版本升级（升级顾问） | 维护 | Skill | 0 | 2026-10-01 | MIT |
 | 105 | **Web 界面插件市场**<br>`Sanqi-normal/dsh-webui-market-plugin` | 在 Web GUI 里浏览目录、一键装卸到 profile | 插件市场 | 原生bundle | 0 | 2026-08-22 | MIT |
@@ -57,16 +57,16 @@
 |---|---|---|---|---|---|
 | 🔁 上游波动 | `jev-1.13-free` | chat | — | 0.1s | Internal server error |
 | ❌ 已下线 | `deepseek-v4-flash-free` | chat | — | 0.2s | Error from provider (Console): Upstream request failed: Model is unavailable. |
-| 🔁 上游波动 | `muse-spark-1.3-contributor-free` | responses | 2.12s | 2.8s | HTTP 200 但无正文 |
-| 🔁 上游波动 | `muse-spark-1.2-contributor-free` | responses | 0.75s | 1.2s | HTTP 200 但无正文 |
-| ✅ 可用 | `mimo-v2.6-flash-free` | chat | 5.90s | 9.5s | "通了" |
-| ✅ 可用 | `space-bunny-free` | chat | 0.83s | 3.8s | "通了" |
-| ✅ 可用 | `longcat-2.5-preview-free` | chat | 2.27s | 3.0s | "通了" |
-| ✅ 可用 | `mimo-v2.5-free` | chat | 0.94s | 1.3s | "通了" |
-| ❌ 已下线 | `ling-3.0-flash-fin-free` | chat | — | 0.4s | Error from provider (Console): Upstream request failed: Endpoint is unavailable. |
-| ✅ 可用 | `nemotron-3-ultra-free` | chat | 0.83s | 3.7s | "通了" |
-| ✅ 可用 | `nemotron-3.5-lightning-free` | chat | 0.41s | 1.9s | "通了" |
-| ✅ 可用 | `fledge-alpha-free` | chat | 0.68s | 1.3s | "通" |
+| 🔁 上游波动 | `muse-spark-1.3-contributor-free` | responses | 0.65s | 1.2s | HTTP 200 但无正文 |
+| 🔁 上游波动 | `muse-spark-1.2-contributor-free` | responses | 0.65s | 1.4s | HTTP 200 但无正文 |
+| ✅ 可用 | `mimo-v2.6-flash-free` | chat | 5.13s | 5.7s | "通了" |
+| ✅ 可用 | `space-bunny-free` | chat | 0.89s | 0.9s | "通的" |
+| ✅ 可用 | `longcat-2.5-preview-free` | chat | 1.44s | 2.2s | "通了" |
+| ✅ 可用 | `mimo-v2.5-free` | chat | 5.74s | 6.9s | "通了" |
+| ❌ 已下线 | `ling-3.0-flash-fin-free` | chat | — | 0.3s | Error from provider (Console): Upstream request failed: Endpoint is unavailable. |
+| ✅ 可用 | `nemotron-3-ultra-free` | chat | 0.84s | 3.1s | "通了" |
+| ✅ 可用 | `nemotron-3.5-lightning-free` | chat | 0.35s | 1.6s | "通了" |
+| ✅ 可用 | `fledge-alpha-free` | chat | 0.69s | 1.8s | "[仅思考 83 字]" |
 
 > 「上游波动」= 供应商临时过载/超时（已自动重试）；「已下线」= 接口明确返回模型或端点不可用。二者对使用者的含义不同，故分开列。
 
@@ -108,4 +108,4 @@
 另有一份付费报告《DSH 插件选型与风险报告》的**公开预览**（分档结论 + 公开数据全在）：<https://514006234.github.io/dsh-weekly-check/report-preview/>
 榜单排序永远按真实星数，赞助位会明确标注「赞助」，不卖榜一。
 
-<sub>生成时间 2026-10-02T14:24:20.633Z｜数据源 tools/rank-plugins.mjs + tools/survey-free-models.mjs + tools/traffic.mjs</sub>
+<sub>生成时间 2026-10-02T14:26:35.324Z｜数据源 tools/rank-plugins.mjs + tools/survey-free-models.mjs + tools/traffic.mjs</sub>
