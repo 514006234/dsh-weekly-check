@@ -42,6 +42,10 @@
   .pricebig .unit{font-size:14px;font-weight:400;color:var(--dim);margin-left:6px}
   .pricenote{font-size:13.5px;color:var(--dim);line-height:1.85;margin-top:8px}
   .pricenote strong{color:var(--fg)}
+  .sample{margin:12px 0 0;padding:14px 16px;border-left:3px solid var(--acc);border-radius:0 10px 10px 0;background:rgba(127,127,127,.06);font-size:13.5px;color:var(--fg);line-height:1.85}
+  .sample p{margin:0 0 6px}
+  .sample code{font-size:12.5px}
+  .sample .note{margin-top:10px}
   .btn{display:inline-block;padding:11px 20px;border-radius:999px;text-decoration:none;font-weight:600;font-size:15px}
   .btn.p{background:var(--acc);color:#04121a}
   .btn.s{border:1px solid var(--line);color:var(--fg)}
@@ -117,6 +121,17 @@
     <li><strong>六个场景的选型建议</strong>（记忆 / 工作台 / 模型与免费模型 / 用量余额 / 主题娱乐 / 外部工具与 Skill）：选哪个、别选哪个；</li>
     <li><strong>附录 C 复现命令</strong>，你可以自己跑一遍核对每一个数字。</li>
   </ul>
+
+  <h3>样张（原文照录，一字未改）</h3>
+  <p class="lede">下面两条摘自完整版第五章「风险清单」的 R1 与 R3，用来让你判断这份报告的颗粒度对不对你的口味：</p>
+  <blockquote class="sample">
+    <p><strong>R1　外部网络请求</strong></p>
+    <p>· <strong>dsh-memory（A 档）</strong>：仓库内 <code>fetch</code> 调用点共 4 处，全部指向插件自己的 <code>/dsh-memory/*</code> 路由（本机已装运行，未观察到外部域）。<strong>这是把它从"又一个记忆插件"提升为首选的关键依据。</strong></p>
+    <p>· 其余 29 个项目：<strong>未核验</strong>（我们只做了形态/许可/活跃度审阅）。</p>
+    <p style="margin-top:10px"><strong>R3　定时器与后台行为</strong></p>
+    <p>· <strong>dsh-memory（A 档）</strong>：<code>setInterval</code> 0 处、<code>setTimeout</code> 0 处——<strong>没有任何后台定时器</strong>。</p>
+    <p class="note" style="margin-top:10px">注意这两条的形状：<strong>给出数得出来的数字</strong>（4 处 / 0 处），<strong>说清依据是什么</strong>（读了仓库、本机跑过），<strong>并且明写"未核验"而不是含糊带过</strong>。完整版里 R1–R11 每一条都是这个写法。</p>
+  </blockquote>
   <div class="pricebox">
     <div class="pricebig">¥199<span class="unit">/ 份（单次）</span></div>
     <div class="pricenote">
