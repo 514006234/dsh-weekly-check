@@ -101,3 +101,14 @@ jobs:
     steps:
       - id: deploy
         uses: actions/deploy-pages@v4
+
+      # 发布后把新一期 URL 提交给 IndexNow（Bing / Yandex 等参与引擎）。
+      # 这是唯一不需要任何人配合、也不需要账号的分发动作：周报每期都是新页面，
+      # 对 0 星 0 外链的新站来说「被搜到」是少数还能自己推动的入口。
+      # 失败不影响发布（best-effort）；脚本自己会先探活 key 文件再提交。
+      - name: 提交 IndexNow（best-effort）
+        continue-on-error: true
+        run: |
+          git clone --depth 1 "https://github.com/${GITHUB_REPOSITORY}.git" repo-checkout 2>/dev/null || true
+          cd repo-checkout
+          node tools/indexnow.mjs || echo "IndexNow 提交失败（不影响发布）"
