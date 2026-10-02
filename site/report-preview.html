@@ -37,6 +37,11 @@
   .scroll{overflow-x:auto}
   ul.pts{margin:0;padding-left:20px}ul.pts li{margin:7px 0}
   .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+  .pricebox{margin-top:18px;padding:16px 18px;border:1px solid var(--acc);border-radius:14px;background:rgba(127,127,127,.06)}
+  .pricebig{font-size:30px;font-weight:700;line-height:1.1}
+  .pricebig .unit{font-size:14px;font-weight:400;color:var(--dim);margin-left:6px}
+  .pricenote{font-size:13.5px;color:var(--dim);line-height:1.85;margin-top:8px}
+  .pricenote strong{color:var(--fg)}
   .btn{display:inline-block;padding:11px 20px;border-radius:999px;text-decoration:none;font-weight:600;font-size:15px}
   .btn.p{background:var(--acc);color:#04121a}
   .btn.s{border:1px solid var(--line);color:var(--fg)}
@@ -112,9 +117,19 @@
     <li><strong>六个场景的选型建议</strong>（记忆 / 工作台 / 模型与免费模型 / 用量余额 / 主题娱乐 / 外部工具与 Skill）：选哪个、别选哪个；</li>
     <li><strong>附录 C 复现命令</strong>，你可以自己跑一遍核对每一个数字。</li>
   </ul>
+  <div class="pricebox">
+    <div class="pricebig">¥199<span class="unit">/ 份（单次）</span></div>
+    <div class="pricenote">
+      完整版是一份 Markdown 报告（31 个项目逐条分档依据 + R1–R11 风险清单 + 六个场景选型建议 + 附录 C 复现命令），
+      建议 30 天内使用——插件生态变化快。<br>
+      <strong>怎么买</strong>：付款方式（微信 / 支付宝收款码）在商务合作页；付款后
+      <a href="https://github.com/514006234/dsh-weekly-check/issues/new?template=buy-report.yml" target="_blank" rel="noopener">开一个 Issue</a>
+      说一声，我确认到账后把完整版发给你。<strong>不要在 Issue 里贴付款凭证或联系方式</strong>——那一页是公开的。
+    </div>
+  </div>
   <div class="cta">
-    <a class="btn p" href="../sponsor/">查看价格与下单方式</a>
-    <a class="btn s" href="https://github.com/514006234/dsh-weekly-check/issues/new?template=custom-plugin.yml" target="_blank" rel="noopener">在 Issue 里问（不用先付款）</a>
+    <a class="btn p" href="../sponsor/">去付款（微信 / 支付宝）</a>
+    <a class="btn s" href="https://github.com/514006234/dsh-weekly-check/issues/new?template=buy-report.yml" target="_blank" rel="noopener">先问几个问题（不用先付款）</a>
   </div>
   <p class="note">下单前我们可以先确认范围与验收标准；<strong>不预收、不做无法验收的活</strong>。如果你只是想自己判断，本周报的中文说明 + 许可信息 + 上面这些公开数据其实也够用——这页不藏着卖。</p>
 

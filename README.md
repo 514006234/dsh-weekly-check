@@ -11,6 +11,17 @@
 
 **在线看板**：https://514006234.github.io/dsh-weekly-check/
 
+> ### 赞助与合作（明码标价，不卖排名）
+>
+> 周报里有**明确标注「赞助」**的推荐位，与榜单分开呈现：
+> **¥99/月**（含 4 期周报 + 4 个永久收录位）｜**创始席 ¥99/年**，限量 3 席（含 52 期 + 52 个永久收录位）｜季度 13 期 ¥279｜年度 52 期 ¥999｜独家一期 ¥299。
+> 「一期」= 一次周报推送，赞助位**永久收录**在该期页面里（页面不删除、无需续费也不下架）。
+> 另外接：插件定制开发（¥3,000 起）、企业内网私有部署（¥4,999 起）、可信插件白名单体检（¥6,999/份）。
+>
+> **价格表与付款方式（微信 / 支付宝）** → https://514006234.github.io/dsh-weekly-check/sponsor/
+> 榜单排名**永远按 GitHub 真实 star 数排**——不卖榜一、不卖排名，赞助位不参与排序。
+> 想看付费报告《DSH 插件选型与风险报告》（¥199）：先看 [公开预览](https://514006234.github.io/dsh-weekly-check/report-preview/)，再[开个 Issue](https://github.com/514006234/dsh-weekly-check/issues/new?template=buy-report.yml) 说要买（不用在 Issue 里贴任何付款凭证）。
+
 ---
 
 ## 为什么这件事值得做
@@ -45,14 +56,14 @@ packages/dsh-weekly-panel/     DSH 插件：把周榜搬进侧边栏（可 dsh p
 
 ## 在 DSH 界面里直接看榜（插件）
 
-`packages/dsh-weekly-panel` 是一个**真实可安装**的 DSH 插件：侧边栏底部的「📊 周榜」入口，点开是不遮挡对话的内联抽屉——
+`packages/dsh-weekly-panel` 是一个**真实可安装**的 DSH 插件：侧边栏图标行里的「📊 周榜」入口，点开是**中间整列的面板**（流内布局，不遮挡对话、不覆盖侧边栏）——
 插件榜 TOP 10（中文名 + 实时星数 + 较上期涨星）、免费模型可用性、以及一块**明确标注「赞助」**的推荐位。
 
 它只读：仅从本站读取 `latest.json`（服务端 fetch + 30 分钟缓存 + loopback 同源护栏），不写文件、不读本地文件、不转发任何请求头。
 
 ```bash
-node packages/dsh-weekly-panel/tools/gate.mjs          # 24 项静态门禁（契约/边界/槽位/沙箱）
-node packages/dsh-weekly-panel/tools/render-test.mjs   # 91 项渲染断言（假 ctx 模拟点击/失败/畸形数据）
+node packages/dsh-weekly-panel/tools/gate.mjs          # 28 项静态门禁（契约/边界/槽位/沙箱）
+node packages/dsh-weekly-panel/tools/render-test.mjs   # 66 项渲染断言（假 ctx 模拟点击/失败/畸形数据）
 ```
 
 装进本机 profile（会自动备份 + 校验 JSON 是否带 BOM，出错自动回滚）：
@@ -134,7 +145,7 @@ GITHUB_TOKEN=ghp_xxx node tools/build-report.mjs
 1. **涨星 TOP 榜单独成栏**：`data/history.json` 已按周落盘，现在的"较上期"是表内一列，可以再抽一个"本周涨星 TOP10 / 新收录 / 掉榜"板块。
 2. **RSS + 邮件推送**：`report/archive/*.md` 已是现成内容源。
 3. **一键安装命令**：给每个"原生bundle"生成 `dsh plugin add <repo>` 的复制按钮。
-4. **赞助位 / 定制榜单**：面向插件作者的曝光位，以及"企业内网可信插件白名单"定制报告。
+4. **插件作者专区页**：把"我能给你什么 / 报价 / 已合作案例"做成一页，方便直接转发给作者（比让人自己翻商务页省事）。
 
 ## 许可
 

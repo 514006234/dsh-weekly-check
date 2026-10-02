@@ -1,0 +1,40 @@
+name: 购买付费报告 / 领取完整版
+description: 想买《DSH 插件选型与风险报告》完整版，或已经付款需要领取
+title: "[购买报告] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **请先不要在 Issue 里贴付款截图、微信号、手机号或任何个人信息**——Issue 是公开的。
+        这里只要说清楚你需要什么，我们会用另外的方式把完整版发给你。
+
+        - 价格：**¥199 / 份**（单次，建议 30 天内使用——插件生态变化快）
+        - 预览页（分档结果、星数陷阱、免费模型实测、我们明确不知道什么，全部公开）：https://514006234.github.io/dsh-weekly-check/report-preview/
+        - 付款方式与联系方式：https://514006234.github.io/dsh-weekly-check/sponsor/
+  - type: dropdown
+    id: intent
+    attributes:
+      label: 你的情况
+      description: 选一个，我们会按这个回你
+      options:
+        - 想买，但先问几个问题
+        - 已经付款，需要领取完整版
+        - 需要发票 / 走公司报销流程
+        - 想只买其中某一章，或想要定制
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: 想问的 / 需要的
+      description: 不用写个人信息，写需求就行
+      placeholder: 例如：完整版是什么格式（PDF / Markdown）？能不能只买风险清单那一章？
+    validations:
+      required: false
+  - type: checkboxes
+    id: ack
+    attributes:
+      label: 确认
+      options:
+        - label: 我知道这一页是公开的，不会在这里贴付款凭证或联系方式
+          required: true

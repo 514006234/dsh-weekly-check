@@ -1,0 +1,6 @@
+# 仓库页右上角那个「Sponsor / 赞助」按钮指向哪里。
+#
+# 为什么用 custom 而不是 GitHub Sponsors：Sponsors 需要单独开通、结算周期长
+# （首笔要等 30 天以上），而且国内用户基本不会走 GitHub 付款。
+# 所以这里直接指向我们自己的商务合作页（明码标价 + 微信/支付宝收款码）。
+custom: ["https://514006234.github.io/dsh-weekly-check/sponsor/"]
