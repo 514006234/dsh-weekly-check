@@ -6,7 +6,7 @@
     "asOf": "2026-10-02"
   },
   "tt-a1i/archify": {
-    "stars": 76023,
+    "stars": 76032,
     "pushed": "2026-09-30",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -18,7 +18,7 @@
     "asOf": "2026-10-02"
   },
   "anywhere-labs/dsh-desktop": {
-    "stars": 29791,
+    "stars": 29793,
     "pushed": "2026-10-01",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -30,7 +30,7 @@
     "asOf": "2026-10-02"
   },
   "voyager-crew/voyager": {
-    "stars": 20282,
+    "stars": 20283,
     "pushed": "2026-09-29",
     "license": "GPL-3.0",
     "asOf": "2026-10-02"
@@ -54,7 +54,7 @@
     "asOf": "2026-10-02"
   },
   "dataelement/dsh-desktop": {
-    "stars": 11597,
+    "stars": 11605,
     "pushed": "2026-10-02",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -108,31 +108,31 @@
     "asOf": "2026-10-02"
   },
   "liustack/modlens": {
-    "stars": 4103,
+    "stars": 4104,
     "pushed": "2026-09-27",
     "license": "MIT",
     "asOf": "2026-10-02"
   },
   "superdesigndev/treg": {
-    "stars": 4009,
+    "stars": 4011,
     "pushed": "2026-10-02",
     "license": "NOASSERTION",
     "asOf": "2026-10-02"
   },
   "omdsh-dev/dsh-better-sidebar": {
-    "stars": 3952,
+    "stars": 3953,
     "pushed": "2026-10-01",
     "license": "MIT",
     "asOf": "2026-10-02"
   },
   "ccch1mneyyy/dsh-tui": {
-    "stars": 3929,
+    "stars": 3930,
     "pushed": "2026-10-02",
     "license": "MIT",
     "asOf": "2026-10-02"
   },
   "meteornox/deepseek-balance-whale-widget": {
-    "stars": 3828,
+    "stars": 3833,
     "pushed": "2026-09-29",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -144,7 +144,7 @@
     "asOf": "2026-10-02"
   },
   "zouyuxuan122/dsh-our-free-model": {
-    "stars": 637,
+    "stars": 641,
     "pushed": "2026-10-02",
     "license": "MIT",
     "asOf": "2026-10-02"
@@ -186,7 +186,7 @@
     "asOf": "2026-10-02"
   },
   "_meta": {
-    "updatedAt": "2026-10-02T09:40:52.292Z",
+    "updatedAt": "2026-10-02T10:00:01.293Z",
     "liveCount": 31,
     "token": "yes"
   }
