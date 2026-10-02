@@ -128,6 +128,9 @@ const sponsorFile = resolve(DATA, 'sponsors.json')
 const sponsorStore = readJson(sponsorFile, { sponsors: [] })
 const sponsors = (sponsorStore.sponsors || []).filter((s) => !s.until || s.until >= TODAY)
 const expiredSponsors = (sponsorStore.sponsors || []).length - sponsors.length
+// 两种推荐位必须分开标注：付了钱的写「赞助」，免费互推的写「互推」。
+// 商务页上公开承诺过「没付钱就不会写成赞助」——所以这不是排版问题，是承诺问题。
+const isRecip = (s) => s.kind === 'reciprocal'
 
 // ── Markdown ───────────────────────────────────────────────────────────
 function md() {
@@ -141,10 +144,10 @@ function md() {
   for (const b of bullets) L.push('- ' + b)
   L.push('')
   if (sponsors.length) {
-    L.push(H('本期推荐（赞助）'), '')
-    L.push('> 以下为赞助推荐位，**明确标注「赞助」**；榜单排序仍按真实星数，不因赞助改动。', '')
+    L.push(H('本期推荐'), '')
+    L.push('> 以下为推荐位：**付了钱的标注「赞助」**，**免费互推的标注「互推」**（没付钱就不会写成赞助）；榜单排序仍按真实星数，不因推荐改动。', '')
     for (const s of sponsors) {
-      L.push(`### 🅢 赞助 · ${s.name}`)
+      L.push(`### ${isRecip(s) ? '🤝 互推' : '🅢 赞助'} · ${s.name}`)
       L.push('')
       L.push(`- 仓库：\`${s.repo}\``)
       L.push(`- 推荐语：${s.cn}`)
@@ -314,6 +317,9 @@ function html() {
   .card.hide{display:none}
   .card.sponsor{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc) inset,0 10px 28px rgba(0,0,0,.18)}
   .sponsor-badge{color:var(--acc);border-color:var(--acc)}
+  /* 免费互推：用中性色，和付费「赞助」在视觉上就分得开——没付钱不能看起来像付了钱 */
+  .recip-badge{color:var(--dim);border-color:var(--dim)}
+  .card.recip{border-color:var(--line);box-shadow:none}
   .rank{font:600 13px/1 ui-monospace,monospace;color:var(--dim);padding-top:6px}
   .card h3{margin:0 0 2px;font-size:16.5px}
   .card h3 .kind{font-size:11.5px;font-weight:500;color:var(--acc);border:1px solid var(--line);border-radius:6px;padding:1px 7px;margin-left:8px;vertical-align:1px}
@@ -354,18 +360,18 @@ function html() {
 <h2>一、本期要点</h2>
 <ul class="points">${bullets.map((b) => `<li>${inline(b)}</li>`).join('')}</ul>
 
-${sponsors.length ? `<h2>二、本期推荐（赞助）</h2>
-<p class="lede">以下为赞助推荐位，<strong>明确标注「赞助」</strong>；榜单排序仍按真实星数，不因赞助改动。</p>
+${sponsors.length ? `<h2>二、本期推荐</h2>
+<p class="lede">以下为推荐位：<strong>付了钱的标注「赞助」</strong>，<strong>免费互推的标注「互推」</strong>——没付钱就不会写成赞助；榜单排序仍按真实星数，不因推荐改动。</p>
 <div class="grid">${sponsors.map((s) => `
-      <article class="card sponsor">
-        <div class="rank">🅢</div>
+      <article class="card ${isRecip(s) ? 'recip' : 'sponsor'}">
+        <div class="rank">${isRecip(s) ? '🤝' : '🅢'}</div>
         <div class="body">
-          <h3>${inline(s.name)}<span class="kind sponsor-badge">赞助</span></h3>
+          <h3>${inline(s.name)}<span class="kind ${isRecip(s) ? 'recip-badge' : 'sponsor-badge'}">${isRecip(s) ? '互推' : '赞助'}</span></h3>
           <a class="repo" href="https://github.com/${esc(s.repo)}" target="_blank" rel="noopener">${esc(s.repo)}</a>
           <p>${inline(s.cn)}</p>
           <div class="meta"><span class="cat">${esc(s.tier)}</span><span class="pushed">展示至 ${esc(s.until || '另行通知')}</span></div>
         </div>
-        <div class="stars"><b>推荐</b><span></span></div>
+        <div class="stars"><b>${isRecip(s) ? '互推' : '推荐'}</b><span></span></div>
       </article>`).join('')}</div>` : ''}
 
 <h2>${sponsors.length ? '三' : '二'}、DSH 生态项目榜（${P.length}）</h2>

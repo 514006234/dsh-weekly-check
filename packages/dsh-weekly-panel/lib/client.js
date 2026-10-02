@@ -100,6 +100,8 @@ window.__ModuleLoader__.load({
       '.dwp-sponsor{display:flex;flex-direction:column;gap:2px;padding:6px 8px;border-radius:10px;border:1px dashed var(--dwp-border-strong);}',
       '.dwp-sponsor-top{display:flex;align-items:center;gap:6px;}',
       '.dwp-sponsor-badge{flex:0 0 auto;padding:0 5px;border-radius:999px;background:var(--dwp-accent);color:#fff;font-size:9.5px;line-height:15px;font-weight:700;}',
+      /* 免费互推用中性色：没付钱的不该看起来像付了钱的 */
+      '.dwp-sponsor-badge.is-recip{background:var(--dwp-dim);}',
       '.dwp-sponsor-name{font-size:12px;font-weight:700;}',
       '.dwp-sponsor-cn{font-size:10.5px;color:var(--dwp-dim);line-height:1.6;}',
       '.dwp-sponsor-tier{font-size:9.5px;color:var(--dwp-dim);}',
@@ -351,9 +353,12 @@ window.__ModuleLoader__.load({
       var repo = repoOf(s);
       var cn = textOf2(s && s.cn, '');
       var tier = textOf2(s && s.tier, '');
+      // 付费的写「赞助」，免费互推的写「互推」——商务页上公开承诺过「没付钱就不会写成赞助」。
+      // 这跟榜单排序一样属于对外承诺，不是排版细节。
+      var recip = textOf2(s && s.kind, '') === 'reciprocal';
       return h('div', { className: 'dwp-sponsor' },
         h('div', { className: 'dwp-sponsor-top' },
-          h('span', { className: 'dwp-sponsor-badge' }, '赞助'),
+          h('span', { className: 'dwp-sponsor-badge' + (recip ? ' is-recip' : '') }, recip ? '互推' : '赞助'),
           h('span', { className: 'dwp-sponsor-name' }, nameOf(s)),
           repo === ''
             ? null
@@ -500,7 +505,7 @@ window.__ModuleLoader__.load({
         ));
         if (sponsors.length > 0) {
           body.push(h('div', { className: 'dwp-section dwp-section-sponsor', key: 'sponsors' },
-            h('div', { className: 'dwp-section-title' }, '本期推荐（赞助）'),
+            h('div', { className: 'dwp-section-title' }, '本期推荐（付费标「赞助」，免费互推标「互推」）'),
             sponsors.map(function (s) {
               return h(SponsorCard, { key: repoOf(s) || nameOf(s), sponsor: s });
             }),

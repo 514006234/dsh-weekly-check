@@ -291,26 +291,49 @@ async function run() {
     expect(text.includes('上游波动'), '上游波动 >0 时显示')
   }
 
-  console.log('[6] 赞助位：有赞助 → 独立小节且明确标注「赞助」')
+  console.log('[6] 推荐位：付费标「赞助」、免费互推标「互推」')
   {
     const { Component } = boot()
     const view = mount(Component, {})
     const tree = await view.settle()
     const text = textOf(tree)
-    expect(text.includes('本期推荐（赞助）'), '有赞助小节标题')
-    expect(byClass(tree, 'dwp-sponsor-badge').length >= 1, '赞助卡片带「赞助」徽标')
-    expect(text.includes('付费示例插件'), '显示赞助方名称')
-    expect(text.includes('这是一条赞助推荐语'), '显示赞助推荐语')
+    expect(text.includes('本期推荐'), '有推荐位小节标题')
+    expect(byClass(tree, 'dwp-sponsor-badge').length >= 1, '推荐位卡片带徽标')
+    expect(text.includes('付费示例插件'), '显示推荐方名称')
+    expect(text.includes('这是一条赞助推荐语'), '显示推荐语')
     expect(text.includes('单期推荐'), '显示档位')
+    // 付费那条：必须是「赞助」，且不能出现「互推」
+    const paidCard = byClass(tree, 'dwp-sponsor')[0]
+    expect(paidCard && textOf(paidCard).includes('赞助'), '付费档标「赞助」')
+    expect(paidCard && !textOf(paidCard).includes('互推'), '付费档不会标成「互推」')
   }
 
-  console.log('[7] 赞助位：没有赞助 → 不出现赞助小节')
+  console.log('[6b] 推荐位：免费互推那条必须标「互推」，不能写成「赞助」')
+  {
+    const withRecip = Object.assign({}, DATA, {
+      sponsors: [
+        Object.assign({}, SPONSORS[0]),
+        { repo: 'demo/free-plugin', name: '互推示例插件', cn: '这是一条互推推荐语', kind: 'reciprocal', tier: '免费互推', until: '2026-10-09' },
+      ],
+    })
+    const { Component } = boot({ data: withRecip })
+    const view = mount(Component, {})
+    const tree = await view.settle()
+    const cards = byClass(tree, 'dwp-sponsor')
+    expect(cards.length === 2, '两条推荐位都渲染，实际 ' + cards.length)
+    const recipCard = cards.map(textOf).find((t) => t.includes('互推示例插件')) || ''
+    expect(recipCard.includes('互推'), '互推档带「互推」字样')
+    expect(!recipCard.includes('赞助'), '互推档**不能**出现「赞助」字样（没付钱就不能写成赞助）')
+    expect(byClass(tree, 'is-recip').length === 1, '互推徽章用中性色 class=is-recip')
+  }
+
+  console.log('[7] 推荐位：没有推荐 → 不出现该小节')
   {
     const { Component } = boot({ data: DATA_NO_SPONSOR })
     const view = mount(Component, {})
     const tree = await view.settle()
-    expect(!textOf(tree).includes('本期推荐（赞助）'), '空 sponsors 不渲染赞助小节')
-    expect(byClass(tree, 'dwp-sponsor-badge').length === 0, '没有赞助徽标')
+    expect(!textOf(tree).includes('本期推荐'), '空 sponsors 不渲染推荐小节')
+    expect(byClass(tree, 'dwp-sponsor-badge').length === 0, '没有推荐徽标')
     expect(byClass(tree, 'dwp-row').length === 10, '其它内容不受影响')
   }
 
