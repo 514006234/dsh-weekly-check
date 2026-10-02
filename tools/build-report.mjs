@@ -192,8 +192,10 @@ function md() {
 
   const np = plugins?.notPlugins || []
   if (np.length) {
-    L.push(H('星数陷阱（贴了标签但不是插件）'), '')
-    L.push('| ⭐ | 仓库 | 为什么不算', '|---:|---|---|')
+    L.push(H('为什么不能只按星数排（贴了标签、但不是可安装插件的项目）'), '')
+    L.push('> 这一栏**只陈述事实，不做动机判断**：`dsh-plugin` 这个标签任何人都能用，平台本体、同类工具、独立应用都可能带上它。', '')
+    L.push('> 说这些不是要指责谁，而是解释**为什么直接按「标签 + 星数」排序会误导你**——下面这些项目星数很高，但它们不是能装进 DSH 的插件。', '')
+    L.push('| ⭐ | 仓库 | 为什么不能算作可安装插件', '|---:|---|---|')
     for (const r of [...np].sort((a, b) => b.stars - a.stars)) L.push(`| ${star(r.stars)} | \`${r.repo}\` | ${r.why} |`)
     L.push('')
   }
@@ -217,7 +219,12 @@ function md() {
     }
     L.push('> 网页端（GitHub Pages）访问暂无独立统计；引荐来源一旦出现，就能直接看出流量从哪里来。')
   } else {
-    L.push('- 本期未采集到流量数据（GitHub 流量接口需要对仓库有推送权限的 token）。')
+    L.push('- 本期未采集到流量数据。')
+    if (traffic && traffic.errors) {
+      const e = traffic.errors
+      L.push(`- 采集失败原因（逐端点）：info \`${e.info || '正常'}\` · views \`${e.views || '正常'}\` · clones \`${e.clones || '正常'}\`${traffic.tokenHint ? ` · 凭据：${traffic.tokenHint}` : ''}`)
+    }
+    L.push('- GitHub 流量接口要求 token 对仓库有推送权限。这一栏就是用来公开我们自己的真实数字的：取不到时如实说明原因，不编数字。')
   }
   L.push('')
   L.push(H('商务合作'), '')
@@ -388,8 +395,10 @@ ${M.length ? `<h2>${sponsors.length ? '四' : '三'}、免费模型可用性（�
 ${freshRows ? `<h2>${sponsors.length ? '五' : '四'}、待审新面孔（已自动过滤蹭标签项目）</h2>
 <div class="scroll"><table><thead><tr><th>⭐</th><th>仓库</th><th>更新</th><th>英文简介（原样）</th></tr></thead><tbody>${freshRows}</tbody></table></div>` : ''}
 
-${trapRows ? `<h2>${sponsors.length ? '六' : '五'}、星数陷阱（贴了标签但不是插件）</h2>
-<div class="scroll"><table><thead><tr><th>⭐</th><th>仓库</th><th>为什么不算</th></tr></thead><tbody>${trapRows}</tbody></table></div>` : ''}
+${trapRows ? `<h2>${sponsors.length ? '六' : '五'}、为什么不能只按星数排（贴了标签、但不是可安装插件的项目）</h2>
+<p class="lede">这一栏<strong>只陈述事实，不做动机判断</strong>：<code>dsh-plugin</code> 这个标签任何人都能用，平台本体、同类工具、独立应用都可能带上它。
+说这些不是要指责谁，而是解释<strong>为什么直接按「标签 + 星数」排序会误导你</strong>——下面这些项目星数很高，但它们不是能装进 DSH 的插件。</p>
+<div class="scroll"><table><thead><tr><th>⭐</th><th>仓库</th><th>为什么不能算作可安装插件</th></tr></thead><tbody>${trapRows}</tbody></table></div>` : ''}
 
 <h2>${sponsors.length ? '七' : '六'}、方法与免责</h2>
 <ul class="points">
@@ -405,7 +414,7 @@ ${traffic && traffic.views && typeof traffic.views.total === 'number' ? `<ul cla
   <li>近 ${traffic.windowDays || 14} 天仓库页浏览 <strong>${traffic.views.total}</strong> 次${traffic.prev && typeof traffic.prev.views === 'number' ? `（较上次采集 ${deltaText(traffic.views.total - traffic.prev.views)}）` : ''} · 克隆 <strong>${traffic.clones ? traffic.clones.total : 0}</strong> 次</li>
   <li>引荐来源：${Array.isArray(traffic.referrers) && traffic.referrers.length ? traffic.referrers.map((r) => `${inline(r.referrer)} ${r.count} 次`).join('、') : `<strong>暂无外部引荐</strong>——还没有人从别处点进来（项目第一周，正常）${traffic.referrersError ? `（接口记录：${esc(traffic.referrersError)}）` : ''}`}</li>
   <li class="lede">网页端（GitHub Pages）访问暂无独立统计；引荐来源一旦出现，就能直接看出流量从哪里来。</li>
-</ul>` : `<ul class="points"><li>本期未采集到流量数据（GitHub 流量接口需要对仓库有推送权限的 token）。</li></ul>`}
+</ul>` : `<ul class="points"><li>本期未采集到流量数据。</li>${traffic && traffic.errors ? `<li class="lede">采集失败原因（逐端点）：info <code>${esc(traffic.errors.info || '正常')}</code> · views <code>${esc(traffic.errors.views || '正常')}</code> · clones <code>${esc(traffic.errors.clones || '正常')}</code>${traffic.tokenHint ? ` · 凭据：${esc(traffic.tokenHint)}` : ''}</li>` : ''}<li class="lede">GitHub 流量接口要求 token 对仓库有推送权限。这一栏就是用来公开我们自己的真实数字的：取不到时如实说明原因，不编数字。</li></ul>`}
 
 <footer>
   <p><strong>商务合作</strong>：<a href="sponsor/">榜单赞助位 / 插件定制开发 / 企业私有部署与可信白名单</a>（明码标价，榜单排序不因赞助改动）　·　<a href="report-preview/">付费报告的公开预览</a></p>

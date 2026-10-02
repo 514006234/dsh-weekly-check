@@ -49,6 +49,15 @@ async function api(path) {
   return res.json()
 }
 
+/** 把失败原因压成一行可落盘的文本：HTTP 状态 + GitHub 的说明（截断），或网络异常信息 */
+function describeErr(reason) {
+  if (!reason) return 'unknown'
+  const status = reason.status ? ('HTTP ' + reason.status) : ''
+  const detail = reason.message ? String(reason.message).replace(/\s+/g, ' ').slice(0, 160) : ''
+  const cause = reason.cause && reason.cause.message ? ' ← ' + String(reason.cause.message).slice(0, 120) : ''
+  return (status ? status + ' ' : '') + detail + cause || 'unknown'
+}
+
 function readJson(file, fallback) {
   try { return JSON.parse(readFileSync(file, 'utf8')) } catch { return fallback }
 }
@@ -103,6 +112,18 @@ if (!info && !views && !clones) {
       views: !views,
       clones: !clones,
     },
+    // 失败原因必须落盘。之前这里把 reason 丢掉了，只留一个 partial:true，
+    // 结果线上连续几期都写「未采集到流量数据」，而没人能从产物里看出到底是 403、限流还是网络问题
+    // ——「失败却不留证据」本身就是缺陷。
+    errors: {
+      info: rInfo.status === 'rejected' ? describeErr(rInfo.reason) : null,
+      views: rViews.status === 'rejected' ? describeErr(rViews.reason) : null,
+      clones: rClones.status === 'rejected' ? describeErr(rClones.reason) : null,
+      referrers: rRef.status === 'rejected' ? describeErr(rRef.reason) : null,
+    },
+    // 采集时用的是哪种凭据（只记有无与长度，绝不记录值）
+    tokenPresent: !!TOKEN,
+    tokenHint: TOKEN ? ('已提供（长度 ' + TOKEN.length + '）') : '未提供',
   }
 
   // ── 历史快照（供"较上次采集"对比）─────────────────────────────────────

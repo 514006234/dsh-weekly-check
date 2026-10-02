@@ -70,16 +70,22 @@ const CURATED = [
   ['AzureHalcyon/dsh-deepseek-usage', 'DeepSeek 用量看板', '余额/今日用量/缓存命中/热力图，三个只读接口；**本机已装**', '用量', '原生bundle'],
 ]
 
-// ── 别被星数骗：贴了 topic 但根本不是 DSH 插件的高星项目（策展时就写清原因）──
+// ── 为什么不能只按 topic + 星数排：贴了 `dsh-plugin` 标签、但不是「可安装插件」的高星项目 ──
+//
+// 措辞纪律（改过一次，原因记在这里）：这一栏**只陈述事实，不做动机判断**。
+// 初版写的是「星数陷阱」+「蹭标签」，问题有两个：
+//   ① 把 `deepseek-ai/deepseek-harness`（平台本体）写进「陷阱」，等于说官方仓库是坑——这是找死；
+//   ② 说别人「蹭标签」是在公开揣测动机，而多数情况只是标签用法不同（平台本体、同类工具、独立应用）。
+// 保留这栏的价值在于解释「为什么星数排序会误导」，而不是给谁扣帽子。
 const NOT_PLUGINS = [
-  ['deepseek-ai/deepseek-harness', 241006, 'DeepSeek Harness 本体，不是插件'],
-  ['reactive-resume/reactive-resume', 43621, '简历生成器，蹭标签'],
-  ['Molunerfinn/PicGo', 27289, '图片上传工具，与 DSH 无关'],
-  ['nocobase/nocobase', 24414, '无代码平台，蹭标签'],
-  ['ruvnet/ruflo', 73575, '另一个 agent harness 项目'],
-  ['esengine/DeepSeek-Reasonix', 35721, '独立编码代理，不是插件'],
-  ['Tencent/WeKnora', 31469, 'LLM 知识平台，蹭标签'],
-  ['freestylefly/awesome-gpt-image-2', 33810, '提示词案例库，不是插件'],
+  ['deepseek-ai/deepseek-harness', 241006, 'DeepSeek Harness 平台本体——不是插件，而是所有插件运行的地方'],
+  ['reactive-resume/reactive-resume', 43621, '简历生成器：与 DSH 插件生态无关，只是标签用法不同'],
+  ['Molunerfinn/PicGo', 27289, '图片上传工具：与 DSH 无关'],
+  ['nocobase/nocobase', 24414, '无代码平台：独立产品，不是 DSH 插件'],
+  ['ruvnet/ruflo', 73575, '另一个 agent harness 项目——同类工具，不是本生态的插件'],
+  ['esengine/DeepSeek-Reasonix', 35721, '独立的编码代理，不是可安装进 DSH 的插件'],
+  ['Tencent/WeKnora', 31469, 'LLM 知识平台：独立产品，不是 DSH 插件'],
+  ['freestylefly/awesome-gpt-image-2', 33810, '提示词案例库：内容集合，不是可安装插件'],
 ]
 
 // ── 星数快照（策展时点，2026-10-01）。live 拉不到时用它兜底 ─────────────
