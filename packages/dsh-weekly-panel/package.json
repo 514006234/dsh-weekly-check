@@ -24,6 +24,7 @@
   "scripts": {
     "gate": "node tools/gate.mjs",
     "render-test": "node tools/render-test.mjs",
+    "readme-check": "node tools/readme-check.mjs",
     "test": "node tools/gate.mjs && node tools/render-test.mjs",
     "check": "node --check lib/index.js && node --check lib/client.js"
   }
