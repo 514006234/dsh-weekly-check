@@ -64,7 +64,8 @@ packages/dsh-weekly-panel/     DSH 插件：把周榜搬进侧边栏（可 dsh p
 
 ```bash
 node packages/dsh-weekly-panel/tools/gate.mjs          # 28 项静态门禁（契约/边界/槽位/沙箱）
-node packages/dsh-weekly-panel/tools/render-test.mjs   # 66 项渲染断言（假 ctx 模拟点击/失败/畸形数据）
+node packages/dsh-weekly-panel/tools/render-test.mjs   # 78 项渲染断言（假 ctx 模拟点击/剪贴板/降级）
+node packages/dsh-weekly-panel/tools/readme-check.mjs  # 15 项：README 与代码/测试项数不许漂移
 ```
 
 装进本机 profile（会自动备份 + 校验 JSON 是否带 BOM，出错自动回滚）：
