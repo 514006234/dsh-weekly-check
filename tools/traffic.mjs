@@ -83,25 +83,36 @@ if (!info && !views && !clones) {
   // 网络请求之后绝不 process.exit（Windows libuv 断言崩溃）；只标记退出码
   process.exitCode = 2
 } else {
+  // 关键：**不许用「空」覆盖上一次真采到的数字**。
+  // 起因：GitHub Actions 的安装令牌读不到 /traffic/*（实测 403），而本地 PAT 可以（实测 200）。
+  // 之前每期 CI 都用 views:null / clones:null 覆盖掉上一期的真实数字，于是线上永远显示
+  // 「未采集到流量数据」——好数据被坏采集毁掉。现在失败时沿用上一次的数字，并标注它的采集时间。
+  const prevPayload = readJson(resolve(DATA, 'traffic.json'), null)
+  const carryViews = !views && prevPayload && prevPayload.views && typeof prevPayload.views.total === 'number' ? prevPayload.views : null
+  const carryClones = !clones && prevPayload && prevPayload.clones && typeof prevPayload.clones.total === 'number' ? prevPayload.clones : null
+  const carriedFrom = carryViews || carryClones ? (prevPayload.collectedAt || null) : null
+
   const payload = {
     collectedAt: new Date().toISOString(),
     repo: REPO,
     windowDays: 14,
-    stars: info ? (info.stargazers_count ?? null) : null,
-    forks: info ? (info.forks_count ?? null) : null,
-    watchers: info ? (info.subscribers_count ?? null) : null,
+    stars: info ? (info.stargazers_count ?? null) : (prevPayload ? prevPayload.stars ?? null : null),
+    forks: info ? (info.forks_count ?? null) : (prevPayload ? prevPayload.forks ?? null : null),
+    watchers: info ? (info.subscribers_count ?? null) : (prevPayload ? prevPayload.watchers ?? null : null),
     views: views
       ? {
           total: views.count ?? 0,
           days: (views.views || []).map((v) => ({ date: String(v.timestamp).slice(0, 10), count: v.count, uniques: v.uniques })),
         }
-      : null,
+      : carryViews,
     clones: clones
       ? {
           total: clones.count ?? 0,
           days: (clones.clones || []).map((c) => ({ date: String(c.timestamp).slice(0, 10), count: c.count, uniques: c.uniques })),
         }
-      : null,
+      : carryClones,
+    // 沿用旧数字时，明确写清它是哪次采集的——不许把旧数据伪装成本期新数据
+    carriedFrom,
     // referrers 404 = 新仓库还没有任何引荐记录（GitHub 的行为），归为"无引荐"而不是错误
     referrers: referrers === null ? [] : referrers.map((r) => ({ referrer: r.referrer, count: r.count, uniques: r.uniques })),
     referrersError: referrers === null && rRef.status === 'rejected'

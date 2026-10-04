@@ -413,8 +413,9 @@ ${traffic && traffic.views && typeof traffic.views.total === 'number' ? `<ul cla
   <li>仓库指标：<strong>★${num(traffic.stars)}</strong> · fork ${num(traffic.forks)} · 关注 ${num(traffic.watchers)}</li>
   <li>近 ${traffic.windowDays || 14} 天仓库页浏览 <strong>${traffic.views.total}</strong> 次${traffic.prev && typeof traffic.prev.views === 'number' ? `（较上次采集 ${deltaText(traffic.views.total - traffic.prev.views)}）` : ''} · 克隆 <strong>${traffic.clones ? traffic.clones.total : 0}</strong> 次</li>
   <li>引荐来源：${Array.isArray(traffic.referrers) && traffic.referrers.length ? traffic.referrers.map((r) => `${inline(r.referrer)} ${r.count} 次`).join('、') : `<strong>暂无外部引荐</strong>——还没有人从别处点进来（项目第一周，正常）${traffic.referrersError ? `（接口记录：${esc(traffic.referrersError)}）` : ''}`}</li>
+  ${traffic.carriedFrom ? `<li class="lede">说明：本期的流量数字沿用 <strong>${esc(String(traffic.carriedFrom).slice(0, 19))}Z</strong> 那次采集——GitHub 的流量接口只认经典 PAT，Actions 的安装令牌会被 403 挡掉（本刊实测），所以我们<b>宁可沿用上一次的真实数字并标明时间，也不用 0 或「未采集」糊过去</b>。</li>` : ''}
   <li class="lede">网页端（GitHub Pages）访问暂无独立统计；引荐来源一旦出现，就能直接看出流量从哪里来。</li>
-</ul>` : `<ul class="points"><li>本期未采集到流量数据。</li>${traffic && traffic.errors ? `<li class="lede">采集失败原因（逐端点）：info <code>${esc(traffic.errors.info || '正常')}</code> · views <code>${esc(traffic.errors.views || '正常')}</code> · clones <code>${esc(traffic.errors.clones || '正常')}</code>${traffic.tokenHint ? ` · 凭据：${esc(traffic.tokenHint)}` : ''}</li>` : ''}<li class="lede">GitHub 流量接口要求 token 对仓库有推送权限。这一栏就是用来公开我们自己的真实数字的：取不到时如实说明原因，不编数字。</li></ul>`}
+</ul>` : `<ul class="points"><li>本期未采集到流量数据。</li>${traffic && traffic.errors ? `<li class="lede">采集失败原因（逐端点）：info <code>${esc(traffic.errors.info || '正常')}</code> · views <code>${esc(traffic.errors.views || '正常')}</code> · clones <code>${esc(traffic.errors.clones || '正常')}</code>${traffic.tokenHint ? ` · 凭据：${esc(traffic.tokenHint)}` : ''}</li>` : ''}<li class="lede">GitHub 流量接口要求 token 对仓库有推送权限（实测：Actions 安装令牌会被 403 挡掉，经典 PAT 可以）。这一栏就是用来公开我们自己的真实数字的：取不到时如实说明原因，不编数字。</li></ul>`}
 
 <footer>
   <p><strong>商务合作</strong>：<a href="sponsor/">榜单赞助位 / 插件定制开发 / 企业私有部署与可信白名单</a>（明码标价，榜单排序不因赞助改动）　·　<a href="report-preview/">付费报告的公开预览</a></p>
