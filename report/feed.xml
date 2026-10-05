@@ -6,7 +6,14 @@
   <atom:link href="https://514006234.github.io/dsh-weekly-check/feed.xml" rel="self" type="application/rss+xml"/>
   <description>每周自动更新的中文 DSH 插件榜：实时星数 + 本周涨星 + 免费模型真实调用可用性 + 星数陷阱提示。</description>
   <language>zh-cn</language>
-  <lastBuildDate>Sun, 04 Oct 2026 01:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Mon, 05 Oct 2026 01:00:00 GMT</lastBuildDate>
+  <item>
+    <title>DSH 插件周榜 · 2026-10-05</title>
+    <link>https://514006234.github.io/dsh-weekly-check/archive/2026-10-05.html</link>
+    <guid isPermaLink="true">https://514006234.github.io/dsh-weekly-check/archive/2026-10-05.html</guid>
+    <pubDate>Mon, 05 Oct 2026 01:00:00 GMT</pubDate>
+    <description>收录插件 31 个，合计 424,410 ★；前三名：OpenDesign 设计工作台（99.5k★）、Archify 架构图（77.6k★）、OpenViking 上下文库（39.2k★）。；本期涨星：Archify 架构图 +845★、OpenDesign 设计工作台 +132★、DSHDesktop +119★。；免费模型可用性：7/13 可用，限流 1 个，已下线 2 个，上游波动 3 个；可用模型首字延迟中位 0.94s。</description>
+  </item>
   <item>
     <title>DSH 插件周榜 · 2026-10-04</title>
     <link>https://514006234.github.io/dsh-weekly-check/archive/2026-10-04.html</link>

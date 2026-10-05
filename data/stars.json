@@ -1,147 +1,147 @@
 {
   "nexu-io/open-design": {
-    "stars": 99326,
-    "pushed": "2026-10-04",
+    "stars": 99458,
+    "pushed": "2026-10-05",
     "license": "Apache-2.0",
-    "asOf": "2026-10-04"
+    "asOf": "2026-10-05"
   },
   "tt-a1i/archify": {
-    "stars": 76803,
-    "pushed": "2026-10-04",
+    "stars": 77648,
+    "pushed": "2026-10-05",
     "license": "MIT",
-    "asOf": "2026-10-04"
+    "asOf": "2026-10-05"
   },
   "volcengine/openviking": {
-    "stars": 39169,
-    "pushed": "2026-10-03",
+    "stars": 39219,
+    "pushed": "2026-10-05",
     "license": "AGPL-3.0",
-    "asOf": "2026-10-04"
+    "asOf": "2026-10-05"
   },
   "anywhere-labs/dsh-desktop": {
-    "stars": 29894,
+    "stars": 29946,
     "pushed": "2026-10-03",
     "license": "MIT",
-    "asOf": "2026-10-04"
+    "asOf": "2026-10-05"
   },
   "titanwings/distilly": {
-    "stars": 25277,
+    "stars": 25305,
     "pushed": "2026-09-22",
     "license": "MIT",
-    "asOf": "2026-10-04"
+    "asOf": "2026-10-05"
   },
   "voyager-crew/voyager": {
-    "stars": 20296,
+    "stars": 20312,
     "pushed": "2026-09-29",
     "license": "GPL-3.0",
-    "asOf": "2026-10-04"
+    "asOf": "2026-10-05"
   },
   "awesome-dsh-plugin/awesome-dsh-plugin": {
-    "stars": 17692,
+    "stars": 17787,
     "pushed": "2026-10-01",
     "license": "CC0-1.0",
-    "asOf": "2026-10-04"
+    "asOf": "2026-10-05"
   },
   "evermind-ai/everos": {
-    "stars": 13336,
-    "pushed": "2026-10-01",
+    "stars": 13343,
+    "pushed": "2026-10-04",
     "license": "Apache-2.0",
-    "asOf": "2026-10-04"
+    "asOf": "2026-10-05"
   },
   "dataelement/dsh-desktop": {
-    "stars": 11787,
+    "stars": 11906,
     "pushed": "2026-10-03",
     "license": "MIT",
-    "asOf": "2026-10-04"
+    "asOf": "2026-10-05"
   },
   "memtensor/memos": {
-    "stars": 11693,
+    "stars": 11697,
     "pushed": "2026-09-29",
     "license": "Apache-2.0",
-    "asOf": "2026-10-04"
+    "asOf": "2026-10-05"
   },
   "zhu1090093659/dsh-web": {
-    "stars": 8334,
-    "pushed": "2026-10-03",
+    "stars": 8379,
+    "pushed": "2026-10-05",
     "license": "Apache-2.0",
-    "asOf": "2026-10-04"
+    "asOf": "2026-10-05"
   },
   "tencent/browserskill": {
-    "stars": 8103,
+    "stars": 8146,
     "pushed": "2026-09-30",
     "license": "MIT",
-    "asOf": "2026-10-04"
+    "asOf": "2026-10-05"
   },
   "yjh051108/dsh-routing-suite": {
-    "stars": 7001,
+    "stars": 7000,
     "pushed": "2026-09-18",
     "license": "MIT",
-    "asOf": "2026-10-04"
+    "asOf": "2026-10-05"
   },
   "devin-axis/ipollowork": {
-    "stars": 6609,
+    "stars": 6646,
     "pushed": "2026-10-04",
     "license": "NOASSERTION",
-    "asOf": "2026-10-04"
+    "asOf": "2026-10-05"
   },
   "q00/ouroboros": {
-    "stars": 6178,
+    "stars": 6181,
     "pushed": "2026-10-04",
     "license": "MIT",
-    "asOf": "2026-10-04"
+    "asOf": "2026-10-05"
   },
   "loopx-project/loopx": {
-    "stars": 6146,
-    "pushed": "2026-10-04",
+    "stars": 6153,
+    "pushed": "2026-10-05",
     "license": "Apache-2.0",
-    "asOf": "2026-10-04"
+    "asOf": "2026-10-05"
   },
   "dsh-market/dsh-market": {
-    "stars": 5449,
+    "stars": 5524,
     "pushed": "2026-10-03",
     "license": "MIT",
-    "asOf": "2026-10-04"
+    "asOf": "2026-10-05"
   },
   "crafter-station/petdex": {
-    "stars": 4193,
+    "stars": 4198,
     "pushed": "2026-09-28",
     "license": "MIT",
-    "asOf": "2026-10-04"
-  },
-  "liustack/modlens": {
-    "stars": 4114,
-    "pushed": "2026-09-27",
-    "license": "MIT",
-    "asOf": "2026-10-04"
+    "asOf": "2026-10-05"
   },
   "superdesigndev/treg": {
-    "stars": 4099,
+    "stars": 4152,
     "pushed": "2026-10-04",
     "license": "NOASSERTION",
-    "asOf": "2026-10-04"
+    "asOf": "2026-10-05"
+  },
+  "liustack/modlens": {
+    "stars": 4122,
+    "pushed": "2026-10-04",
+    "license": "MIT",
+    "asOf": "2026-10-05"
   },
   "ccch1mneyyy/dsh-tui": {
-    "stars": 3989,
-    "pushed": "2026-10-04",
+    "stars": 4042,
+    "pushed": "2026-10-05",
     "license": "MIT",
-    "asOf": "2026-10-04"
-  },
-  "omdsh-dev/dsh-better-sidebar": {
-    "stars": 3981,
-    "pushed": "2026-10-01",
-    "license": "MIT",
-    "asOf": "2026-10-04"
+    "asOf": "2026-10-05"
   },
   "meteornox/deepseek-balance-whale-widget": {
-    "stars": 3944,
-    "pushed": "2026-10-03",
+    "stars": 4011,
+    "pushed": "2026-10-05",
     "license": "MIT",
-    "asOf": "2026-10-04"
+    "asOf": "2026-10-05"
+  },
+  "omdsh-dev/dsh-better-sidebar": {
+    "stars": 3995,
+    "pushed": "2026-10-05",
+    "license": "MIT",
+    "asOf": "2026-10-05"
   },
   "xiaobright/dsh-anchored-standard": {
-    "stars": 3777,
+    "stars": 3775,
     "pushed": "2026-09-10",
     "license": "NOASSERTION",
-    "asOf": "2026-10-04"
+    "asOf": "2026-10-05"
   },
   "zouyuxuan122/dsh-our-free-model": {
     "stars": 790,
@@ -150,43 +150,43 @@
     "asOf": "2026-10-04"
   },
   "wyh66666666/dsh-transparent-ui-plugin": {
-    "stars": 412,
+    "stars": 413,
     "pushed": "2026-08-22",
     "license": "AGPL-3.0",
-    "asOf": "2026-10-04"
+    "asOf": "2026-10-05"
   },
   "oh-my-dsh/dsh-plugin-upgrade-skill": {
-    "stars": 149,
-    "pushed": "2026-10-01",
+    "stars": 150,
+    "pushed": "2026-10-04",
     "license": "MIT",
-    "asOf": "2026-10-04"
+    "asOf": "2026-10-05"
   },
   "sanqi-normal/dsh-webui-market-plugin": {
     "stars": 104,
     "pushed": "2026-08-22",
     "license": "MIT",
-    "asOf": "2026-10-04"
+    "asOf": "2026-10-05"
   },
   "littleblacktong/dsh-plugin-memory": {
     "stars": 4,
     "pushed": "2026-09-29",
     "license": "MIT",
-    "asOf": "2026-10-04"
+    "asOf": "2026-10-05"
   },
   "jipika/dsh-memory": {
     "stars": 3,
     "pushed": "2026-10-01",
     "license": "MIT",
-    "asOf": "2026-10-04"
+    "asOf": "2026-10-05"
   },
   "azurehalcyon/dsh-deepseek-usage": {
     "stars": 1,
     "pushed": "2026-08-22",
     "license": "GPL-2.0",
-    "asOf": "2026-10-04"
+    "asOf": "2026-10-05"
   },
   "_meta": {
-    "updatedAt": "2026-10-04T03:44:58.462Z",
+    "updatedAt": "2026-10-05T06:34:25.739Z",
     "liveCount": 31,
     "token": "yes"
   }
