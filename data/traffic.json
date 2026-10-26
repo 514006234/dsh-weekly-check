@@ -1,8 +1,8 @@
 {
-  "collectedAt": "2026-10-19T05:46:37.554Z",
+  "collectedAt": "2026-10-26T05:47:27.162Z",
   "repo": "514006234/dsh-weekly-check",
   "windowDays": 14,
-  "stars": 0,
+  "stars": 1,
   "forks": 0,
   "watchers": 0,
   "views": null,
@@ -24,7 +24,7 @@
   "tokenPresent": true,
   "tokenHint": "已提供（长度 377）",
   "prev": {
-    "asOf": "2026-10-12",
+    "asOf": "2026-10-19",
     "views": null,
     "clones": null,
     "stars": 0
