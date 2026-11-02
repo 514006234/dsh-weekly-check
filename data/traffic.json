@@ -1,5 +1,5 @@
 {
-  "collectedAt": "2026-10-26T05:47:27.162Z",
+  "collectedAt": "2026-11-02T07:17:11.963Z",
   "repo": "514006234/dsh-weekly-check",
   "windowDays": 14,
   "stars": 1,
@@ -24,9 +24,9 @@
   "tokenPresent": true,
   "tokenHint": "已提供（长度 377）",
   "prev": {
-    "asOf": "2026-10-19",
+    "asOf": "2026-10-26",
     "views": null,
     "clones": null,
-    "stars": 0
+    "stars": 1
   }
 }

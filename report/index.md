@@ -1,13 +1,13 @@
-# DSH 插件周榜 · 2026-10-26
+# DSH 插件周榜 · 2026-11-02
 
 > 只做一件事：把"这周 DSH 生态里什么值得装、免费模型还能不能用"讲成人话。**所有星数来自 GitHub 实时接口**，中文说明为人工核实后的策展，不做机翻。
 
 ## 一、本期要点
 
-- 收录插件 31 个，合计 468,897 ★；前三名：OpenDesign 设计工作台（104.0k★）、Archify 架构图（89.3k★）、OpenViking 上下文库（40.8k★）。
-- 本期涨星：Archify 架构图 +3831★、OpenDesign 设计工作台 +1731★、dsh-market 插件市场 +1648★。
-- 免费模型可用性：**0/8 可用**，限流 8 个。
-- 待审新面孔：Ebony-Vinyl/dsh-our-free-model（43.4k★，2026-10-26）、walkinglabs/learn-harness-engineering（21.6k★，2026-10-22）、YuJunZhiXue/dsh-purge（9.1k★，2026-10-26）。
+- 收录插件 31 个，合计 482,250 ★；前三名：OpenDesign 设计工作台（105.4k★）、Archify 架构图（92.5k★）、OpenViking 上下文库（41.3k★）。
+- 本期涨星：Archify 架构图 +3185★、OpenDesign 设计工作台 +1408★、DSH Desktop（社区桌面端） +1279★。
+- 免费模型可用性：**0/7 可用**，限流 7 个。
+- 待审新面孔：Ebony-Vinyl/dsh-our-free-model（56.3k★，2026-11-01）、walkinglabs/learn-harness-engineering（22.9k★，2026-10-22）、YuJunZhiXue/dsh-purge（15.7k★，2026-11-02）。
 
 ## 二、DSH 生态项目榜
 
@@ -17,54 +17,53 @@
 
 | ⭐ | 插件 | 中文说明 | 分类 | 形态 | 较上期 | 最近更新 | 许可 |
 |---:|---|---|---|---|---:|---|---|
-| 104.0k | **OpenDesign 设计工作台**<br>`nexu-io/open-design` | 生成网页/PPT/图片/视频并导出，**不是 DSH 插件**，是它反过来管理 DSH 运行时 | 设计交付 | 外部 | +1731 | 2026-10-26 | Apache-2.0 |
-| 89.3k | **Archify 架构图**<br>`tt-a1i/archify` | 从代码库生成可验证的架构/流程/时序图，自带 HTML 导出 | 文档图 | Skill | +3831 | 2026-10-26 | Apache-2.0 |
-| 40.8k | **OpenViking 上下文库**<br>`volcengine/OpenViking` | 把记忆/知识/RAG/Skill 统一进 `viking://` 虚拟文件系统；**AGPL 且是独立部署**，不适合只想加记忆的人 | 记忆 | 外部 | +544 | 2026-10-26 | AGPL-3.0 |
-| 33.2k | **DSH Desktop（社区桌面端）**<br>`anywhere-labs/dsh-desktop` | 把整个 Harness 打进安装包，**无需 Node 环境**；个人项目非官方 | 桌面端 | 外部 | +1599 | 2026-10-26 | MIT |
-| 26.0k | **Distilly 技能提炼**<br>`titanwings/distilly` | 把「别人怎么想」蒸馏成可复用 Skills（原 colleague-skill） | 技能 | 外部 | +244 | 2026-10-13 | MIT |
-| 20.7k | **DSH 插件精选列表**<br>`awesome-dsh-plugin/awesome-dsh-plugin` | 社区维护的插件清单，找插件的入口 | 榜单 | 外部 | +1352 | 2026-10-25 | CC0-1.0 |
-| 20.5k | **Voyager 提示词管理**<br>`voyager-crew/voyager` | 浏览器扩展，可在 DSH 网页里复用提示词；**不是 DSH bundle** | 提示词 | 外部 | +44 | 2026-10-25 | GPL-3.0 |
-| 16.9k | **DSHDesktop**<br>`dataelement/dsh-desktop` | 又一个社区桌面版 | 桌面端 | 外部 | +1609 | 2026-10-23 | MIT |
-| 13.6k | **EverOS 记忆层**<br>`EverMind-AI/EverOS` | 本地优先、Markdown 原生、用户自持的跨 Agent 记忆层 | 记忆 | 外部 | +143 | 2026-10-22 | Apache-2.0 |
-| 12.1k | **MemOS 记忆操作系统**<br>`MemTensor/MemOS` | 面向 LLM/Agent 的自进化记忆系统，带混合检索 | 记忆 | 外部 | +169 | 2026-10-24 | Apache-2.0 |
-| 9.6k | **BrowserSkill 浏览器技能**<br>`Tencent/BrowserSkill` | 让 Agent 用你**已登录的真实浏览器**干活，CLI+扩展 | 浏览器 | Skill | +397 | 2026-10-25 | MIT |
-| 9.5k | **dsh-web 全家桶**<br>`zhu1090093659/dsh-web` | 任务看板/Git图谱/右侧面板/移动端/皮肤等聚合分发 | 工作台 | 原生bundle | +545 | 2026-10-26 | Apache-2.0 |
-| 8.9k | **dsh-market 插件市场**<br>`dsh-market/dsh-market` | DSH 界面内的插件市场：浏览/搜索/一键安装 | 插件市场 | 原生bundle | +1648 | 2026-10-24 | MIT |
-| 7.3k | **iPolloWork 企业工作台**<br>`Devin-AXIS/iPolloWork` | 本地优先的多引擎 Agent 工作台 | 工作台 | 外部 | +201 | 2026-10-26 | NOASSERTION |
-| 7.0k | **dsh-routing-suite 智能路由**<br>`yjh051108/dsh-routing-suite` | 按任务把请求路由到不同模型/提供商 | 模型路由 | 原生bundle | +11 | 2026-09-18 | MIT |
-| 6.4k | **loopx 长任务控制面**<br>`loopx-project/loopx` | 带持久状态内核，维持长任务与团队持续推进 | 多Agent | 外部 | +63 | 2026-10-26 | Apache-2.0 |
-| 6.3k | **Ouroboros 自进化 Agent OS**<br>`Q00/ouroboros` | 访谈门控 + 分阶段评测 + 预算约束的长任务闭环 | 多Agent | 原生bundle | +29 | 2026-10-25 | MIT |
-| 6.1k | **余额小鲸鱼**<br>`MeteorNOX/DeepSeek-Balance-Whale-Widget` | 右下角动画小鲸鱼盯余额，可拖拽吸附 | 娱乐 | 原生bundle | +787 | 2026-10-11 | MIT |
-| 6.1k | **treg 工具路由器**<br>`superdesigndev/treg` | 「Agent 工具界的 OpenRouter」，统一调度工具调用 | 多Agent | 原生bundle | +296 | 2026-10-26 | NOASSERTION |
-| 5.8k | **dsh-TUI 终端版**<br>`ccch1mneyyy/dsh-TUI` | 官方公众号收录的 TUI：鲸鱼顶栏/流式思考/上下文进度+TPS | 终端 | 原生bundle | +993 | 2026-10-26 | MIT |
-| 4.6k | **better-sidebar 侧边栏底座**<br>`omdsh-dev/DSH-better-sidebar` | 侧边栏变 IDE：文件树/终端/Git/子代理，且开放给三方扩展 | 工作台 | 原生bundle | +257 | 2026-10-24 | MIT |
-| 4.5k | **ModLens 视觉识图**<br>`liustack/modlens` | 纯文本模型**直接看图**：粘贴图片返回 OCR/布局/语义证据 | 视觉识图 | 原生bundle | +150 | 2026-10-23 | MIT |
-| 4.3k | **petdex 宠物画廊**<br>`crafter-station/petdex` | 界面里养动画宠物（Codex/Claude/DSH 通用） | 娱乐 | 原生bundle | +27 | 2026-10-10 | MIT |
-| 3.7k | **anchored-standard 两阶段预设**<br>`xiaobright/dsh-anchored-standard` | 先最小对齐启动、再放开全套标准工具的 preset | 预设 | 原生bundle | -11 | 2026-10-21 | NOASSERTION |
+| 105.4k | **OpenDesign 设计工作台**<br>`nexu-io/open-design` | 生成网页/PPT/图片/视频并导出，**不是 DSH 插件**，是它反过来管理 DSH 运行时 | 设计交付 | 外部 | +1408 | 2026-11-02 | Apache-2.0 |
+| 92.5k | **Archify 架构图**<br>`tt-a1i/archify` | 从代码库生成可验证的架构/流程/时序图，自带 HTML 导出 | 文档图 | Skill | +3185 | 2026-11-02 | Apache-2.0 |
+| 41.3k | **OpenViking 上下文库**<br>`volcengine/OpenViking` | 把记忆/知识/RAG/Skill 统一进 `viking://` 虚拟文件系统；**AGPL 且是独立部署**，不适合只想加记忆的人 | 记忆 | 外部 | +508 | 2026-11-02 | AGPL-3.0 |
+| 34.5k | **DSH Desktop（社区桌面端）**<br>`anywhere-labs/dsh-desktop` | 把整个 Harness 打进安装包，**无需 Node 环境**；个人项目非官方 | 桌面端 | 外部 | +1279 | 2026-11-02 | MIT |
+| 26.3k | **Distilly 技能提炼**<br>`titanwings/distilly` | 把「别人怎么想」蒸馏成可复用 Skills（原 colleague-skill） | 技能 | 外部 | +280 | 2026-10-13 | MIT |
+| 21.9k | **DSH 插件精选列表**<br>`awesome-dsh-plugin/awesome-dsh-plugin` | 社区维护的插件清单，找插件的入口 | 榜单 | 外部 | +1207 | 2026-11-01 | CC0-1.0 |
+| 20.5k | **Voyager 提示词管理**<br>`voyager-crew/voyager` | 浏览器扩展，可在 DSH 网页里复用提示词；**不是 DSH bundle** | 提示词 | 外部 | +61 | 2026-11-02 | GPL-3.0 |
+| 17.1k | **DSHDesktop**<br>`dataelement/dsh-desktop` | 又一个社区桌面版 | 桌面端 | 外部 | +139 | 2026-10-31 | MIT |
+| 13.8k | **EverOS 记忆层**<br>`EverMind-AI/EverOS` | 本地优先、Markdown 原生、用户自持的跨 Agent 记忆层 | 记忆 | 外部 | +144 | 2026-10-30 | Apache-2.0 |
+| 12.2k | **MemOS 记忆操作系统**<br>`MemTensor/MemOS` | 面向 LLM/Agent 的自进化记忆系统，带混合检索 | 记忆 | 外部 | +130 | 2026-10-29 | Apache-2.0 |
+| 10.2k | **dsh-market 插件市场**<br>`dsh-market/dsh-market` | DSH 界面内的插件市场：浏览/搜索/一键安装 | 插件市场 | 原生bundle | +1253 | 2026-11-01 | MIT |
+| 9.9k | **dsh-web 全家桶**<br>`zhu1090093659/dsh-web` | 任务看板/Git图谱/右侧面板/移动端/皮肤等聚合分发 | 工作台 | 原生bundle | +408 | 2026-11-02 | Apache-2.0 |
+| 9.9k | **BrowserSkill 浏览器技能**<br>`Tencent/BrowserSkill` | 让 Agent 用你**已登录的真实浏览器**干活，CLI+扩展 | 浏览器 | Skill | +333 | 2026-11-02 | MIT |
+| 7.4k | **iPolloWork 企业工作台**<br>`Devin-AXIS/iPolloWork` | 本地优先的多引擎 Agent 工作台 | 工作台 | 外部 | +69 | 2026-11-01 | NOASSERTION |
+| 7.0k | **dsh-routing-suite 智能路由**<br>`yjh051108/dsh-routing-suite` | 按任务把请求路由到不同模型/提供商 | 模型路由 | 原生bundle | -6 | 2026-09-18 | MIT |
+| 7.0k | **treg 工具路由器**<br>`superdesigndev/treg` | 「Agent 工具界的 OpenRouter」，统一调度工具调用 | 多Agent | 原生bundle | +913 | 2026-11-02 | NOASSERTION |
+| 6.7k | **余额小鲸鱼**<br>`MeteorNOX/DeepSeek-Balance-Whale-Widget` | 右下角动画小鲸鱼盯余额，可拖拽吸附 | 娱乐 | 原生bundle | +635 | 2026-10-11 | MIT |
+| 6.6k | **dsh-TUI 终端版**<br>`ccch1mneyyy/dsh-TUI` | 官方公众号收录的 TUI：鲸鱼顶栏/流式思考/上下文进度+TPS | 终端 | 原生bundle | +731 | 2026-11-02 | MIT |
+| 6.5k | **loopx 长任务控制面**<br>`loopx-project/loopx` | 带持久状态内核，维持长任务与团队持续推进 | 多Agent | 外部 | +100 | 2026-11-02 | Apache-2.0 |
+| 6.3k | **Ouroboros 自进化 Agent OS**<br>`Q00/ouroboros` | 访谈门控 + 分阶段评测 + 预算约束的长任务闭环 | 多Agent | 原生bundle | +31 | 2026-11-01 | MIT |
+| 4.8k | **better-sidebar 侧边栏底座**<br>`omdsh-dev/DSH-better-sidebar` | 侧边栏变 IDE：文件树/终端/Git/子代理，且开放给三方扩展 | 工作台 | 原生bundle | +262 | 2026-10-30 | MIT |
+| 4.7k | **ModLens 视觉识图**<br>`liustack/modlens` | 纯文本模型**直接看图**：粘贴图片返回 OCR/布局/语义证据 | 视觉识图 | 原生bundle | +240 | 2026-10-23 | MIT |
+| 4.3k | **petdex 宠物画廊**<br>`crafter-station/petdex` | 界面里养动画宠物（Codex/Claude/DSH 通用） | 娱乐 | 原生bundle | +29 | 2026-10-10 | MIT |
+| 3.7k | **anchored-standard 两阶段预设**<br>`xiaobright/dsh-anchored-standard` | 先最小对齐启动、再放开全套标准工具的 preset | 预设 | 原生bundle | -10 | 2026-10-21 | NOASSERTION |
 | 790≈ | **Our Free Model 免费模型**<br>`zouyuxuan122/dsh-our-free-model` | 免登录免 Key 用 11 个免费模型（MiMo/Nemotron/Space Bunny 等）；**本机已装并调优** | 免费模型 | 原生bundle | 0 | 2026-10-03 | MIT |
-| 423 | **玻璃透明主题**<br>`WYH66666666/DSH-Transparent-UI-Plugin` | 全界面磨砂玻璃主题，模糊度/磨砂度可调 | 主题皮肤 | 原生bundle | +7 | 2026-08-22 | AGPL-3.0 |
-| 306 | **插件升级 Skill**<br>`oh-my-dsh/dsh-plugin-upgrade-skill` | 让已装插件跟着 DSH 版本升级（升级顾问） | 维护 | Skill | +15 | 2026-10-18 | MIT |
-| 104 | **Web 界面插件市场**<br>`Sanqi-normal/dsh-webui-market-plugin` | 在 Web GUI 里浏览目录、一键装卸到 profile | 插件市场 | 原生bundle | 0 | 2026-08-22 | MIT |
-| 10 | **dsh-plugin-memory（记忆）**<br>`LittleBlackTong/dsh-plugin-memory` | 两层 markdown 记忆；**本机实测不推荐**：默认库在 `~/.memory` 且每 60 秒起一次 git 提交 | 记忆 | 原生bundle | +2 | 2026-10-16 | MIT |
-| 4 | **dsh-memory 双层记忆**<br>`jipika/dsh-memory` | **本机已装的首选记忆**：全局+项目层 markdown、零外网零 Key 零定时器、审计日志、CSRF 护栏 | 记忆 | 原生bundle | +1 | 2026-10-23 | MIT |
+| 429 | **玻璃透明主题**<br>`WYH66666666/DSH-Transparent-UI-Plugin` | 全界面磨砂玻璃主题，模糊度/磨砂度可调 | 主题皮肤 | 原生bundle | +6 | 2026-08-22 | AGPL-3.0 |
+| 311 | **插件升级 Skill**<br>`oh-my-dsh/dsh-plugin-upgrade-skill` | 让已装插件跟着 DSH 版本升级（升级顾问） | 维护 | Skill | +5 | 2026-10-30 | MIT |
+| 103 | **Web 界面插件市场**<br>`Sanqi-normal/dsh-webui-market-plugin` | 在 Web GUI 里浏览目录、一键装卸到 profile | 插件市场 | 原生bundle | -1 | 2026-08-22 | MIT |
+| 23 | **dsh-plugin-memory（记忆）**<br>`LittleBlackTong/dsh-plugin-memory` | 两层 markdown 记忆；**本机实测不推荐**：默认库在 `~/.memory` 且每 60 秒起一次 git 提交 | 记忆 | 原生bundle | +13 | 2026-11-02 | MIT |
+| 5 | **dsh-memory 双层记忆**<br>`jipika/dsh-memory` | **本机已装的首选记忆**：全局+项目层 markdown、零外网零 Key 零定时器、审计日志、CSRF 护栏 | 记忆 | 原生bundle | +1 | 2026-10-27 | MIT |
 | 1 | **DeepSeek 用量看板**<br>`AzureHalcyon/dsh-deepseek-usage` | 余额/今日用量/缓存命中/热力图，三个只读接口；**本机已装** | 用量 | 原生bundle | 0 | 2026-08-22 | GPL-2.0 |
 
 > ≈ 表示该行星数取自上期快照（本次实时接口未取到）。
 
 ## 三、免费模型可用性（真跑一次补全）
 
-共 8 个免费模型：**可用 0**，限流 8，地区墙 0，已下线 0，上游波动 0。
+共 7 个免费模型：**可用 0**，限流 7，地区墙 0，已下线 0，上游波动 0。
 
 | 状态 | 模型 | 线路 | 首字延迟 | 总耗时 | 结果 |
 |---|---|---|---|---|---|
-| ⚠️ 限流 | `beam-free` | chat | — | 0.1s | Free usage limit reached. Free models work in OpenCode (https://opencode.ai); subscribe to OpenCode  |
-| ⚠️ 限流 | `flint-40b-free` | chat | — | 0.0s | Free usage limit reached. Free models work in OpenCode (https://opencode.ai); subscribe to OpenCode  |
+| ⚠️ 限流 | `beam-free` | chat | — | 0.2s | Free usage limit reached. Free models work in OpenCode (https://opencode.ai); subscribe to OpenCode  |
+| ⚠️ 限流 | `flint-40b-free` | chat | — | 0.1s | Free usage limit reached. Free models work in OpenCode (https://opencode.ai); subscribe to OpenCode  |
 | ⚠️ 限流 | `mimo-v2.6-flash-free` | chat | — | 0.1s | Free usage limit reached. Free models work in OpenCode (https://opencode.ai); subscribe to OpenCode  |
-| ⚠️ 限流 | `nemotron-3.5-super-vl-free` | chat | — | 0.0s | Free usage limit reached. Free models work in OpenCode (https://opencode.ai); subscribe to OpenCode  |
-| ⚠️ 限流 | `nemotron-3.5-lightning-free` | chat | — | 0.0s | Free usage limit reached. Free models work in OpenCode (https://opencode.ai); subscribe to OpenCode  |
-| ⚠️ 限流 | `jev-1.13-free` | chat | — | 0.0s | Free usage limit reached. Free models work in OpenCode (https://opencode.ai); subscribe to OpenCode  |
-| ⚠️ 限流 | `deepseek-v4.1-flash-free` | chat | — | 0.0s | Free usage limit reached. Free models work in OpenCode (https://opencode.ai); subscribe to OpenCode  |
-| ⚠️ 限流 | `glm-5.3-flash-free` | chat | — | 0.0s | Free usage limit reached. Free models work in OpenCode (https://opencode.ai); subscribe to OpenCode  |
+| ⚠️ 限流 | `nemotron-3.5-super-vl-free` | chat | — | 0.1s | Free usage limit reached. Free models work in OpenCode (https://opencode.ai); subscribe to OpenCode  |
+| ⚠️ 限流 | `nemotron-3.5-lightning-free` | chat | — | 0.1s | Free usage limit reached. Free models work in OpenCode (https://opencode.ai); subscribe to OpenCode  |
+| ⚠️ 限流 | `deepseek-v4.1-flash-free` | chat | — | 0.1s | Free usage limit reached. Free models work in OpenCode (https://opencode.ai); subscribe to OpenCode  |
+| ⚠️ 限流 | `glm-5.3-flash-free` | chat | — | 0.1s | Free usage limit reached. Free models work in OpenCode (https://opencode.ai); subscribe to OpenCode  |
 
 > 「上游波动」= 供应商临时过载/超时（已自动重试）；「已下线」= 接口明确返回模型或端点不可用。二者对使用者的含义不同，故分开列。
 
@@ -72,10 +71,12 @@
 
 | ⭐ | 仓库 | 最近更新 | 英文简介（原样） |
 |---:|---|---|---|
-| 43.4k | `Ebony-Vinyl/dsh-our-free-model` | 2026-10-26 | 在 dsh 里装上这个插件即可，无需登录、注册或填 API Key，就能使用包括 DeepSeek V4.1 Flash、Kimi K3 在内的前沿模型——完全免费，不限量。 All you do is install this plugi |
-| 21.6k | `walkinglabs/learn-harness-engineering` | 2026-10-22 | Harness engineering beginner tutorial, from 0 to 1 |
-| 9.1k | `YuJunZhiXue/dsh-purge` | 2026-10-26 | DeepSeek Harness 破甲：让所有模型都能破甲，不同模型可换不同提示词；默认提示词面向国模「小码酱」。Jailbreak for every model — swap prompts per model. 求 Star 收藏 ⭐ |
-| 4.3k | `T-Auto/dsh-ops` | 2026-10-25 | A toolkit for low-level operations in DSH, designed to reduce token usage and task execution time / DSH 底层操作工具插件，旨在减少 To |
+| 56.3k | `Ebony-Vinyl/dsh-our-free-model` | 2026-11-01 | 在 dsh 里装上这个插件即可，无需登录、注册或填 API Key，就能使用包括 DeepSeek V4.1 Flash、Kimi K3 在内的前沿模型——完全免费，不限量。 All you do is install this plugi |
+| 22.9k | `walkinglabs/learn-harness-engineering` | 2026-10-22 | Harness engineering beginner tutorial, from 0 to 1 |
+| 15.7k | `YuJunZhiXue/dsh-purge` | 2026-11-02 | DeepSeek Harness 破甲：让所有模型都能破甲，不同模型可换不同提示词；默认提示词面向国模「小码酱」。Jailbreak for every model — swap prompts per model. 求 Star 收藏 ⭐ |
+| 5.8k | `JimLiu/baoyu-design` | 2026-11-02 | Run Claude Design locally as an Agent Skill — Cursor, Codex, DeepSeek Harness & more. Produce polished UI mockups, proto |
+| 5.3k | `PC2005-cloud/dsh-pet` | 2026-11-02 | DSH 桌面宠物：一行命令装好即用的透明动画小桌宠，支持多开、大小位置随心配置；还内置 DIY 素材链，能用 AI 视频自造专属宠物 |
+| 5.2k | `ccch1mneyyy/dsh-Go` | 2026-11-02 | dsh-go — DeepSeek Harness 装进口袋：手机本机运行，也能遥控你的电脑。 |
 
 > 这些是 `topic:dsh-plugin` 里星数较高但尚未人工核实的新项目，核实后会进入正式榜。
 
@@ -115,4 +116,4 @@
 另有一份付费报告《DSH 插件选型与风险报告》的**公开预览**（分档结论 + 公开数据全在）：<https://514006234.github.io/dsh-weekly-check/report-preview/>
 榜单排序永远按真实星数，赞助位会明确标注「赞助」，不卖榜一。
 
-<sub>生成时间 2026-10-26T05:47:27.184Z｜数据源 tools/rank-plugins.mjs + tools/survey-free-models.mjs + tools/traffic.mjs</sub>
+<sub>生成时间 2026-11-02T07:17:11.980Z｜数据源 tools/rank-plugins.mjs + tools/survey-free-models.mjs + tools/traffic.mjs</sub>
